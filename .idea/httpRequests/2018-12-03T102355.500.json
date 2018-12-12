@@ -1,7 +1,0 @@
-{
-  "timestamp": "2018-12-03T14:23:55.155+0000",
-  "status": 500,
-  "error": "Internal Server Error",
-  "message": "Read timed out executing GET http://admin/insert?user=com.orange.verify.api.model.User%4033895c9e",
-  "path": "/insert"
-}

@@ -17,7 +17,6 @@
         <module>common</module>
         <module>discovery</module>
         <module>dal</module>
-        <module>admin-web-page</module>
 
     </modules>
 
