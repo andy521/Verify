@@ -1,0 +1,7 @@
+{
+  "timestamp": "2018-12-03T14:12:12.632+0000",
+  "status": 500,
+  "error": "Internal Server Error",
+  "message": "status 405 reading DemoInterface#insert(User); content:\n{\"timestamp\":\"2018-12-03T14:12:12.621+0000\",\"status\":405,\"error\":\"Method Not Allowed\",\"message\":\"Request method 'POST' not supported\",\"path\":\"/insert\"}",
+  "path": "/insert"
+}

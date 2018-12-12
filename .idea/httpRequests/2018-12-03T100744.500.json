@@ -1,0 +1,7 @@
+{
+  "timestamp": "2018-12-03T14:07:44.491+0000",
+  "status": 500,
+  "error": "Internal Server Error",
+  "message": "Read timed out executing POST http://admin/insert",
+  "path": "/insert"
+}

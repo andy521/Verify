@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="87087381-6b1f-45d8-adb8-1e73a143d980" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/api/target/" />
+    <ignored path="$PROJECT_DIR$/builder/target/" />
+    <ignored path="$PROJECT_DIR$/discovery/target/" />
+    <ignored path="$PROJECT_DIR$/admin/target/" />
+    <ignored path="$PROJECT_DIR$/admin-web/target/" />
+    <ignored path="$PROJECT_DIR$/common/target/" />
+    <ignored path="$PROJECT_DIR$/dal/target/" />
+    <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
+    <ignored path="$PROJECT_DIR$/admin-web-page/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/verifymaster$Generator.ic" NAME="Generator Coverage Results" MODIFIED="1543673721882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.orange.verify.builder.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="275" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1382168034">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="10" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.2" value="3" />
+          <entry key="project.open.time.3" value="4" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="13" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="25" />
+          <entry key="html" value="1" />
+          <entry key="java" value="7287" />
+          <entry key="properties" value="228" />
+          <entry key="txt" value="77" />
+          <entry key="xml" value="310" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="1" />
+          <entry key="JAVA" value="7287" />
+          <entry key="PLAIN_TEXT" value="102" />
+          <entry key="Properties" value="228" />
+          <entry key="XML" value="310" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="class" value="45" />
+          <entry key="gitignore" value="1" />
+          <entry key="html" value="1" />
+          <entry key="java" value="397" />
+          <entry key="js" value="3" />
+          <entry key="md" value="2" />
+          <entry key="properties" value="45" />
+          <entry key="xml" value="100" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="45" />
+          <entry key="HTML" value="1" />
+          <entry key="JAVA" value="397" />
+          <entry key="JavaScript" value="3" />
+          <entry key="Markdown" value="2" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Properties" value="45" />
+          <entry key="XML" value="100" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="verifymaster" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin-web-page/src/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin-web-page/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="588">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/admin-web-page/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="9" column="9" lean-forward="true" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/entity/Srp.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/resources/config/logistics-mybatis-generator-config.xml" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/test/Address.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/resources/config/generatorConfig.xml" />
+        <option value="$PROJECT_DIR$/builder/pom.xml" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/entity/Test.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/entity/Address.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/EmailAccount.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/Account.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/Soft.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/SoftLeaveMessage.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/SoftVersions.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/User.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/Card.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/config/EmptyCommentGenerator.java" />
+        <option value="$PROJECT_DIR$/discovery/src/main/java/com/orange/verify/discovery/DiscoveryApplication.java" />
+        <option value="$PROJECT_DIR$/discovery/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/Interface/DemoService.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/controller/DemoController.java" />
+        <option value="$PROJECT_DIR$/dal/pom.xml" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/AccountMapper.java" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/CardMapper.java" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/EmailAccountMapper.java" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/SoftLeaveMessageMapper.java" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/SoftMapper.java" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/SoftVersionsMapper.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/resources/verify-generator-config.xml" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/model/Soft.java" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/UserMapper.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/config/DruidConfig.java" />
+        <option value="$PROJECT_DIR$/discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/model/User.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/config/MySQLCommentGenerator.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/config/MyMetaObjectHandler.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/common/BaseEntity.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/BuilderApplication.java" />
+        <option value="$PROJECT_DIR$/builder/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/Generator.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/service/DemoService.java" />
+        <option value="$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/service/DemoService.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/impl/DemoServiceImpl.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/config/Swagger2.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/util/Utils.java" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/ip/Ip.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/realm/CustomRealm.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/controller/DemoController.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/config/ShiroConfig.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/annotation/RspSetTime.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/annotation/RspSetTimeAspect.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/config/ShiroFilterConfig.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/model/Test.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/config/MyBatisPlusConfiguration.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/UserMapper.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/Interface/DemoInterface.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/provider/DemoProvider.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/SoftMapper.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/model/ResponseCode.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/Interface/SoftInterface.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/model/Response.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/vo/SoftPageVo.java" />
+        <option value="$PROJECT_DIR$/api/pom.xml" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/face/SoftInterface.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/service/impl/SoftServiceImpl.java" />
+        <option value="$PROJECT_DIR$/admin/src/test/java/com/orange/verify/admin/AdminApplicationTests.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/AdminWebApplication.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/admin-web/pom.xml" />
+        <option value="$PROJECT_DIR$/admin/pom.xml" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/service/SoftInterface.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/service/SoftService.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/service/SoftService.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/AdminApplication.java" />
+        <option value="$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/vo/SoftVo.java" />
+        <option value="$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/provider/SoftProvider.java" />
+        <option value="$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/controller/SoftController.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/admin-web-page/pom.xml" />
+        <option value="$PROJECT_DIR$/admin-web-page/src/main.js" />
+        <option value="$PROJECT_DIR$/admin-web-page/index.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/work/maven/apache-maven-3.5.3-bin/apache-maven-3.5.3" />
+        <option name="userSettingsFile" value="D:\work\maven\apache-maven-3.5.3-bin\apache-maven-3.5.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.8" />
+    <option name="vmOptions" value="-DarchetypeCatalog=internal" />
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/admin-web-page/node_modules" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/admin-web-page/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <flattenPackages ProjectPane="false" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="verifymaster" type="b2602c69:ProjectViewProjectNode" />
+              <item name="verifymaster" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="verifymaster" type="b2602c69:ProjectViewProjectNode" />
+              <item name="verifymaster" type="462c0819:PsiDirectoryNode" />
+              <item name="admin-web-page" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="SearchEverywhereHistoryKey" value="用户&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544585423143" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="D:/node" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\project\java\orange\verifymaster\builder\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.orange.verify.admin.mapper" />
+      <recent name="com.orange.verify.builder" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\project\java\orange\verifymaster\admin-web-page" />
+      <recent name="E:\project\java\orange\verifymaster\admin\src\main\java\com\orange\verify\admin\mapper" />
+      <recent name="E:\project\java\orange\verifymaster\admin-web\src\main\java\com\orange\verify\adminweb" />
+      <recent name="E:\project\java\orange\verifymaster\admin-web\src\main\java\com\orange\verify\adminweb\config" />
+      <recent name="E:\project\java\orange\verifymaster\common\src\main\java\com\orange\verify\common" />
+    </key>
+  </component>
+  <component name="RestClientSettings">
+    <option name="REQUEST_HISTORY">
+      <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:80" />
+          <option name="urlPath" value="insert" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parameters">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="username" />
+                <option name="value" value="1111" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="password" />
+                <option name="value" value="2343" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="flag" />
+                <option name="value" value="324" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:80" />
+          <option name="urlPath" value="insert" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parameters">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="username" />
+                <option name="value" value="1111" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="password" />
+                <option name="value" value="2343" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="flag" />
+                <option name="value" value="324" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:80" />
+          <option name="urlPath" value="demo" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parameters">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="username" />
+                <option name="value" value="1111" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="password" />
+                <option name="value" value="2343" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="flag" />
+                <option name="value" value="324" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:80" />
+          <option name="urlPath" value="insert" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parameters">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="username" />
+                <option name="value" value="1111" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="password" />
+                <option name="value" value="2343" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="flag" />
+                <option name="value" value="324" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="username" />
+                <option name="value" value="1" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="password" />
+                <option name="value" value="2" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="flag" />
+                <option name="value" value="23" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+      </list>
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AdminApplication">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Generator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.orange.verify.builder.Generator" />
+      <module name="builder" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.orange.verify.builder.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.orange.verify.admin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.orange.verify.admin" />
+      <option name="MAIN_CLASS_NAME" value="com.orange.verify.admin.AdminApplicationTests" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.orange.verify.admin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.orange.verify.admin" />
+      <option name="MAIN_CLASS_NAME" value="com.orange.verify.admin.AdminApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.orange.verify.admin.AdminApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminWebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="admin-web" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.orange.verify.adminweb.AdminWebApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="api" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.orange.verify.api.ApiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BuilderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="builder" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.orange.verify.builder.BuilderApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DalApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dal" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.orange.verify.dal.DalApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiscoveryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="discovery" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.orange.verify.discovery.DiscoveryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.ApiApplication" />
+      <item itemvalue="Spring Boot.BuilderApplication" />
+      <item itemvalue="Spring Boot.DiscoveryApplication" />
+      <item itemvalue="Spring Boot.AdminApplication" />
+      <item itemvalue="Spring Boot.AdminWebApplication" />
+      <item itemvalue="Spring Boot.DalApplication" />
+      <item itemvalue="Application.Generator" />
+      <item itemvalue="JUnit.AdminApplicationTests" />
+      <item itemvalue="JUnit.AdminApplicationTests.contextLoads" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AdminApplicationTests.contextLoads" />
+        <item itemvalue="JUnit.AdminApplicationTests" />
+        <item itemvalue="Application.Generator" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="87087381-6b1f-45d8-adb8-1e73a143d980" name="Default Changelist" comment="" />
+      <created>1543591813827</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1543591813827</updated>
+      <workItem from="1543591819425" duration="72745000" />
+      <workItem from="1543836641925" duration="17236000" />
+      <workItem from="1543926132184" duration="11716000" />
+      <workItem from="1544009436765" duration="3243000" />
+      <workItem from="1544110721748" duration="391000" />
+      <workItem from="1544272199670" duration="5851000" />
+      <workItem from="1544379881404" duration="3194000" />
+      <workItem from="1544443243518" duration="11247000" />
+      <workItem from="1544508362841" duration="10320000" />
+      <workItem from="1544528856478" duration="15466000" />
+      <workItem from="1544579024983" duration="1397000" />
+      <workItem from="1544581381517" duration="706000" />
+      <workItem from="1544584148155" duration="1274000" />
+    </task>
+    <task id="LOCAL-00001" summary="初始化">
+      <created>1543936667913</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1543936667913</updated>
+    </task>
+    <task id="LOCAL-00002" summary="初始化">
+      <created>1543936955523</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1543936955523</updated>
+    </task>
+    <task id="LOCAL-00003" summary="增加shiro">
+      <created>1543938614810</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543938614810</updated>
+    </task>
+    <task id="LOCAL-00004" summary="集成 vue admin page">
+      <created>1544110832392</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1544110832395</updated>
+    </task>
+    <task id="LOCAL-00005" summary="集成 vue admin page">
+      <created>1544333585661</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1544333585661</updated>
+    </task>
+    <task id="LOCAL-00006" summary="修改通用json返回">
+      <created>1544382816807</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1544382816807</updated>
+    </task>
+    <task id="LOCAL-00007" summary="测试提交">
+      <created>1544443724744</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1544443724745</updated>
+    </task>
+    <task id="LOCAL-00008" summary="测试提交">
+      <created>1544443814978</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1544443814978</updated>
+    </task>
+    <task id="LOCAL-00009" summary="框架改为dubbo">
+      <created>1544550349440</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1544550349440</updated>
+    </task>
+    <task id="LOCAL-00010" summary="增加页面">
+      <created>1544579318983</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1544579318983</updated>
+    </task>
+    <task id="LOCAL-00011" summary="增加页面">
+      <created>1544579564406</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1544579564406</updated>
+    </task>
+    <task id="LOCAL-00012" summary="增加页面">
+      <created>1544580188435</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1544580188435</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 18m 11s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 28m 25s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 28m 32s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 30m 37s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 31m 44s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 43m 02s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 43m 41s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 44m 15s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 46m 05s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AdminApplicationTests_contextLoads - 2018.12.11 at 15h 46m 28s.xml">
+      <configuration name="AdminApplicationTests.contextLoads" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="154786000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Image Layers" order="0" />
+      <window_info id="UI Designer" order="1" />
+      <window_info id="Favorites" order="2" sideWeight="0.5011521" side_tool="true" weight="0.24973147" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" sideWeight="0.49884793" visible="true" weight="0.29752955" />
+      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Spring" order="0" weight="0.32949308" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50053704" side_tool="true" weight="0.44470045" />
+      <window_info anchor="bottom" id="Tail" order="3" />
+      <window_info anchor="bottom" id="Statistic" order="4" weight="0.32949308" />
+      <window_info anchor="bottom" id="Java Enterprise" order="5" weight="0.3290993" />
+      <window_info anchor="bottom" id="JProfiler" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3290993" />
+      <window_info anchor="bottom" id="MyBatis Sql Log" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.328341" />
+      <window_info anchor="bottom" id="Message" order="11" />
+      <window_info anchor="bottom" id="Find" order="12" weight="0.32949308" />
+      <window_info anchor="bottom" id="Run" order="13" weight="0.4297235" />
+      <window_info anchor="bottom" id="Cvs" order="14" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="15" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="16" weight="0.3290993" />
+      <window_info anchor="bottom" id="Debug" order="17" sideWeight="0.49946293" weight="0.44470045" />
+      <window_info anchor="bottom" id="REST Client" order="18" weight="0.39631337" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="CDI" order="1" />
+      <window_info anchor="right" id="Maven Projects" order="2" weight="0.20300752" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32975295" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Coverage" order="6" side_tool="true" weight="0.32975295" />
+      <window_info anchor="right" id="Palette" order="7" />
+      <window_info anchor="right" id="Commander" order="8" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="9" weight="0.24973147" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="10" weight="0.25" />
+      <window_info anchor="right" id="Bean Validation" order="11" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/admin-web-page" />
+    </ignored-roots>
+    <MESSAGE value="初始化" />
+    <MESSAGE value="增加shiro" />
+    <MESSAGE value="集成 vue admin page" />
+    <MESSAGE value="修改通用json返回" />
+    <MESSAGE value="测试提交" />
+    <MESSAGE value="框架改为dubbo" />
+    <MESSAGE value="增加页面" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加页面" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/bean/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.0.6/mybatis-plus-extension-3.0.6.jar!/com/baomidou/mybatisplus/extension/plugins/PerformanceInterceptor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2731">
+          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-annotation/3.0.6/mybatis-plus-annotation-3.0.6.jar!/com/baomidou/mybatisplus/annotation/FieldStrategy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-annotation/3.0.6/mybatis-plus-annotation-3.0.6.jar!/com/baomidou/mybatisplus/annotation/TableField.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/bean/EmailAccount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-annotation/3.0.6/mybatis-plus-annotation-3.0.6.jar!/com/baomidou/mybatisplus/annotation/FieldFill.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="10" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/config/MySQLCommentGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="81" column="128" selection-start-line="81" selection-start-column="128" selection-end-line="81" selection-end-column="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.4.6/mybatis-3.4.6.jar!/org/apache/ibatis/reflection/MetaObject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1969">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.0.6/mybatis-plus-core-3.0.6.jar!/com/baomidou/mybatisplus/core/handlers/MetaObjectHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/ApiApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/java/com/orange/verify/common/BaseEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/BuilderApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/java/com/orange/verify/builder/Generator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.0.10.RELEASE/spring-context-5.0.10.RELEASE.jar!/org/springframework/context/annotation/ComponentScan.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/1.3.2/mybatis-spring-1.3.2.jar!/org/mybatis/spring/annotation/MapperScan.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/UserMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/bean/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="32" column="23" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/config/MyMetaObjectHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/swagger/swagger-annotations/1.5.13/swagger-annotations-1.5.13.jar!/io/swagger/annotations/Api.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/util/HttpConnectBase.java" />
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/util/JsonUtils.java" />
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/util/Utils.java" />
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/util/HttpUtil.java" />
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/util/HttpConnectUtils.java" />
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/CommonApplication.java" />
+    <entry file="file://$PROJECT_DIR$/common/src/test/java/com/orange/verify/common/CommonApplicationTests.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/4.2.1/hutool-all-4.2.1.jar!/cn/hutool/http/HttpBase.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="846">
+          <caret line="74" column="13" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/4.2.1/hutool-all-4.2.1.jar!/cn/hutool/http/HttpRequest.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="93" column="30" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/4.2.1/hutool-all-4.2.1.jar!/cn/hutool/http/HttpResponse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3075">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/4.2.1/hutool-all-4.2.1.jar!/cn/hutool/core/text/UnicodeUtil.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-712">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/work/jdk/jdk1.8/jdk/src.zip!/java/lang/Exception.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/Soft.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/realm/CustomRealm.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/resources/verify-generator-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/orange/verify/common/ip/Ip.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/src/main/java/com/orange/verify/api/SoftVersions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web-page/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/bean/SoftVersions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="819">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/bean/SoftLeaveMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/model/Test.java" />
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/annotation/RspSetTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/discovery/src/main/java/com/orange/verify/discovery/DiscoveryApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="13" column="44" lean-forward="true" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/config/MyBatisPlusConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/service/DemoService.java" />
+    <entry file="file://$PROJECT_DIR$/dal/src/main/java/com/orange/verify/dal/mapper/AccountMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/AccountMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/CardMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/SoftVersionsMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/SoftLeaveMessageMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/EmailAccountMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/UserMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.0.6/mybatis-plus-extension-3.0.6.jar!/com/baomidou/mybatisplus/extension/service/IService.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/service/DemoServiceImpl.java" />
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/Interface/DemoInterface.java" />
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/provider/DemoProvider.java" />
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/controller/DemoController.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.0.6/mybatis-plus-core-3.0.6.jar!/com/baomidou/mybatisplus/core/mapper/BaseMapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.0.6/mybatis-plus-extension-3.0.6.jar!/com/baomidou/mybatisplus/extension/service/impl/ServiceImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/bean/Soft.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-798">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/bean/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/mapper/SoftMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="25" column="10" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/model/ResponseCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/config/ShiroFilterConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="596">
+          <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.0.6/mybatis-plus-extension-3.0.6.jar!/com/baomidou/mybatisplus/extension/plugins/pagination/Page.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/model/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/config/Swagger2Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="33" column="46" lean-forward="true" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="61" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.2.RELEASE/spring-web-5.1.2.RELEASE.jar!/org/springframework/web/bind/annotation/RequestMapping.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/vo/SoftPageVo.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.10.RELEASE/spring-web-5.0.10.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="126" selection-start-line="126" selection-end-line="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/test/java/com/orange/verify/api/ApiApplicationTests.java" />
+    <entry file="file://$PROJECT_DIR$/admin/src/test/java/com/orange/verify/admin/AdminApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="21" selection-start-line="21" selection-start-column="2" selection-end-line="25" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="47" column="36" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/annotation/RspSetTimeAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.0.6.RELEASE/spring-boot-autoconfigure-2.0.6.RELEASE.jar!/org/springframework/boot/autoconfigure/SpringBootApplication.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/service/SoftService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="52" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/service/impl/SoftServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="61" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/service/SoftService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/AdminWebApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/AdminApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="43" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/main/java/com/orange/verify/api/vo/SoftVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/dubbo/2.6.2/dubbo-2.6.2.jar!/com/alibaba/dubbo/config/annotation/Service.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-225">
+          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/java/com/orange/verify/admin/provider/SoftProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/java/com/orange/verify/adminweb/controller/SoftController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dal/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-315" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web-page/.idea/vcs.xml" />
+    <entry file="file://$PROJECT_DIR$/admin-web-page/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web-page/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-web-page/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="9" lean-forward="true" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

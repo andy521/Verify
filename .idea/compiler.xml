@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="admin" />
+        <module name="admin-web" />
+        <module name="admin-web-page" />
+        <module name="api" />
+        <module name="builder" />
+        <module name="common" />
+        <module name="dal" />
+        <module name="discovery" />
+        <module name="verifymaster" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
