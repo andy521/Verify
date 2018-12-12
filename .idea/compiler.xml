@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="admin" />
+        <module name="admin-web" />
+        <module name="api" />
+        <module name="builder" />
+        <module name="common" />
+        <module name="dal" />
+        <module name="discovery" />
+        <module name="verifymaster" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="admin" target="1.8" />
+      <module name="admin-web" target="1.8" />
+      <module name="api" target="1.8" />
+      <module name="builder" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="dal" target="1.8" />
+      <module name="discovery" target="1.8" />
+      <module name="verifymaster" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

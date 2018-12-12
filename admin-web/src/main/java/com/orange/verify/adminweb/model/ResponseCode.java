@@ -3,6 +3,7 @@ package com.orange.verify.adminweb.model;
 public enum ResponseCode {
 
     SUCCESS(10,"操作成功"),
+    QUERY_SUCCESS(9,"查询成功"),
     ERROR(11,"操作失败"),
 
     UNKNOWN_ERROR(901,"不好意思，发生了未知错误"),

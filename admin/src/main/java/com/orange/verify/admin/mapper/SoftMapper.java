@@ -13,9 +13,7 @@ public interface SoftMapper extends BaseMapper<Soft> {
 
     @Select("<script>" +
             "SELECT " +
-            "s.name, " +
-            "s.id, " +
-            "s.service_status, " +
+            "s.*, " +
             "(SELECT count(*) FROM t_account a where a.soft_id = s.id ) as account_total, " +
             "(SELECT sv.number FROM t_soft_versions sv WHERE sv.soft_id = s.id) as versions_num " +
             "FROM " +
