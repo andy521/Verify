@@ -152,7 +152,7 @@
       //上一页
       openExpress() {
         this.$router.push({
-          path: '/soft/soft_list',
+          name: 'SoftList',
         })
       },
       //表单操作
