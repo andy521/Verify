@@ -1,11 +1,9 @@
-package com.orange.verify.admin.provider;
+package com.orange.verify.admin.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.orange.verify.admin.mapper.SoftMapper;
 import com.orange.verify.admin.mapper.SoftVersionsMapper;
 import com.orange.verify.api.bean.Soft;
@@ -15,7 +13,7 @@ import com.orange.verify.api.vo.SoftVersionsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
-public class SoftVersionsProvider extends ServiceImpl<SoftVersionsMapper, SoftVersions> implements SoftVersionsService {
+public class SoftVersionsImpl extends ServiceImpl<SoftVersionsMapper, SoftVersions> implements SoftVersionsService {
 
     @Autowired
     private SoftMapper softMapper;

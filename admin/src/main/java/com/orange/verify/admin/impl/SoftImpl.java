@@ -1,4 +1,4 @@
-package com.orange.verify.admin.provider;
+package com.orange.verify.admin.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -9,7 +9,7 @@ import com.orange.verify.api.service.SoftService;
 import com.orange.verify.api.vo.SoftVo;
 
 @Service
-public class SoftProvider extends ServiceImpl<SoftMapper, Soft> implements SoftService {
+public class SoftImpl extends ServiceImpl<SoftMapper, Soft> implements SoftService {
 
     @Override
     public Page<SoftVo> page(Soft soft, Page page) {
