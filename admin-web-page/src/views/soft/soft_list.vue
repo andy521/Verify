@@ -84,7 +84,11 @@
               prop="serviceStatus"
               align="center"
               label="状态"
-            />
+            >
+              <template slot-scope="scope">
+                <el-tag type="success">{{scope.row.serviceStatus}}</el-tag>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="accountTotal"
               align="center"
@@ -129,6 +133,9 @@
 </template>
 
 <script>
+
+  import request from '@/utils/request'
+
 export default {
   data() {
     return {
@@ -163,31 +170,28 @@ export default {
     getTableData(data, pageNum) {
       data = data || {}
       pageNum = pageNum || 1
-      data.pageNum = pageNum
-      data.pageSize = this.tablePageSize
+      data.current = pageNum
+      data.size = this.tablePageSize
 
-      this.$axios.get(this.HOST + 'logistics/addressLibary/getDataToPage', {
+      request.get('soft/page', {
         params: data
       }).then((rsp) => {
         this.tableTotal = rsp.data.total
-        for (let i = 0; i < rsp.data.list.length; i++) {
-          if (rsp.data.list[i].isSendOutAddress == '0') {
-            rsp.data.list[i].isSendOutAddress = false
-          } else {
-            rsp.data.list[i].isSendOutAddress = true
-          }
-          if (rsp.data.list[i].isSalesReturnAddress == '0') {
-            rsp.data.list[i].isSalesReturnAddress = false
-          } else {
-            rsp.data.list[i].isSalesReturnAddress = true
+        for (let i = 0; i < rsp.data.records.length; i++) {
+          if (rsp.data.records[i].serviceStatus == 0) {
+            rsp.data.records[i].serviceStatus = '收费';
+          } else if (rsp.data.records[i].serviceStatus == 1) {
+            rsp.data.records[i].serviceStatus = '免费';
+          } else if (rsp.data.records[i].serviceStatus == 2) {
+            rsp.data.records[i].serviceStatus = '关闭';
           }
         }
-        this.tableData = rsp.data.list
+        this.tableData = rsp.data.records
       })
     },
     handleCurrentChange(val) {
       this.getTableData({
-        contactName: this.seachFormInline.name
+        name: this.seachFormInline.name
       }, val)
     },
     search(isPrompt) {
@@ -195,7 +199,7 @@ export default {
         this.$message.success('执行刷新数据成功...')
       }
       this.getTableData({
-        contactName: this.seachFormInline.name
+        name: this.seachFormInline.name
       })
     },
     updateRow(row) {
