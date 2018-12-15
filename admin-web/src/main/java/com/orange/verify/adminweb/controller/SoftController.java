@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Api(description = "软件")
 @Controller
 @RequestMapping(value = "soft")
@@ -31,6 +33,26 @@ public class SoftController {
 
         Page<SoftVo> softVoPage = softService.page(soft,page);
         return Response.build(ResponseCode.QUERY_SUCCESS,softVoPage);
+    }
+
+    @ApiOperation(value = "获取软件数量-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "count",method = RequestMethod.GET)
+    @ResponseBody
+    public Response count() {
+
+        int count = softService.count();
+        return Response.build(ResponseCode.QUERY_SUCCESS,count);
+    }
+
+    @ApiOperation(value = "获取全部软件-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ResponseBody
+    public Response list() {
+
+        List<Soft> list = softService.list();
+        return Response.build(ResponseCode.QUERY_SUCCESS,list);
     }
 
     @ApiOperation(value = "获取单个-需要验证api")
