@@ -79,6 +79,9 @@
 </template>
 
 <script>
+
+  var time = require('@/utils/time.js');
+
 export default {
   data() {
     return {
@@ -118,7 +121,7 @@ export default {
       }).then((rsp) => {
         this.tableTotal = rsp.data.total
         for (let i = 0;i < rsp.data.records.length;i++) {
-          rsp.data.records[i].createDate = this.time({time:rsp.data.records[i].createDate});
+          rsp.data.records[i].createDate = time.timeStampDate({time:rsp.data.records[i].createDate});
         }
         this.tableData = rsp.data.records
       })
@@ -142,37 +145,6 @@ export default {
         this.$message.success(rsp.msg)
       })
     },
-    time(data) {
-
-      //不传参就生成当前时间的13位时间戳
-      data = data || {};
-      data.time = data.time || Math.round(new Date().getTime());
-
-      var timeLength = data.time.toString().length;
-
-      var date;
-
-      //为13位时间戳的时候怎么办
-      if (timeLength == 13) {
-
-        date = new Date(data.time);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-
-      }else if(timeLength == 10) {
-
-        date = new Date(data.time * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-
-      }
-
-      let Y = date.getFullYear() + '-';
-      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-      let D = date.getDate() + ' ';
-      let h = date.getHours() + ':';
-      let m = date.getMinutes() + ':';
-      let s = date.getSeconds();
-
-      return Y+M+D+h+m+s;
-
-    }
   }
 }
 </script>

@@ -71,6 +71,16 @@
             border
             style="width: 100%;margin-top: 10px">
             <el-table-column
+              prop="createDate"
+              label="创建时间"
+              align="center"
+            />
+            <el-table-column
+              prop="updateDate"
+              label="更新时间"
+              align="center"
+            />
+            <el-table-column
               prop="name"
               label="软件名称"
               align="center"
@@ -102,7 +112,7 @@
             <el-table-column
               prop="leaveMessageNum"
               align="center"
-              label="反馈数量"
+              label="反馈留言数量"
             />
             <el-table-column
               fixed="right"
@@ -140,6 +150,7 @@
 </template>
 
 <script>
+  var time = require('@/utils/time.js');
 export default {
   data() {
     return {
@@ -182,6 +193,8 @@ export default {
       }).then((rsp) => {
         this.tableTotal = rsp.data.total
         for (let i = 0; i < rsp.data.records.length; i++) {
+          rsp.data.records[i].createDate = time.timeStampDate({time:rsp.data.records[i].createDate});
+          rsp.data.records[i].updateDate = time.timeStampDate({time:rsp.data.records[i].updateDate});
           if (rsp.data.records[i].serviceStatus == 0) {
             rsp.data.records[i].serviceStatus = '收费';
           } else if (rsp.data.records[i].serviceStatus == 1) {

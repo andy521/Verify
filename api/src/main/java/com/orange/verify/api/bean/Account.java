@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件用户表
  * t_account
  * @author Orange
- * @date 2018/12/03
+ * @date 2018/12/16
  */
 @TableName("t_account")
 @KeySequence("SEQ_TEST")
@@ -23,8 +23,20 @@ public class Account implements Serializable {
     @TableLogic
     private Integer delFlag;
 
+    /**
+     * 备注
+     * remarks
+     */
+    private String remarks;
+
     @TableField(value = "update_date",fill = FieldFill.UPDATE)
     private Long updateDate;
+
+    /**
+     * 是否加入了黑名单 0.不是 1.是的
+     * blacklist
+     */
+    private Integer blacklist;
 
     /**
      * 用户电脑的机器码
@@ -104,12 +116,28 @@ public class Account implements Serializable {
         this.delFlag = delFlag;
     }
 
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
+    }
+
     public Long getUpdateDate() {
         return updateDate;
     }
 
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Integer getBlacklist() {
+        return blacklist;
+    }
+
+    public void setBlacklist(Integer blacklist) {
+        this.blacklist = blacklist;
     }
 
     public String getCode() {

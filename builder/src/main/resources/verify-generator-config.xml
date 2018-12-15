@@ -71,6 +71,10 @@
             <!-- generatedKey用于生成生成主键的方法 -->
             <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
         </table>
+        <table tableName="t_card_type" domainObjectName="CardType">
+            <!-- generatedKey用于生成生成主键的方法 -->
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
 
     </context>
 

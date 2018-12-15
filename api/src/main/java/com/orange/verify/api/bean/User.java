@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 平台管理用户
  * t_user
  * @author Orange
- * @date 2018/12/03
+ * @date 2018/12/16
  */
 @TableName("t_user")
 @KeySequence("SEQ_TEST")
@@ -22,6 +22,12 @@ public class User implements Serializable {
 
     @TableLogic
     private Integer delFlag;
+
+    /**
+     * 备注
+     * remarks
+     */
+    private String remarks;
 
     @TableField(value = "update_date",fill = FieldFill.UPDATE)
     private Long updateDate;
@@ -66,6 +72,14 @@ public class User implements Serializable {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 
     public Long getUpdateDate() {

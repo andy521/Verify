@@ -17,8 +17,8 @@ public abstract class BaseEntity implements Serializable {
     @Column(columnDefinition = ("int(2) default 0 comment '删除判断'"))
     private int delFlag;
 
-//    @Column(columnDefinition = ("varchar(100) default null comment '备注'"))
-//    private String remarks;
+    @Column(columnDefinition = ("varchar(100) default null comment '备注'"))
+    private String remarks;
 
     @Column(columnDefinition = ("bigint(20) default null comment '创建时间'"))
     private Long createDate;

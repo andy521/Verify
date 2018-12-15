@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 邮箱账户
  * t_email_account
  * @author Orange
- * @date 2018/12/03
+ * @date 2018/12/16
  */
 @TableName("t_email_account")
 @KeySequence("SEQ_TEST")
@@ -22,6 +22,12 @@ public class EmailAccount implements Serializable {
 
     @TableLogic
     private Integer delFlag;
+
+    /**
+     * 备注
+     * remarks
+     */
+    private String remarks;
 
     @TableField(value = "update_date",fill = FieldFill.UPDATE)
     private Long updateDate;
@@ -72,6 +78,14 @@ public class EmailAccount implements Serializable {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 
     public Long getUpdateDate() {

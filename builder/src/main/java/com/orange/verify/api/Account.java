@@ -42,4 +42,7 @@ public class Account extends BaseEntity {
     @Column(nullable = false,columnDefinition = "varchar(255) comment '创建时候的ip信息'")
     private String createIpInfo;
 
+    @Column(columnDefinition = "int(2) default 0 comment '是否加入了黑名单 0.不是 1.是的'")
+    private Integer blacklist;
+
 }
