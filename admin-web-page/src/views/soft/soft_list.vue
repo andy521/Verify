@@ -100,12 +100,19 @@
               label="最新版本"
             />
             <el-table-column
+              prop="leaveMessageNum"
+              align="center"
+              label="反馈数量"
+            />
+            <el-table-column
               fixed="right"
               align="center"
               label="操作"
               width="200">
 
               <template slot-scope="scope">
+                <el-button type="text" size="small" @click="leaveListRow(scope.row)">反馈列表</el-button>
+                <el-button type="text" size="small" @click="versionsUpdateRow(scope.row)">版本设置</el-button>
                 <el-button type="text" size="small" @click="updateRow(scope.row)">编辑</el-button>
                 <el-button type="text" size="small" style="color: red" @click="removeRow(scope.row)">删除</el-button>
               </template>
@@ -133,9 +140,6 @@
 </template>
 
 <script>
-
-  import request from '@/utils/request'
-
 export default {
   data() {
     return {
@@ -173,7 +177,7 @@ export default {
       data.current = pageNum
       data.size = this.tablePageSize
 
-      request.get('soft/page', {
+      this.$axios.get('soft/page', {
         params: data
       }).then((rsp) => {
         this.tableTotal = rsp.data.total
@@ -205,12 +209,29 @@ export default {
     updateRow(row) {
       this.openForm({ id: row.id })
     },
+    versionsUpdateRow(row) {
+      this.$router.push({
+        name: 'SoftVersionsForm',
+        params: {
+          versionsNum: row.versionsNum,
+          id: row.id
+        }
+      })
+    },
+    leaveListRow(row) {
+      this.$router.push({
+        name: 'SoftLeaveList',
+        params: {
+          id: row.id
+        }
+      })
+    },
     removeRow(row) {
-      this.$axios.post(this.HOST + 'logistics/addressLibary/remove', this.$qs.stringify({
-        addressTheLibaryId: row.id
+      this.$axios.post('soft/remove', this.$qs.stringify({
+        softId: row.id
       })).then((rsp) => {
         this.search()
-        this.$message.success('删除成功')
+        this.$message.success(rsp.msg)
       })
     },
   }

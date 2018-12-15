@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+import qs from 'qs'
+
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
@@ -14,6 +16,8 @@ import store from './store'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+
+Vue.prototype.$qs = qs;
 
 Vue.use(ElementUI, { locale })
 

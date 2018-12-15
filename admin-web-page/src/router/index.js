@@ -42,6 +42,7 @@ export const constantRouterMap = [
     component: Layout,
     alwaysShow: true,
     name: 'Soft',
+    redirect: 'noredirect',
     meta: { title: '软件管理', icon: 'example' },
     children: [
       {
@@ -58,14 +59,16 @@ export const constantRouterMap = [
         meta: { title: '软件操作', icon: 'tree' }
       },
       {
-        path: 'soft_versions_list',
-        name: 'SoftVersionsList',
-        component: () => import('@/views/soft/soft_versions_list'),
-        meta: { title: '软件版本', icon: 'tree' }
+        path: 'soft_versions_form',
+        name: 'SoftVersionsForm',
+        hidden: true,
+        component: () => import('@/views/soft/soft_versions_form'),
+        meta: { title: '软件版本操作', icon: 'tree' }
       },
       {
         path: 'soft_leave_list',
-        name: 'SoftLeaveForm',
+        name: 'SoftLeaveList',
+        hidden: true,
         component: () => import('@/views/soft/soft_leave_list'),
         meta: { title: '反馈列表', icon: 'tree' }
       },

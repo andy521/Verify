@@ -1,44 +1,6 @@
 <template>
   <div id="app">
 
-    <!--搜索操作区-->
-    <!-- gutter = 间距(控制每块col间距大小)-->
-    <el-row :gutter="0">
-
-      <el-col :span="24" style="margin-top: 10px">
-
-        <el-card v-show="searchWorkspace == false" shadow="always">
-          <i class="el-icon-search"/>
-          <span> 搜索</span>
-          <el-button style="float: right; padding: 3px 0" type="text" @click="searchWorkspace = !searchWorkspace">
-            展示
-          </el-button>
-        </el-card>
-
-        <el-card v-show="searchWorkspace == true" class="box-card" shadow="always">
-          <div slot="header" class="clearfix">
-            <i class="el-icon-search"/>
-            <span> 搜索</span>
-            <el-button style="float: right; padding: 3px 0" type="text" @click="searchWorkspace = !searchWorkspace">
-              收起
-            </el-button>
-          </div>
-
-          <el-form :inline="true" :model="seachFormInline" class="demo-form-inline" @submit.native.prevent>
-            <el-form-item label="软件名称">
-              <el-input v-model="seachFormInline.name" placeholder="软件名称" @keyup.enter.native="search"/>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="search">查询</el-button>
-            </el-form-item>
-          </el-form>
-
-        </el-card>
-
-      </el-col>
-
-    </el-row>
-
     <!--表格展示(操作)区-->
     <el-row :gutter="0">
 
@@ -57,13 +19,11 @@
             <i class="el-icon-edit"/>
             <span> 操作</span>
             <span style="color: #409EFF;cursor: pointer;margin-left: 20px" @click="search(true)">刷新数据</span>
+            <span @click="openExpress" style="color: #409EFF;cursor: pointer;margin-left: 20px"> 上一页</span>
             <el-button style="float: right; padding: 3px 0" type="text" @click="workingArea = !workingArea">
               收起
             </el-button>
           </div>
-
-          <!--按钮操作区-->
-          <el-button type="primary" @click="openForm"><i class="el-icon-plus"/> 添加</el-button>
 
           <!--表格展示区-->
           <el-table
@@ -71,30 +31,21 @@
             border
             style="width: 100%;margin-top: 10px">
             <el-table-column
-              prop="name"
-              label="软件名称"
+              prop="createDate"
+              label="创建时间"
               align="center"
             />
             <el-table-column
-              prop="id"
+              prop="content"
+              label="留言内容"
               align="center"
-              label="软件id"
             />
             <el-table-column
-              prop="serviceStatus"
+              prop="qq"
               align="center"
-              label="状态"
+              label="留言联系QQ"
             />
-            <el-table-column
-              prop="accountTotal"
-              align="center"
-              label="用户数量"
-            />
-            <el-table-column
-              prop="versionsNum"
-              align="center"
-              label="最新版本"
-            />
+
             <el-table-column
               fixed="right"
               align="center"
@@ -102,7 +53,6 @@
               width="200">
 
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="updateRow(scope.row)">编辑</el-button>
                 <el-button type="text" size="small" style="color: red" @click="removeRow(scope.row)">删除</el-button>
               </template>
 
@@ -149,66 +99,80 @@ export default {
     }
   },
   mounted() {
-    this.getTableData()
+    this.getTableData({softId:this.$route.params.id})
   },
   methods: {
-    openForm(params) {
-      params = params || {}
-      params.id = params.id || null
+    openExpress() {
       this.$router.push({
-        name: 'SoftForm',
-        params: params
+        name: 'SoftList',
       })
     },
     getTableData(data, pageNum) {
       data = data || {}
       pageNum = pageNum || 1
-      data.pageNum = pageNum
-      data.pageSize = this.tablePageSize
+      data.current = pageNum
+      data.size = this.tablePageSize
 
-      this.$axios.get(this.HOST + 'logistics/addressLibary/getDataToPage', {
+      this.$axios.get('softLeaveMessage/page', {
         params: data
       }).then((rsp) => {
         this.tableTotal = rsp.data.total
-        for (let i = 0; i < rsp.data.list.length; i++) {
-          if (rsp.data.list[i].isSendOutAddress == '0') {
-            rsp.data.list[i].isSendOutAddress = false
-          } else {
-            rsp.data.list[i].isSendOutAddress = true
-          }
-          if (rsp.data.list[i].isSalesReturnAddress == '0') {
-            rsp.data.list[i].isSalesReturnAddress = false
-          } else {
-            rsp.data.list[i].isSalesReturnAddress = true
-          }
+        for (let i = 0;i < rsp.data.records.length;i++) {
+          rsp.data.records[i].createDate = this.time({time:rsp.data.records[i].createDate});
         }
-        this.tableData = rsp.data.list
+        this.tableData = rsp.data.records
       })
     },
     handleCurrentChange(val) {
       this.getTableData({
-        contactName: this.seachFormInline.name
+        softId:this.$route.params.id
       }, val)
     },
     search(isPrompt) {
       if (isPrompt == true) {
         this.$message.success('执行刷新数据成功...')
       }
-      this.getTableData({
-        contactName: this.seachFormInline.name
-      })
-    },
-    updateRow(row) {
-      this.openForm({ id: row.id })
+      this.getTableData({softId:this.$route.params.id})
     },
     removeRow(row) {
-      this.$axios.post(this.HOST + 'logistics/addressLibary/remove', this.$qs.stringify({
-        addressTheLibaryId: row.id
+      this.$axios.post('softLeaveMessage/remove', this.$qs.stringify({
+        softLeaveMessageId: row.id
       })).then((rsp) => {
         this.search()
-        this.$message.success('删除成功')
+        this.$message.success(rsp.msg)
       })
     },
+    time(data) {
+
+      //不传参就生成当前时间的13位时间戳
+      data = data || {};
+      data.time = data.time || Math.round(new Date().getTime());
+
+      var timeLength = data.time.toString().length;
+
+      var date;
+
+      //为13位时间戳的时候怎么办
+      if (timeLength == 13) {
+
+        date = new Date(data.time);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+
+      }else if(timeLength == 10) {
+
+        date = new Date(data.time * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+
+      }
+
+      let Y = date.getFullYear() + '-';
+      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+      let D = date.getDate() + ' ';
+      let h = date.getHours() + ':';
+      let m = date.getMinutes() + ':';
+      let s = date.getSeconds();
+
+      return Y+M+D+h+m+s;
+
+    }
   }
 }
 </script>

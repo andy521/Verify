@@ -1,7 +1,6 @@
 package com.orange.verify.adminweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Api(description = "软件版本")
 @Controller
-@RequestMapping(value = "soft_versions")
+@RequestMapping(value = "softVersions")
 public class SoftVersionsController {
 
     @Reference
@@ -25,12 +24,12 @@ public class SoftVersionsController {
 
     @ApiOperation(value = "查询版本")
     @RspHandle
-    @RequestMapping(value = "page",method = RequestMethod.GET)
+    @RequestMapping(value = "getSingleBySoftId",method = RequestMethod.GET)
     @ResponseBody
-    public Response page(String softId, Page page) {
+    public Response getSingleBySoftId(String softId) {
 
-        Page<SoftVersionsVo> pageBySoftId = softVersionsService.getPageBySoftId(softId, page);
-        return Response.build(ResponseCode.QUERY_SUCCESS, pageBySoftId);
+        SoftVersionsVo singleBySoftId = softVersionsService.getSingleBySoftId(softId);
+        return Response.build(ResponseCode.QUERY_SUCCESS, singleBySoftId);
     }
 
     @ApiOperation(value = "创建版本")
@@ -53,19 +52,6 @@ public class SoftVersionsController {
     public Response update(SoftVersions softVersions) {
 
         boolean b = softVersionsService.updateById(softVersions);
-        if (b == true) {
-            return Response.success();
-        }
-        return Response.error();
-    }
-
-    @ApiOperation(value = "删除版本")
-    @RspHandle
-    @RequestMapping(value = "remove",method = RequestMethod.POST)
-    @ResponseBody
-    public Response remove(String softVersionsId) {
-
-        boolean b = softVersionsService.removeById(softVersionsId);
         if (b == true) {
             return Response.success();
         }

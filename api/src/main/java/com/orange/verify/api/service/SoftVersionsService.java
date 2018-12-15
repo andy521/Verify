@@ -7,7 +7,7 @@ import com.orange.verify.api.vo.SoftVersionsVo;
 
 public interface SoftVersionsService extends IService<SoftVersions> {
 
-    Page<SoftVersionsVo> getPageBySoftId(String softId, Page page);
+    SoftVersionsVo getSingleBySoftId(String softId);
 
     boolean saveLogic(SoftVersions softVersions);
 

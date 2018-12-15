@@ -52,37 +52,37 @@
 
             <el-form-item label="换绑策略" prop="changeStrategy">
               <el-radio-group v-model="form.changeStrategy" size="medium">
-                <el-radio border label="0" >支持换绑定</el-radio>
-                <el-radio border label="1" >不支持换绑定</el-radio>
+                <el-radio border :label=0 >支持换绑定</el-radio>
+                <el-radio border :label=1 >不支持换绑定</el-radio>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item label="多开策略" prop="dosingStrategy">
               <el-radio-group v-model="form.dosingStrategy" size="medium">
-                <el-radio border label="0" >只支持单机</el-radio>
-                <el-radio border label="1" >无限制</el-radio>
+                <el-radio border :label=0 >只支持单机</el-radio>
+                <el-radio border :label=1 >无限制</el-radio>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item label="软件被留言 是否邮件通知" prop="emailNotificatio">
               <el-radio-group v-model="form.emailNotificatio" size="medium">
-                <el-radio border label="0" @change="emailNotificatio = true">通知</el-radio>
-                <el-radio border label="1" @change="emailNotificatio = false">不通知</el-radio>
+                <el-radio border :label=0 @change="emailNotificatio = true">通知</el-radio>
+                <el-radio border :label=1 @change="emailNotificatio = false">不通知</el-radio>
               </el-radio-group>
             </el-form-item>
 
-            <el-form-item v-show="emailNotificatio == true" label="被通知的邮箱账户名" prop="emailName">
+            <el-form-item v-if="emailNotificatio == true" label="被通知的邮箱账户名" prop="emailName">
               <el-input v-model="form.emailName" class="common-width"></el-input>
             </el-form-item>
 
             <el-form-item label="注册状态" prop="registerStatus">
               <el-radio-group v-model="form.registerStatus" size="medium">
-                <el-radio border label="0" @change="registerStatus = true">开放注册</el-radio>
-                <el-radio border label="1" @change="registerStatus = false">关闭注册</el-radio>
+                <el-radio border :label=0 @change="registerStatus = true">开放注册</el-radio>
+                <el-radio border :label=1 @change="registerStatus = false">关闭注册</el-radio>
               </el-radio-group>
             </el-form-item>
 
-            <el-form-item v-show="registerStatus == false" label="关闭注册后的返回信息" prop="registeCloseMsg">
+            <el-form-item v-if="registerStatus == false" label="关闭注册后的返回信息" prop="registeCloseMsg">
               <el-input
                 v-model="form.registeCloseMsg"
                 class="common-width"
@@ -95,13 +95,13 @@
 
             <el-form-item label="服务状态" prop="serviceStatus">
               <el-radio-group v-model="form.serviceStatus" size="medium">
-                <el-radio border label="0" @change="serviceStatus = true">收费</el-radio>
-                <el-radio border label="1" @change="serviceStatus = true">免费开放</el-radio>
-                <el-radio border label="2" @change="serviceStatus = false">关闭开放使用</el-radio>
+                <el-radio border :label=0 @change="serviceStatus = true">收费</el-radio>
+                <el-radio border :label=1 @change="serviceStatus = true">免费开放</el-radio>
+                <el-radio border :label=2 @change="serviceStatus = false">关闭开放使用</el-radio>
               </el-radio-group>
             </el-form-item>
 
-            <el-form-item v-show="serviceStatus == false" label="关闭状态下的返回信息" prop="serviceCloseMsg">
+            <el-form-item v-if="serviceStatus == false" label="关闭状态下的返回信息" prop="serviceCloseMsg">
               <el-input
                 v-model="form.serviceCloseMsg"
                 class="common-width"
@@ -130,18 +130,26 @@
 </template>
 
 <script>
-
   export default {
     mounted() {
 
       if (this.$route.params.id != null) {
 
-        this.$axios.get(this.HOST + "logistics/express/get",{
+        this.$axios.get("soft/single",{
           params: {
-            expressId: this.$route.params.id,
+            softId: this.$route.params.id,
           }
         }).then((rsp) => {
           this.form =rsp.data;
+          if (rsp.data.emailNotificatio == 1) {
+            this.emailNotificatio = false;
+          }
+          if (rsp.data.registerStatus == 1) {
+            this.registerStatus = false;
+          }
+          if (rsp.data.serviceStatus == 1) {
+            this.serviceStatus = false;
+          }
         });
 
         this.formButtonName = '立即保存';
@@ -174,18 +182,18 @@
 
         let data = this.form;
 
-        let url = "logistics/express/add";
+        let url = "soft/create";
         if (isUpdate == true) {
           data.id = this.$route.params.id;
-          url = "logistics/express/update";
+          url = "soft/update";
         }
 
         this.$axios({
           method: 'post',
-          url: this.HOST + url,
-          data:data,
+          url: url,
+          data:this.$qs.stringify(data),
         }).then((rsp) => {
-          this.$message.success("提交成功");
+          this.$message(rsp.msg);
         });
       },
       resetForm(formName) {
@@ -209,13 +217,13 @@
           notice: '',
           rsaPublicKey: '',
           rsaPrivateKey: '',
-          changeStrategy: '0',
-          dosingStrategy: '0',
-          emailNotificatio: '0',
+          changeStrategy: 0,
+          dosingStrategy: 0,
+          emailNotificatio: 0,
           emailName: '',
-          registerStatus: '0',
+          registerStatus: 0,
           registeCloseMsg: '',
-          serviceStatus: '1',
+          serviceStatus: 1,
           serviceCloseMsg: '',
         },
         forms: {

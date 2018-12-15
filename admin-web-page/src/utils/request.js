@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/utils/auth'
+import Vue from 'vue'
 
 // 创建axios实例
 const service = axios.create({
@@ -70,5 +71,7 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+Vue.prototype.$axios = service;
 
 export default service

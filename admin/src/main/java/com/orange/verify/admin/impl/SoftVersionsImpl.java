@@ -19,9 +19,9 @@ public class SoftVersionsImpl extends ServiceImpl<SoftVersionsMapper, SoftVersio
     private SoftMapper softMapper;
 
     @Override
-    public Page<SoftVersionsVo> getPageBySoftId(String softId, Page page) {
+    public SoftVersionsVo getSingleBySoftId(String softId) {
 
-        return page.setRecords(super.baseMapper.getPageBySoftId(softId,page));
+        return super.baseMapper.getSingleBySoftId(softId);
     }
 
     @Override

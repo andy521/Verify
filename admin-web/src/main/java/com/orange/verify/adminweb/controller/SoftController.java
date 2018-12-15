@@ -33,6 +33,16 @@ public class SoftController {
         return Response.build(ResponseCode.QUERY_SUCCESS,softVoPage);
     }
 
+    @ApiOperation(value = "获取单个-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "single",method = RequestMethod.GET)
+    @ResponseBody
+    public Response single(String softId) {
+
+        Soft soft = softService.getById(softId);
+        return Response.build(ResponseCode.QUERY_SUCCESS,soft);
+    }
+
     @ApiOperation(value = "增加软件-需要验证api")
     @RspHandle
     @RequestMapping(value = "create",method = RequestMethod.POST)
