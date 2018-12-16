@@ -75,6 +75,30 @@ export const constantRouterMap = [
     ]
   },
 
+  {
+    path: '/card',
+    component: Layout,
+    alwaysShow: true,
+    name: 'Card',
+    redirect: 'noredirect',
+    meta: { title: '充值卡管理', icon: 'example' },
+    children: [
+      {
+        path: 'card_type_list',
+        name: 'CardTypeList',
+        component: () => import('@/views/card/card_type_list'),
+        meta: { title: '卡类列表', icon: 'table' }
+      },
+      {
+        path: 'card_type_form',
+        name: 'CardTypeForm',
+        hidden: true,
+        component: () => import('@/views/card/card_type_form'),
+        meta: { title: '卡类操作', icon: 'table' }
+      },
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

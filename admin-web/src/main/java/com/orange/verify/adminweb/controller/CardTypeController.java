@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Api(description = "卡类型")
 @Controller
 @RequestMapping(value = "cardType")
@@ -31,6 +33,16 @@ public class CardTypeController {
 
         Page<CardTypeVo> cardTypeVoPage = cardTypeService.page(cardType,page);
         return Response.build(ResponseCode.QUERY_SUCCESS,cardTypeVoPage);
+    }
+
+    @ApiOperation(value = "获取全部类型-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ResponseBody
+    public Response list() {
+
+        List<CardType> list = cardTypeService.list();
+        return Response.build(ResponseCode.QUERY_SUCCESS,list);
     }
 
     @ApiOperation(value = "获取单个-需要验证api")

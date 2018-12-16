@@ -6,4 +6,11 @@ public class CardTypeVo extends CardType {
 
     private String softName;
 
+    public String getSoftName() {
+        return softName;
+    }
+
+    public void setSoftName(String softName) {
+        this.softName = softName;
+    }
 }

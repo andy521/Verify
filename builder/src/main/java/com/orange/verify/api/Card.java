@@ -16,7 +16,7 @@ public class Card extends BaseEntity {
     @Column(nullable = false,columnDefinition = "varchar(100) comment '软件绑定id'")
     private String softId;
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '用户绑定id'")
+    @Column(columnDefinition = "varchar(100) comment '用户绑定id'")
     private String accountId;
 
     @Column(nullable = false,columnDefinition = "varchar(100) comment '卡类绑定id'")

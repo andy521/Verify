@@ -147,7 +147,7 @@
           if (rsp.data.registerStatus == 1) {
             this.registerStatus = false;
           }
-          if (rsp.data.serviceStatus == 1) {
+          if (rsp.data.serviceStatus == 2) {
             this.serviceStatus = false;
           }
         });
