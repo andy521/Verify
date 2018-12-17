@@ -26,8 +26,26 @@
           
           <el-form :inline="true" :model="seachFormInline" class="demo-form-inline" @submit.native.prevent>
             <el-form-item label="软件选择">
-              <el-select v-model="defaultSoftList" placeholder="请选择软件" @change="softListChange">
+              <el-select v-model="defaultSoftList" placeholder="请选择软件">
                 <el-option v-for="item in softList" :label="item.label" :key="item.value" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="卡类单位">
+              <el-select v-model="defaultCardTypeUnit" placeholder="请选择卡类单位">
+                <el-option v-for="item in cardTypeUnitList" :label="item.label" :key="item.value" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="使用状态">
+              <el-select v-model="defaultUseStatus" placeholder="请选择使用状态">
+                <el-option v-for="item in useStatusList" :label="item.label" :key="item.value" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="封停状态">
+              <el-select v-model="defaultClosure" placeholder="请选择封停状态">
+                <el-option v-for="item in closureList" :label="item.label" :key="item.value" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -65,9 +83,6 @@
             </el-button>
           </div>
 
-          <!--按钮操作区-->
-          <el-button type="primary" @click="openForm"><i class="el-icon-plus"/> 添加</el-button>
-
           <!--表格展示区-->
           <el-table
             :data="tableData"
@@ -79,19 +94,44 @@
               align="center"
             />
             <el-table-column
+              prop="cardNumber"
+              label="充值卡号"
+              align="center"
+            />
+            <el-table-column
+              prop="useStatus"
+              label="使用状态"
+              align="center"
+            />
+            <el-table-column
+              prop="closure"
+              label="是否封停使用"
+              align="center"
+            />
+            <el-table-column
               prop="softName"
               label="软件名称"
               align="center"
             />
             <el-table-column
-              prop="unit"
-              label="单位"
+              prop="cardTypeUnit"
+              label="卡类单位"
               align="center"
             />
             <el-table-column
-              prop="value"
+              prop="cardTypeValue"
+              label="卡类面值"
               align="center"
-              label="面值"
+            />
+            <el-table-column
+              prop="accountName"
+              label="使用者账号"
+              align="center"
+            />
+            <el-table-column
+              prop="startDate"
+              label="开始使用时间"
+              align="center"
             />
             <el-table-column
               fixed="right"
@@ -100,8 +140,6 @@
               width="200">
 
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="createCardRow(scope.row)">创建卡密</el-button>
-                <el-button type="text" size="small" @click="updateRow(scope.row)">编辑</el-button>
                 <el-button type="text" size="small" style="color: red" @click="removeRow(scope.row)">删除</el-button>
               </template>
 
@@ -136,8 +174,22 @@ export default {
       searchWorkspace: true,
       workingArea: true,
 
-      defaultSoftList: null,
+      defaultSoftList: "0",
       softList: [],
+      defaultCardTypeUnit: 100,
+      cardTypeUnitList: [],
+      defaultUseStatus: 100,
+      useStatusList: [
+        {label: "全部",value: 100},
+        {label: "未使用",value: 0},
+        {label: "已使用",value: 1},
+      ],
+      defaultClosure: 100,
+      closureList: [
+        {label: "全部",value: 100},
+        {label: "未封停",value: 0},
+        {label: "已封停",value: 1},
+      ],
 
       // 搜索表单
       seachFormInline: {
@@ -152,12 +204,43 @@ export default {
     }
   },
   mounted() {
+
+    this.cardTypeUnitList.push(
+        {
+        label: "全部",
+        value: 100,
+        },
+        {
+        label: "分",
+        value: 0,
+        },
+        {
+        label: "时",
+        value: 1,
+        },
+        {
+        label: "天",
+        value: 2,
+        },
+        {
+        label: "周",
+        value: 3,
+        },
+        {
+        label: "月",
+        value: 4,
+        },
+        {
+        label: "年",
+        value: 5,
+        },
+    );
+
     this.$axios.get('soft/list').then((rsp) => {
       this.softList.push({
         label: "全部",
         value: "0",
       });
-      this.defaultSoftList = "0";
       for (let i = 0;i < rsp.data.length;i++) {
         this.softList.push({
           label: rsp.data[i].name,
@@ -176,51 +259,48 @@ export default {
         this.getTableData({softId: value});
       }
     },
-    createCardRow(row) {
-      this.$router.push({
-        name: 'CardForm',
-        params: {id: row.id}
-      })
-    },
-    openForm(params) {
-      params = params || {}
-      params.id = params.id || null
-      this.$router.push({
-        name: 'CardTypeForm',
-        params: params
-      })
-    },
     getTableData(data, pageNum) {
       data = data || {}
       pageNum = pageNum || 1
       data.current = pageNum
       data.size = this.tablePageSize
 
-      this.$axios.get('cardType/page', {
+      this.$axios.get('card/page', {
         params: data
       }).then((rsp) => {
         this.tableTotal = rsp.data.total
         for (let i = 0; i < rsp.data.records.length; i++) {
           rsp.data.records[i].createDate = time.timeStampDate({time:rsp.data.records[i].createDate});
-          switch (rsp.data.records[i].unit) {
+          rsp.data.records[i].startDate = time.timeStampDate({time:rsp.data.records[i].startDate});
+          switch (rsp.data.records[i].cardTypeUnit) {
             case 0:
-              rsp.data.records[i].unit = "分";
+              rsp.data.records[i].cardTypeUnit = "分";
               break;
             case 1:
-              rsp.data.records[i].unit = "时";
+              rsp.data.records[i].cardTypeUnit = "时";
               break;
             case 2:
-              rsp.data.records[i].unit = "天";
+              rsp.data.records[i].cardTypeUnit = "天";
               break;
             case 3:
-              rsp.data.records[i].unit = "周";
+              rsp.data.records[i].cardTypeUnit = "周";
               break;
             case 4:
-              rsp.data.records[i].unit = "月";
+              rsp.data.records[i].cardTypeUnit = "月";
               break;
             case 5:
-              rsp.data.records[i].unit = "年";
+              rsp.data.records[i].cardTypeUnit = "年";
               break;
+          }
+          if (rsp.data.records[i].useStatus == 0) {
+            rsp.data.records[i].useStatus = "未使用";
+          }else {
+            rsp.data.records[i].useStatus = "已使用";
+          }
+          if (rsp.data.records[i].closure == 0) {
+            rsp.data.records[i].closure = "未封停";
+          }else {
+            rsp.data.records[i].closure = "已封停";
           }
         }
         this.tableData = rsp.data.records
@@ -239,14 +319,10 @@ export default {
         this.getTableData({softId: value});
       }
     },
-    updateRow(row) {
-      this.openForm({ id: row.id })
-    },
     removeRow(row) {
-      this.$axios.post('cardType/remove', this.$qs.stringify({
+      this.$axios.post('card/remove', this.$qs.stringify({
         cardTypeId: row.id
       })).then((rsp) => {
-        this.defaultSoftList = "0";
         this.getTableData();
         this.$message.success(rsp.msg)
       })

@@ -2,9 +2,12 @@
 var time = {
   timeStampDate: function(data) {
 
-  //不传参就生成当前时间的13位时间戳
-  data = data || {};
-  data.time = data.time || Math.round(new Date().getTime());
+  // 不传参就生成当前时间的13位时间戳
+  if (data == null) {
+    return "";
+  } else if (data.time == null) {
+    return "";
+  }
 
   var timeLength = data.time.toString().length;
 

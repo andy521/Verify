@@ -10,6 +10,8 @@ public enum ResponseCode {
 
     NOT_ROLE(13,"无角色"),
 
+    PRODUCTION_TOO_MUCH(15,"生产过多充值卡密"),
+
     NOT_LOGIN(12,"未登录");
 
     private int code;

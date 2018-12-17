@@ -29,10 +29,40 @@ public class CardController {
     @RspHandle
     @RequestMapping(value = "page",method = RequestMethod.GET)
     @ResponseBody
-    public Response page(Card card, Page page) {
+    public Response page(CardVo cardVo, Page page) {
 
-        Page<CardVo> cardVoPage = cardService.page(card,page);
+        Page<CardVo> cardVoPage = cardService.page(cardVo,page);
         return Response.build(ResponseCode.QUERY_SUCCESS,cardVoPage);
+    }
+
+    @ApiOperation(value = "增加卡密-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "create",method = RequestMethod.POST)
+    @ResponseBody
+    public Response create(Card card,Integer count) throws Exception {
+
+        if (count > 100) {
+            return Response.build(ResponseCode.PRODUCTION_TOO_MUCH);
+        }
+
+        boolean b = cardService.saveLogic(card,count);
+        if (b == true) {
+            return Response.success();
+        }
+        return Response.error();
+    }
+
+    @ApiOperation(value = "删除卡密-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "remove",method = RequestMethod.POST)
+    @ResponseBody
+    public Response remove(String cardId) {
+
+        boolean b = cardService.removeById(cardId);
+        if (b == true) {
+            return Response.success();
+        }
+        return Response.error();
     }
 
 }

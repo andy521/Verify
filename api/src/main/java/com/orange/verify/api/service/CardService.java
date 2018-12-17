@@ -7,6 +7,8 @@ import com.orange.verify.api.vo.CardVo;
 
 public interface CardService extends IService<Card> {
 
-    Page<CardVo> page(Card card, Page page);
+    Page<CardVo> page(CardVo cardVo, Page page);
+
+    boolean saveLogic(Card card,Integer count);
 
 }

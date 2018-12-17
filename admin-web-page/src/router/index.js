@@ -96,6 +96,19 @@ export const constantRouterMap = [
         component: () => import('@/views/card/card_type_form'),
         meta: { title: '卡类操作', icon: 'table' }
       },
+      {
+        path: 'card_list',
+        name: 'CardList',
+        component: () => import('@/views/card/card_list'),
+        meta: { title: '卡密列表', icon: 'table' }
+      },
+      {
+        path: 'card_form',
+        name: 'CardForm',
+        hidden: true,
+        component: () => import('@/views/card/card_form'),
+        meta: { title: '卡密操作', icon: 'table' }
+      },
     ]
   },
 

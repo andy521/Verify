@@ -1,7 +1,9 @@
 package com.orange.verify.api.vo;
 
 import com.orange.verify.api.bean.Soft;
+import lombok.Data;
 
+@Data
 public class SoftVo extends Soft {
 
     //软件用户数量
@@ -12,27 +14,4 @@ public class SoftVo extends Soft {
 
     private Long leaveMessageNum;
 
-    public Long getAccountTotal() {
-        return accountTotal;
-    }
-
-    public void setAccountTotal(Long accountTotal) {
-        this.accountTotal = accountTotal;
-    }
-
-    public String getVersionsNum() {
-        return versionsNum;
-    }
-
-    public void setVersionsNum(String versionsNum) {
-        this.versionsNum = versionsNum;
-    }
-
-    public Long getLeaveMessageNum() {
-        return leaveMessageNum;
-    }
-
-    public void setLeaveMessageNum(Long leaveMessageNum) {
-        this.leaveMessageNum = leaveMessageNum;
-    }
 }

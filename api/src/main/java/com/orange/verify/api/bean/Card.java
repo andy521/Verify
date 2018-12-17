@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件充值卡
  * t_card
  * @author Orange
- * @date 2018/12/16
+ * @date 2018/12/17
  */
 @TableName("t_card")
 @KeySequence("SEQ_TEST")
@@ -61,6 +61,12 @@ public class Card implements Serializable {
      * soft_id
      */
     private String softId;
+
+    /**
+     * 开始使用时间
+     * start_date
+     */
+    private Integer startDate;
 
     /**
      * 使用状态 0.不使用 1.使用
@@ -146,6 +152,14 @@ public class Card implements Serializable {
 
     public void setSoftId(String softId) {
         this.softId = softId == null ? null : softId.trim();
+    }
+
+    public Integer getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Integer startDate) {
+        this.startDate = startDate;
     }
 
     public Integer getUseStatus() {

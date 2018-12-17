@@ -13,9 +13,6 @@ import javax.persistence.Entity;
 @Table(appliesTo = "t_card",comment = "软件充值卡")
 public class Card extends BaseEntity {
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '软件绑定id'")
-    private String softId;
-
     @Column(columnDefinition = "varchar(100) comment '用户绑定id'")
     private String accountId;
 
@@ -25,10 +22,13 @@ public class Card extends BaseEntity {
     @Column(nullable = false,columnDefinition = "varchar(255) comment '充值卡号'")
     private String cardNumber;
 
-    @Column(columnDefinition = "int(2) default 0 comment '使用状态 0.不使用 1.使用'")
+    @Column(columnDefinition = "int(2) default 0 comment '使用状态 0.未使用 1.已使用'")
     private Integer useStatus;
 
-    @Column(columnDefinition = "int(2) default 0 comment '是否封停使用 0.不是 1.是的'")
+    @Column(columnDefinition = "int(2) default 0 comment '是否封停使用 0.未封停 1.已封停'")
     private Integer closure;
+
+    @Column(columnDefinition = "int comment '开始使用时间'")
+    private Long startDate;
 
 }
