@@ -240,7 +240,7 @@ export default {
         cardTypeId: row.id
       })).then((rsp) => {
         this.getTableData();
-        this.$message.success(rsp.msg)
+        this.$message(rsp.msg)
       })
     },
   }

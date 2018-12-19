@@ -322,7 +322,7 @@ export default {
         closure: value ? 1 : 0
       })).then((rsp) => {
         this.getTableData();
-        this.$message.success(rsp.msg)
+        this.$message(rsp.msg)
       })
     },
     removeRow(row) {
@@ -330,7 +330,7 @@ export default {
         cardId: row.id
       })).then((rsp) => {
         this.getTableData();
-        this.$message.success(rsp.msg)
+        this.$message(rsp.msg)
       })
     },
   }

@@ -112,6 +112,30 @@ export const constantRouterMap = [
     ]
   },
 
+  {
+    path: '/config',
+    component: Layout,
+    alwaysShow: true,
+    name: 'Config',
+    redirect: 'noredirect',
+    meta: { title: '配置管理', icon: 'example' },
+    children: [
+      {
+        path: 'email_account_list',
+        name: 'EmailAccountList',
+        component: () => import('@/views/config/email_account_list'),
+        meta: { title: '邮箱列表', icon: 'table' }
+      },
+      {
+        path: 'email_account_form',
+        name: 'EmailAccountForm',
+        hidden: true,
+        component: () => import('@/views/config/email_account_form'),
+        meta: { title: '邮箱操作', icon: 'table' }
+      },
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

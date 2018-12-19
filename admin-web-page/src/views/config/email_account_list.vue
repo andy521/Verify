@@ -1,44 +1,6 @@
 <template>
   <div id="app">
 
-    <!--搜索操作区-->
-    <!-- gutter = 间距(控制每块col间距大小)-->
-    <el-row :gutter="0">
-
-      <el-col :span="24" style="margin-top: 10px">
-
-        <el-card v-show="searchWorkspace == false" shadow="always">
-          <i class="el-icon-search"/>
-          <span> 搜索</span>
-          <el-button style="float: right; padding: 3px 0" type="text" @click="searchWorkspace = !searchWorkspace">
-            展示
-          </el-button>
-        </el-card>
-
-        <el-card v-show="searchWorkspace == true" class="box-card" shadow="always">
-          <div slot="header" class="clearfix">
-            <i class="el-icon-search"/>
-            <span> 搜索</span>
-            <el-button style="float: right; padding: 3px 0" type="text" @click="searchWorkspace = !searchWorkspace">
-              收起
-            </el-button>
-          </div>
-
-          <el-form :inline="true" :model="seachForm" class="demo-form-inline" @submit.native.prevent>
-            <el-form-item label="软件名称">
-              <el-input v-model="seachForm.name" placeholder="软件名称" @keyup.enter.native="search"/>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="search">查询</el-button>
-            </el-form-item>
-          </el-form>
-
-        </el-card>
-
-      </el-col>
-
-    </el-row>
-
     <!--表格展示(操作)区-->
     <el-row :gutter="0">
 
@@ -81,38 +43,24 @@
               align="center"
             />
             <el-table-column
-              prop="name"
-              label="软件名称"
+              prop="username"
+              label="用户名"
               align="center"
             />
             <el-table-column
-              prop="id"
+              prop="password"
               align="center"
-              label="软件id"
+              label="用户密码"
             />
             <el-table-column
-              prop="serviceStatus"
+              prop="isUse"
               align="center"
-              label="状态"
-            >
-              <template slot-scope="scope">
-                <el-tag type="success">{{scope.row.serviceStatus}}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column
-              prop="accountTotal"
-              align="center"
-              label="用户数量"
+              label="是否使用"
             />
             <el-table-column
-              prop="versionsNum"
+              prop="total"
               align="center"
-              label="最新版本"
-            />
-            <el-table-column
-              prop="leaveMessageNum"
-              align="center"
-              label="反馈留言数量"
+              label="被使用的次数"
             />
             <el-table-column
               fixed="right"
@@ -121,8 +69,6 @@
               width="200">
 
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="leaveListRow(scope.row)">反馈列表</el-button>
-                <el-button type="text" size="small" @click="versionsUpdateRow(scope.row)">版本设置</el-button>
                 <el-button type="text" size="small" @click="updateRow(scope.row)">编辑</el-button>
                 <el-button type="text" size="small" style="color: red" @click="removeRow(scope.row)">删除</el-button>
               </template>
@@ -131,7 +77,7 @@
           </el-table>
 
           <!--分页-->
-          <el-pagination
+          <!-- <el-pagination
             :page-sizes="tablePageSizes"
             :page-size="tablePageSize"
             :total="tableTotal"
@@ -139,7 +85,7 @@
             background
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"/>
+            @current-change="handleCurrentChange"/> -->
 
         </el-card>
 
@@ -161,7 +107,6 @@ export default {
 
       // 搜索表单
       seachForm: {
-        name: ''
       },
 
       // 表格
@@ -180,32 +125,24 @@ export default {
       params = params || {}
       params.id = params.id || null
       this.$router.push({
-        name: 'SoftForm',
+        name: 'EmailAccountForm',
         params: params
       })
     },
     getTableData() {
       
-      let data = this.seachForm
-      data.current = this.tablePageNum
-      data.size = this.tablePageSize
+      // let data = this.seachForm
+      // data.current = this.tablePageNum
+      // data.size = this.tablePageSize
 
-      this.$axios.get('soft/page', {
-        params: data
-      }).then((rsp) => {
-        this.tableTotal = rsp.data.total
-        for (let i = 0; i < rsp.data.records.length; i++) {
-          rsp.data.records[i].createDate = time.timeStampDate({time:rsp.data.records[i].createDate})
-          rsp.data.records[i].updateDate = time.timeStampDate({time:rsp.data.records[i].updateDate})
-          if (rsp.data.records[i].serviceStatus == 0) {
-            rsp.data.records[i].serviceStatus = '收费'
-          } else if (rsp.data.records[i].serviceStatus == 1) {
-            rsp.data.records[i].serviceStatus = '免费'
-          } else if (rsp.data.records[i].serviceStatus == 2) {
-            rsp.data.records[i].serviceStatus = '关闭'
-          }
+      this.$axios.get('emailAccount/list').then((rsp) => {
+        // this.tableTotal = rsp.data.total
+        for (let i = 0; i < rsp.data.length; i++) {
+          rsp.data[i].createDate = time.timeStampDate({time:rsp.data[i].createDate})
+          rsp.data[i].updateDate = time.timeStampDate({time:rsp.data[i].updateDate})
+          rsp.data[i].isUse = (rsp.data[i].isUse == 0) ? "可用" : "停用"
         }
-        this.tableData = rsp.data.records
+        this.tableData = rsp.data
       })
     },
     handleSizeChange(val) {
@@ -225,26 +162,9 @@ export default {
     updateRow(row) {
       this.openForm({ id: row.id })
     },
-    versionsUpdateRow(row) {
-      this.$router.push({
-        name: 'SoftVersionsForm',
-        params: {
-          versionsNum: row.versionsNum,
-          id: row.id
-        }
-      })
-    },
-    leaveListRow(row) {
-      this.$router.push({
-        name: 'SoftLeaveList',
-        params: {
-          id: row.id
-        }
-      })
-    },
     removeRow(row) {
-      this.$axios.post('soft/remove', this.$qs.stringify({
-        softId: row.id
+      this.$axios.post('emailAccount/remove', this.$qs.stringify({
+        emailAccountId: row.id
       })).then((rsp) => {
         this.search()
         this.$message(rsp.msg)

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Api(description = "邮箱账户录入")
 @Controller
-@RequestMapping(value = "email_account")
+@RequestMapping(value = "emailAccount")
 public class EmailAccountController {
 
     @Reference
@@ -29,8 +29,18 @@ public class EmailAccountController {
     @ResponseBody
     public Response list() {
 
-        List<EmailAccount> list = emailAccountService.list();
+        List<EmailAccount> list = emailAccountService.getList();
         return Response.build(ResponseCode.QUERY_SUCCESS,list);
+    }
+
+    @ApiOperation(value = "获取单个邮箱账户-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "single",method = RequestMethod.GET)
+    @ResponseBody
+    public Response single(String emailAccountId) {
+
+        EmailAccount emailAccount = emailAccountService.getById(emailAccountId);
+        return Response.build(ResponseCode.QUERY_SUCCESS,emailAccount);
     }
 
     @ApiOperation(value = "增加邮箱账户-需要验证api")
