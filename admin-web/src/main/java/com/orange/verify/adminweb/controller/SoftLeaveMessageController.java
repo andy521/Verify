@@ -7,6 +7,7 @@ import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.SoftLeaveMessage;
 import com.orange.verify.api.service.SoftLeaveMessageService;
+import com.orange.verify.api.vo.SoftLeaveMessageVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,9 @@ public class SoftLeaveMessageController {
     @RspHandle
     @RequestMapping(value = "page",method = RequestMethod.GET)
     @ResponseBody
-    public Response page(String softId,Page page) {
+    public Response page(SoftLeaveMessageVo softLeaveMessageVo, Page page) {
 
-        Page<SoftLeaveMessage> softLeaveMessagePage = softLeaveMessageService.page(softId, page);
+        Page<SoftLeaveMessage> softLeaveMessagePage = softLeaveMessageService.page(softLeaveMessageVo, page);
 
         return Response.build(ResponseCode.QUERY_SUCCESS,softLeaveMessagePage);
     }

@@ -121,7 +121,6 @@
               width="200">
 
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="leaveListRow(scope.row)">反馈列表</el-button>
                 <el-button type="text" size="small" @click="versionsUpdateRow(scope.row)">版本设置</el-button>
                 <el-button type="text" size="small" @click="updateRow(scope.row)">编辑</el-button>
                 <el-button type="text" size="small" style="color: red" @click="removeRow(scope.row)">删除</el-button>
@@ -185,7 +184,7 @@ export default {
       })
     },
     getTableData() {
-      
+
       let data = this.seachForm
       data.current = this.tablePageNum
       data.size = this.tablePageSize
@@ -230,14 +229,6 @@ export default {
         name: 'SoftVersionsForm',
         params: {
           versionsNum: row.versionsNum,
-          id: row.id
-        }
-      })
-    },
-    leaveListRow(row) {
-      this.$router.push({
-        name: 'SoftLeaveList',
-        params: {
           id: row.id
         }
       })

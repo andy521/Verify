@@ -35,6 +35,16 @@ public class CardController {
         return Response.build(ResponseCode.QUERY_SUCCESS,cardVoPage);
     }
 
+    @ApiOperation(value = "获取卡密数量-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "count",method = RequestMethod.GET)
+    @ResponseBody
+    public Response count() {
+
+        int count = cardService.count();
+        return Response.build(ResponseCode.QUERY_SUCCESS,count);
+    }
+
     @ApiOperation(value = "增加卡密-需要验证api")
     @RspHandle
     @RequestMapping(value = "create",method = RequestMethod.POST)

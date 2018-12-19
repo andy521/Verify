@@ -43,13 +43,13 @@ export const constantRouterMap = [
     alwaysShow: true,
     name: 'Soft',
     redirect: 'noredirect',
-    meta: { title: '软件管理', icon: 'example' },
+    meta: { title: '软件管理', icon: 'software' },
     children: [
       {
         path: 'soft_list',
         name: 'SoftList',
         component: () => import('@/views/soft/soft_list'),
-        meta: { title: '软件列表', icon: 'table' }
+        meta: { title: '软件列表', icon: '软件管理' }
       },
       {
         path: 'soft_form',
@@ -68,9 +68,8 @@ export const constantRouterMap = [
       {
         path: 'soft_leave_list',
         name: 'SoftLeaveList',
-        hidden: true,
         component: () => import('@/views/soft/soft_leave_list'),
-        meta: { title: '反馈列表', icon: 'tree' }
+        meta: { title: '反馈列表', icon: '反馈管理' }
       },
     ]
   },
@@ -81,26 +80,26 @@ export const constantRouterMap = [
     alwaysShow: true,
     name: 'Card',
     redirect: 'noredirect',
-    meta: { title: '充值卡管理', icon: 'example' },
+    meta: { title: '充值卡管理', icon: '充值' },
     children: [
       {
         path: 'card_type_list',
         name: 'CardTypeList',
         component: () => import('@/views/card/card_type_list'),
-        meta: { title: '卡类列表', icon: 'table' }
+        meta: { title: '卡类列表', icon: '充值kl' }
       },
       {
         path: 'card_type_form',
         name: 'CardTypeForm',
         hidden: true,
         component: () => import('@/views/card/card_type_form'),
-        meta: { title: '卡类操作', icon: 'table' }
+        meta: { title: '卡类操作', icon: '充值kl' }
       },
       {
         path: 'card_list',
         name: 'CardList',
         component: () => import('@/views/card/card_list'),
-        meta: { title: '卡密列表', icon: 'table' }
+        meta: { title: '卡密列表', icon: '充值缴费' }
       },
       {
         path: 'card_form',
@@ -118,13 +117,13 @@ export const constantRouterMap = [
     alwaysShow: true,
     name: 'Account',
     redirect: 'noredirect',
-    meta: { title: '用户管理', icon: 'example' },
+    meta: { title: '用户管理', icon: '用户' },
     children: [
       {
         path: 'account_list',
         name: 'AccountList',
         component: () => import('@/views/account/account_list'),
-        meta: { title: '用户列表', icon: 'table' }
+        meta: { title: '用户列表', icon: '用户d' }
       },
     ]
   },
@@ -135,13 +134,13 @@ export const constantRouterMap = [
     alwaysShow: true,
     name: 'Config',
     redirect: 'noredirect',
-    meta: { title: '配置管理', icon: 'example' },
+    meta: { title: '配置管理', icon: '配置' },
     children: [
       {
         path: 'email_account_list',
         name: 'EmailAccountList',
         component: () => import('@/views/config/email_account_list'),
-        meta: { title: '邮箱列表', icon: 'table' }
+        meta: { title: '邮箱列表', icon: '邮箱' }
       },
       {
         path: 'email_account_form',

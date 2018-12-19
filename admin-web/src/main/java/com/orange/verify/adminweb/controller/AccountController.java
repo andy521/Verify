@@ -33,6 +33,16 @@ public class AccountController {
         return Response.build(ResponseCode.QUERY_SUCCESS,cardTypeVoPage);
     }
 
+    @ApiOperation(value = "获取用户数量-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "count",method = RequestMethod.GET)
+    @ResponseBody
+    public Response count() {
+
+        int count = accountService.count();
+        return Response.build(ResponseCode.QUERY_SUCCESS,count);
+    }
+
     @ApiOperation(value = "用户黑名单设置-需要验证api")
     @RspHandle
     @RequestMapping(value = "blacklist",method = RequestMethod.POST)
