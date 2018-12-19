@@ -67,6 +67,7 @@
             style="margin-top: 15px"
             background
             layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"/>
 
         </el-card>
@@ -90,19 +91,19 @@ export default {
       workingArea: true,
 
       // 搜索表单
-      seachFormInline: {
-        name: ''
+      seachForm: {
       },
 
       // 表格
       tableTotal: 0,
       tableData: [],
+      tablePageNum: 1,
       tablePageSize: 10,
       tablePageSizes: [10, 50, 100, 200]
     }
   },
   mounted() {
-    this.getTableData({softId:this.$route.params.id})
+    this.getTableData()
   },
   methods: {
     openExpress() {
@@ -110,11 +111,12 @@ export default {
         name: 'SoftList',
       })
     },
-    getTableData(data, pageNum) {
-      data = data || {}
-      pageNum = pageNum || 1
-      data.current = pageNum
+    getTableData() {
+
+      let data = this.seachForm
+      data.current = this.tablePageNum
       data.size = this.tablePageSize
+      data.softId = this.$route.params.id
 
       this.$axios.get('softLeaveMessage/page', {
         params: data
@@ -126,22 +128,25 @@ export default {
         this.tableData = rsp.data.records
       })
     },
+    handleSizeChange(val) {
+      this.tablePageSize = val
+      this.getTableData()
+    },
     handleCurrentChange(val) {
-      this.getTableData({
-        softId:this.$route.params.id
-      }, val)
+      this.tablePageNum = val
+      this.getTableData()
     },
     search(isPrompt) {
       if (isPrompt == true) {
         this.$message.success('执行刷新数据成功...')
       }
-      this.getTableData({softId:this.$route.params.id})
+      this.getTableData()
     },
     removeRow(row) {
       this.$axios.post('softLeaveMessage/remove', this.$qs.stringify({
         softLeaveMessageId: row.id
       })).then((rsp) => {
-        this.search()
+        this.getTableData()
         this.$message.success(rsp.msg)
       })
     },

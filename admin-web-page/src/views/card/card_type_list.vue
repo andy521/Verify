@@ -24,9 +24,9 @@
             </el-button>
           </div>
           
-          <el-form :inline="true" :model="seachFormInline" class="demo-form-inline" @submit.native.prevent>
+          <el-form :inline="true" :model="seachForm" class="demo-form-inline" @submit.native.prevent>
             <el-form-item label="软件选择">
-              <el-select v-model="defaultSoftList" placeholder="请选择软件" @change="softListChange">
+              <el-select v-model="seachForm.softId" placeholder="请选择软件">
                 <el-option v-for="item in softList" :label="item.label" :key="item.value" :value="item.value">
                 </el-option>
               </el-select>
@@ -116,6 +116,7 @@
             style="margin-top: 15px"
             background
             layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"/>
 
         </el-card>
@@ -135,18 +136,18 @@ export default {
       // 控制两块区域是否显示
       searchWorkspace: true,
       workingArea: true,
-
-      defaultSoftList: null,
+      
       softList: [],
 
       // 搜索表单
-      seachFormInline: {
-        name: ''
+      seachForm: {
+        softId: "",
       },
 
       // 表格
       tableTotal: 0,
       tableData: [],
+      tablePageNum: 1,
       tablePageSize: 10,
       tablePageSizes: [10, 50, 100, 200]
     }
@@ -155,9 +156,8 @@ export default {
     this.$axios.get('soft/list').then((rsp) => {
       this.softList.push({
         label: "全部",
-        value: "0",
+        value: "",
       });
-      this.defaultSoftList = "0";
       for (let i = 0;i < rsp.data.length;i++) {
         this.softList.push({
           label: rsp.data[i].name,
@@ -168,14 +168,6 @@ export default {
     this.getTableData();
   },
   methods: {
-    softListChange(value) {
-      if (value == "0") {
-        this.getTableData();
-      } else {
-        this.$message.success('执行刷新数据成功...')
-        this.getTableData({softId: value});
-      }
-    },
     createCardRow(row) {
       this.$router.push({
         name: 'CardForm',
@@ -190,10 +182,10 @@ export default {
         params: params
       })
     },
-    getTableData(data, pageNum) {
-      data = data || {}
-      pageNum = pageNum || 1
-      data.current = pageNum
+    getTableData() {
+
+      let data = this.seachForm
+      data.current = this.tablePageNum
       data.size = this.tablePageSize
 
       this.$axios.get('cardType/page', {
@@ -226,18 +218,19 @@ export default {
         this.tableData = rsp.data.records
       })
     },
-    handleCurrentChange(val) {
-      this.getTableData({
-        name: this.seachFormInline.name
-      }, val)
+    handleSizeChange(val) {
+      this.tablePageSize = val
+      this.getTableData()
     },
-    search() {
-      this.$message.success('执行刷新数据成功...')
-      if (this.defaultSoftList == "0") {
-        this.getTableData();
-      } else {
-        this.getTableData({softId: value});
+    handleCurrentChange(val) {
+      this.tablePageNum = val
+      this.getTableData()
+    },
+    search(isPrompt) {
+      if (isPrompt == true) {
+        this.$message.success('执行刷新数据成功...')
       }
+      this.getTableData()
     },
     updateRow(row) {
       this.openForm({ id: row.id })
@@ -246,7 +239,6 @@ export default {
       this.$axios.post('cardType/remove', this.$qs.stringify({
         cardTypeId: row.id
       })).then((rsp) => {
-        this.defaultSoftList = "0";
         this.getTableData();
         this.$message.success(rsp.msg)
       })

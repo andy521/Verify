@@ -52,6 +52,23 @@ public class CardController {
         return Response.error();
     }
 
+    @ApiOperation(value = "封停卡密-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "closure",method = RequestMethod.POST)
+    @ResponseBody
+    public Response closure(String cardId,Integer closure) {
+
+        Card card = new Card();
+        card.setId(cardId);
+        card.setClosure(closure);
+        boolean b = cardService.updateById(card);
+
+        if (b == true) {
+            return Response.success();
+        }
+        return Response.error();
+    }
+
     @ApiOperation(value = "删除卡密-需要验证api")
     @RspHandle
     @RequestMapping(value = "remove",method = RequestMethod.POST)

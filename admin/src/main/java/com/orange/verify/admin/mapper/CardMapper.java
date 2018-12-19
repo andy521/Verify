@@ -24,7 +24,7 @@ public interface CardMapper extends BaseMapper<Card> {
             "LEFT JOIN t_account a " +
             "ON c.account_id = a.id " +
             "where c.del_flag = 0 " +
-            "<if test=\"cardVo.softId != null\"> and ct.soft_id = #{cardVo.softId} </if>" +
+            "<if test=\"cardVo.softId != null and cardVo.softId != ''\"> and ct.soft_id = #{cardVo.softId} </if>" +
             "<if test=\"cardVo.cardTypeUnit != null\"> and ct.unit = #{cardVo.cardTypeUnit} </if>" +
             "<if test=\"cardVo.closure != null\"> and c.closure = #{cardVo.closure} </if>" +
             "<if test=\"cardVo.useStatus != null\"> and c.use_status = #{cardVo.useStatus} </if>" +

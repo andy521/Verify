@@ -24,27 +24,27 @@
             </el-button>
           </div>
           
-          <el-form :inline="true" :model="seachFormInline" class="demo-form-inline" @submit.native.prevent>
+          <el-form :inline="true" :model="seachForm" class="demo-form-inline" @submit.native.prevent>
             <el-form-item label="软件选择">
-              <el-select v-model="defaultSoftList" placeholder="请选择软件">
+              <el-select v-model="seachForm.softId" placeholder="请选择软件">
                 <el-option v-for="item in softList" :label="item.label" :key="item.value" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="卡类单位">
-              <el-select v-model="defaultCardTypeUnit" placeholder="请选择卡类单位">
+              <el-select v-model="seachForm.cardTypeUnit" placeholder="请选择卡类单位">
                 <el-option v-for="item in cardTypeUnitList" :label="item.label" :key="item.value" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="使用状态">
-              <el-select v-model="defaultUseStatus" placeholder="请选择使用状态">
+              <el-select v-model="seachForm.useStatus" placeholder="请选择使用状态">
                 <el-option v-for="item in useStatusList" :label="item.label" :key="item.value" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="封停状态">
-              <el-select v-model="defaultClosure" placeholder="请选择封停状态">
+              <el-select v-model="seachForm.closure" placeholder="请选择封停状态">
                 <el-option v-for="item in closureList" :label="item.label" :key="item.value" :value="item.value">
                 </el-option>
               </el-select>
@@ -82,7 +82,7 @@
               收起
             </el-button>
           </div>
-
+ 
           <!--表格展示区-->
           <el-table
             :data="tableData"
@@ -107,7 +107,16 @@
               prop="closure"
               label="是否封停使用"
               align="center"
-            />
+            >
+              <template slot-scope="scope">
+                <el-switch
+                  @change="closureChange($event,scope.row)"
+                  v-model="scope.row.closure"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949">
+                </el-switch>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="softName"
               label="软件名称"
@@ -154,6 +163,7 @@
             style="margin-top: 15px"
             background
             layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"/>
 
         </el-card>
@@ -174,31 +184,31 @@ export default {
       searchWorkspace: true,
       workingArea: true,
 
-      defaultSoftList: "0",
       softList: [],
-      defaultCardTypeUnit: 100,
       cardTypeUnitList: [],
-      defaultUseStatus: 100,
       useStatusList: [
-        {label: "全部",value: 100},
+        {label: "全部",value: null},
         {label: "未使用",value: 0},
         {label: "已使用",value: 1},
       ],
-      defaultClosure: 100,
       closureList: [
-        {label: "全部",value: 100},
+        {label: "全部",value: null},
         {label: "未封停",value: 0},
         {label: "已封停",value: 1},
       ],
 
       // 搜索表单
-      seachFormInline: {
-        name: ''
+      seachForm: {
+        softId: '',
+        cardTypeUnit: null,
+        useStatus: null,
+        closure: null,
       },
 
       // 表格
       tableTotal: 0,
       tableData: [],
+      tablePageNum: 1,
       tablePageSize: 10,
       tablePageSizes: [10, 50, 100, 200]
     }
@@ -208,7 +218,7 @@ export default {
     this.cardTypeUnitList.push(
         {
         label: "全部",
-        value: 100,
+        value: null,
         },
         {
         label: "分",
@@ -239,7 +249,7 @@ export default {
     this.$axios.get('soft/list').then((rsp) => {
       this.softList.push({
         label: "全部",
-        value: "0",
+        value: "",
       });
       for (let i = 0;i < rsp.data.length;i++) {
         this.softList.push({
@@ -251,18 +261,10 @@ export default {
     this.getTableData();
   },
   methods: {
-    softListChange(value) {
-      if (value == "0") {
-        this.getTableData();
-      } else {
-        this.$message.success('执行刷新数据成功...')
-        this.getTableData({softId: value});
-      }
-    },
-    getTableData(data, pageNum) {
-      data = data || {}
-      pageNum = pageNum || 1
-      data.current = pageNum
+    getTableData() {
+
+      let data = this.seachForm
+      data.current = this.tablePageNum
       data.size = this.tablePageSize
 
       this.$axios.get('card/page', {
@@ -292,36 +294,40 @@ export default {
               rsp.data.records[i].cardTypeUnit = "年";
               break;
           }
-          if (rsp.data.records[i].useStatus == 0) {
-            rsp.data.records[i].useStatus = "未使用";
-          }else {
-            rsp.data.records[i].useStatus = "已使用";
-          }
-          if (rsp.data.records[i].closure == 0) {
-            rsp.data.records[i].closure = "未封停";
-          }else {
-            rsp.data.records[i].closure = "已封停";
-          }
+
+          rsp.data.records[i].useStatus = (rsp.data.records[i].useStatus == 0) ? '未使用' : '已使用';
+          rsp.data.records[i].closure = (rsp.data.records[i].closure == 0) ? false : true;
         }
         this.tableData = rsp.data.records
       })
     },
-    handleCurrentChange(val) {
-      this.getTableData({
-        name: this.seachFormInline.name
-      }, val)
+    handleSizeChange(val) {
+      this.tablePageSize = val
+      this.getTableData()
     },
-    search() {
-      this.$message.success('执行刷新数据成功...')
-      if (this.defaultSoftList == "0") {
-        this.getTableData();
-      } else {
-        this.getTableData({softId: value});
+    handleCurrentChange(val) {
+      this.tablePageNum = val
+      this.getTableData()
+    },
+    search(isPrompt) {
+      if (isPrompt == true) {
+        this.$message.success('执行刷新数据成功...')
       }
+      this.getTableData()
+    },
+    closureChange(value,row) {
+      
+      this.$axios.post('card/closure', this.$qs.stringify({
+        cardId: row.id,
+        closure: value ? 1 : 0
+      })).then((rsp) => {
+        this.getTableData();
+        this.$message.success(rsp.msg)
+      })
     },
     removeRow(row) {
       this.$axios.post('card/remove', this.$qs.stringify({
-        cardTypeId: row.id
+        cardId: row.id
       })).then((rsp) => {
         this.getTableData();
         this.$message.success(rsp.msg)

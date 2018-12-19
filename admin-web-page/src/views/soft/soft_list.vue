@@ -24,9 +24,9 @@
             </el-button>
           </div>
 
-          <el-form :inline="true" :model="seachFormInline" class="demo-form-inline" @submit.native.prevent>
+          <el-form :inline="true" :model="seachForm" class="demo-form-inline" @submit.native.prevent>
             <el-form-item label="软件名称">
-              <el-input v-model="seachFormInline.name" placeholder="软件名称" @keyup.enter.native="search"/>
+              <el-input v-model="seachForm.name" placeholder="软件名称" @keyup.enter.native="search"/>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="search">查询</el-button>
@@ -138,6 +138,7 @@
             style="margin-top: 15px"
             background
             layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"/>
 
         </el-card>
@@ -159,13 +160,14 @@ export default {
       workingArea: true,
 
       // 搜索表单
-      seachFormInline: {
+      seachForm: {
         name: ''
       },
 
       // 表格
       tableTotal: 0,
       tableData: [],
+      tablePageNum: 1,
       tablePageSize: 10,
       tablePageSizes: [10, 50, 100, 200]
     }
@@ -182,10 +184,10 @@ export default {
         params: params
       })
     },
-    getTableData(data, pageNum) {
-      data = data || {}
-      pageNum = pageNum || 1
-      data.current = pageNum
+    getTableData() {
+      
+      let data = this.seachForm
+      data.current = this.tablePageNum
       data.size = this.tablePageSize
 
       this.$axios.get('soft/page', {
@@ -193,31 +195,32 @@ export default {
       }).then((rsp) => {
         this.tableTotal = rsp.data.total
         for (let i = 0; i < rsp.data.records.length; i++) {
-          rsp.data.records[i].createDate = time.timeStampDate({time:rsp.data.records[i].createDate});
-          rsp.data.records[i].updateDate = time.timeStampDate({time:rsp.data.records[i].updateDate});
+          rsp.data.records[i].createDate = time.timeStampDate({time:rsp.data.records[i].createDate})
+          rsp.data.records[i].updateDate = time.timeStampDate({time:rsp.data.records[i].updateDate})
           if (rsp.data.records[i].serviceStatus == 0) {
-            rsp.data.records[i].serviceStatus = '收费';
+            rsp.data.records[i].serviceStatus = '收费'
           } else if (rsp.data.records[i].serviceStatus == 1) {
-            rsp.data.records[i].serviceStatus = '免费';
+            rsp.data.records[i].serviceStatus = '免费'
           } else if (rsp.data.records[i].serviceStatus == 2) {
-            rsp.data.records[i].serviceStatus = '关闭';
+            rsp.data.records[i].serviceStatus = '关闭'
           }
         }
         this.tableData = rsp.data.records
       })
     },
+    handleSizeChange(val) {
+      this.tablePageSize = val
+      this.getTableData()
+    },
     handleCurrentChange(val) {
-      this.getTableData({
-        name: this.seachFormInline.name
-      }, val)
+      this.tablePageNum = val
+      this.getTableData()
     },
     search(isPrompt) {
       if (isPrompt == true) {
         this.$message.success('执行刷新数据成功...')
       }
-      this.getTableData({
-        name: this.seachFormInline.name
-      })
+      this.getTableData()
     },
     updateRow(row) {
       this.openForm({ id: row.id })
