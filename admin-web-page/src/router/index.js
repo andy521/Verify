@@ -113,6 +113,23 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/account',
+    component: Layout,
+    alwaysShow: true,
+    name: 'Account',
+    redirect: 'noredirect',
+    meta: { title: '用户管理', icon: 'example' },
+    children: [
+      {
+        path: 'account_list',
+        name: 'AccountList',
+        component: () => import('@/views/account/account_list'),
+        meta: { title: '用户列表', icon: 'table' }
+      },
+    ]
+  },
+
+  {
     path: '/config',
     component: Layout,
     alwaysShow: true,

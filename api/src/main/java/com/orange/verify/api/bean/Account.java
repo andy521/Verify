@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件用户表
  * t_account
  * @author Orange
- * @date 2018/12/17
+ * @date 2018/12/19
  */
 @TableName("t_account")
 @KeySequence("SEQ_TEST")
@@ -37,6 +37,12 @@ public class Account implements Serializable {
      * blacklist
      */
     private Integer blacklist;
+
+    /**
+     * 卡密绑定id
+     * card_id
+     */
+    private String cardId;
 
     /**
      * 用户电脑的机器码
@@ -138,6 +144,14 @@ public class Account implements Serializable {
 
     public void setBlacklist(Integer blacklist) {
         this.blacklist = blacklist;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId == null ? null : cardId.trim();
     }
 
     public String getCode() {
