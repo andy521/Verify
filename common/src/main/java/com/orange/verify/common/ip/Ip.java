@@ -18,7 +18,16 @@ public class Ip {
 
     public static final String API_BAIDU_ERROR = "API_BAIDU_ERROR";
 
-    public static final String Ak = "m1ykK4CPuUVgZW3KDZO3lrvGzW2ZzYn6";
+    private String ak = "m1ykK4CPuUVgZW3KDZO3lrvGzW2ZzYn6";
+
+    public static Ip start(String ak) {
+        return new Ip().init(ak);
+    }
+
+    private Ip init(String ak) {
+        this.ak = ak;
+        return this;
+    }
 
     /**
      * 根据 用户ip 获取 所在地
@@ -26,11 +35,11 @@ public class Ip {
      * @return
      * @throws Exception
      */
-    public static String getAddressByIp(String ip) throws Exception {
+    public String getAddressByIp(String ip) throws Exception {
 
         String url = "https://api.map.baidu.com/location/ip";
 
-        String data = "?ip=" + ip + "&ak=" + Ak + "&coor=bd09ll";
+        String data = "?ip=" + ip + "&ak=" + ak + "&coor=bd09ll";
 
         HttpResponse execute = HttpRequest.get(url + data).execute();
 

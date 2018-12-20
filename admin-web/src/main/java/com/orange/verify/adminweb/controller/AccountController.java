@@ -2,15 +2,20 @@ package com.orange.verify.adminweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.orange.verify.adminweb.annotation.ParameterError;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.Account;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.vo.AccountVo;
+import com.orange.verify.api.vo.open.AccountLoginVo;
+import com.orange.verify.api.vo.open.AccountRegisterVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Api(description = "用户接口")
 @Controller
 @RequestMapping(value = "account")
-public class AccountController {
+public class AccountController extends BaseController {
 
     @Reference
     private AccountService accountService;
@@ -69,6 +74,37 @@ public class AccountController {
         if (b == true) {
             return Response.success();
         }
+        return Response.error();
+    }
+
+    @ApiOperation(value = "获取rsa钥匙-开放接口")
+    @RspHandle
+    @RequestMapping(value = "publicKey",method = RequestMethod.POST)
+    @ResponseBody
+    public Response publicKey() {
+
+        return Response.error();
+    }
+
+    @ApiOperation(value = "用户注册-开放接口")
+    @RspHandle
+    @RequestMapping(value = "register",method = RequestMethod.POST)
+    @ResponseBody
+    public Response remove(@Validated AccountRegisterVo accountRegisterVo, BindingResult result) throws ParameterError {
+
+        parametric(result);
+
+        return Response.error();
+    }
+
+    @ApiOperation(value = "用户登陆-开放接口")
+    @RspHandle
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    @ResponseBody
+    public Response remove(@Validated AccountLoginVo accountLoginVo, BindingResult result) throws ParameterError {
+
+        parametric(result);
+
         return Response.error();
     }
 

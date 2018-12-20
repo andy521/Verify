@@ -8,10 +8,10 @@ public enum ResponseCode {
 
     UNKNOWN_ERROR(901,"不好意思，发生了未知错误"),
 
-    NOT_ROLE(13,"无角色"),
-
+    PARAMETER_ERROR(902,"参数错误"),
     PRODUCTION_TOO_MUCH(15,"生产过多充值卡密"),
 
+    NOT_ROLE(13,"无角色"),
     NOT_LOGIN(12,"未登录");
 
     private int code;

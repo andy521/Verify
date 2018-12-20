@@ -39,7 +39,9 @@ public class RspHandleAspect {
         Response response = null;
         try {
             response = (Response) pjp.proceed();
-        }catch (Exception e) {
+        } catch (ParameterError e) {
+            return Response.build(ResponseCode.PARAMETER_ERROR,e.getMessage());
+        } catch (Exception e) {
             log.error(e.getMessage());
             if (setErrorInfo == true) {
                 return Response.build(ResponseCode.UNKNOWN_ERROR,e.getMessage());
