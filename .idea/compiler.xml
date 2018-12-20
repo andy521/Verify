@@ -6,7 +6,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="admin" />
         <module name="admin-web" />
         <module name="api" />
         <module name="builder" />
@@ -14,6 +13,27 @@
         <module name="dal" />
         <module name="discovery" />
         <module name="verifymaster" />
+      </profile>
+      <profile name="Annotation profile for verify-master" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.2.0.Final/mapstruct-processor-1.2.0.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/jolira/hickory/1.0.0/hickory-1.0.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.2.0.Final/mapstruct-1.2.0.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/assertj/assertj-core/3.7.0/assertj-core-3.7.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/google/guava/guava/19.0/guava-19.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/puppycrawl/tools/checkstyle/7.2/checkstyle-7.2.jar" />
+          <entry name="$MAVEN_REPOSITORY$/javax/inject/javax.inject/1/javax.inject-1.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-container-default/1.6/plexus-container-default-1.6.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/spring-test/4.0.3.RELEASE/spring-test-4.0.3.RELEASE.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.0.3.RELEASE/spring-beans-4.0.3.RELEASE.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/spring-context/4.0.3.RELEASE/spring-context-4.0.3.RELEASE.jar" />
+          <entry name="$MAVEN_REPOSITORY$/joda-time/joda-time/2.9/joda-time-2.9.jar" />
+        </processorPath>
+        <module name="admin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -9,7 +9,19 @@ public enum ResponseCode {
     UNKNOWN_ERROR(901,"不好意思，发生了未知错误"),
 
     PARAMETER_ERROR(902,"参数错误"),
+
     PRODUCTION_TOO_MUCH(15,"生产过多充值卡密"),
+
+    REGISTER_SUCCESS(15,"注册成功"),
+    REGISTER_ERROR(15,"注册失败"),
+
+    TOO_FAST(15,"访问过快"),
+
+    KEY_EMPTY(15,"钥匙为空"),
+
+    SOFT_EMPTY(15,"软件不存在"),
+
+    BAIDU_API_ERROR(15,"IP错误"),
 
     NOT_ROLE(13,"无角色"),
     NOT_LOGIN(12,"未登录");

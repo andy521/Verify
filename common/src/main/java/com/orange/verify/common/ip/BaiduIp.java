@@ -12,7 +12,7 @@ import lombok.extern.java.Log;
  * @date 2018/12/4
  */
 @Log
-public class Ip {
+public class BaiduIp {
 
     public static final String API_REQUEST_ERROR = "API_REQUEST_ERROR";
 
@@ -20,11 +20,11 @@ public class Ip {
 
     private String ak = "m1ykK4CPuUVgZW3KDZO3lrvGzW2ZzYn6";
 
-    public static Ip start(String ak) {
-        return new Ip().init(ak);
+    public static BaiduIp start(String ak) {
+        return new BaiduIp().init(ak);
     }
 
-    private Ip init(String ak) {
+    private BaiduIp init(String ak) {
         this.ak = ak;
         return this;
     }

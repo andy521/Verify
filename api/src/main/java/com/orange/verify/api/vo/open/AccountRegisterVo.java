@@ -18,7 +18,6 @@ public class AccountRegisterVo implements Serializable {
     private String qq;
 
     @NotBlank(message = "密码不能为空")
-    @Size(min = 1,max = 10,message = "密码长度是10位哟")
     private String password;
 
     @NotBlank(message = "软件id不能为空")

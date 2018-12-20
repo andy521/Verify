@@ -1,5 +1,10 @@
 package com.orange.verify.admin;
 
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.HexUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.orange.verify.admin.impl.RedisImpl;
 import com.orange.verify.api.bean.Account;
 import lombok.extern.java.Log;
@@ -15,22 +20,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Log
 public class AdminApplicationTests {
 
+//    @Autowired
+//    private RedisImpl redis;
+
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
+
     @Autowired
     private RedisImpl redis;
 
     @Test
     public void contextLoads() {
 
-        Account account = new Account();
+        Object byKey1 = redis.getByKey("4444");
 
-        account.setId("32424243");
+        Object byKey = redisTemplate.opsForValue().get("4444");
 
-        redis.save10Minutes("44",account);
-
-        Account o = (Account)redis.getByKey("44");
-
-        System.out.println(o);
-
+        System.out.println(byKey);
 
     }
 
