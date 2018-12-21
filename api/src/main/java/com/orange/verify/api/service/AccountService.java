@@ -13,7 +13,7 @@ public interface AccountService extends IService<Account> {
 
     Page<AccountVo> page(AccountVo accountVo, Page page);
 
-    ServiceResult<String> getPublicKey(String ip);
+    ServiceResult<String> getPublicKey();
 
     ServiceResult<Integer> register(AccountRegisterVo accountRegisterVo);
 

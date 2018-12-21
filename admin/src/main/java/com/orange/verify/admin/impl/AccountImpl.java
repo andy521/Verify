@@ -32,8 +32,8 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     @Autowired
     private Transition transition;
 
-    private final String PREFIX_GETPUBLICKEY_IP = "admin.impl.AccountImpl.getPublicKey.ip.";
-    private final String PREFIX_REGISTER_IP = "admin.impl.AccountImpl.register.ip.";
+    private final String PREFIX_GETPUBLICKEY_IP = "impl.AccountImpl.getPublicKey.ip.";
+    private final String PREFIX_REGISTER_IP = "impl.AccountImpl.register.ip.";
 
     @Override
     public Page<AccountVo> page(AccountVo accountVo, Page page) {
@@ -42,18 +42,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     }
 
     @Override
-    public ServiceResult<String> getPublicKey(String ip) {
+    public ServiceResult<String> getPublicKey() {
 
         ServiceResult<String> result = new ServiceResult<>();
-
-        ip = ip.replaceAll(":",".");
-
-        //验证短时间内不能做某事
-        boolean shortVerificationTime = redis.shortVerificationTime(PREFIX_GETPUBLICKEY_IP + ip, 3000);
-        if (shortVerificationTime == false) {
-            result.setCode(2);
-            return result;
-        }
 
         //rsa
         String publicKeyToBase64 = null;
@@ -68,8 +59,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         }
 
         redis.save10Minutes(publicKeyToBase64,privateKeyToBase64);
-
-        redis.saveToShortVerificationTime(PREFIX_GETPUBLICKEY_IP + ip);
 
         result.setCode(1);
         result.setData(publicKeyToBase64);
@@ -86,14 +75,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
             result.setCode(2);
-            return result;
-        }
-
-        //验证短时间内不能再注册
-        boolean shortVerificationTime = redis.shortVerificationTime(PREFIX_REGISTER_IP + accountRegisterVo.getIp(),
-                3000);
-        if (shortVerificationTime == false) {
-            result.setCode(8);
             return result;
         }
 
@@ -155,8 +136,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         result.setCode(1);
         result.setData(insert);
-
-        redis.saveToShortVerificationTime(PREFIX_REGISTER_IP + accountRegisterVo.getIp());
 
         return result;
     }

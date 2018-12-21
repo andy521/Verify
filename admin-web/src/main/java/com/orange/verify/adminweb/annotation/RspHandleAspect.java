@@ -8,9 +8,15 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
 /**
  * rsp简化aop
@@ -21,6 +27,9 @@ import java.lang.reflect.Method;
 @Component
 @Slf4j
 public class RspHandleAspect {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Pointcut("@annotation(com.orange.verify.adminweb.annotation.RspHandle)")
     public void annotationPointCut() {
@@ -33,6 +42,25 @@ public class RspHandleAspect {
         RspHandle rspHandle = getRspHandle(pjp);
 
         boolean setErrorInfo = rspHandle.isSetErrorInfo();
+        boolean ipHandle = rspHandle.ipHandle();
+        long ipHandleInterval = rspHandle.ipHandleInterval();
+        long ipRedisInterval = rspHandle.ipRedisInterval();
+
+        if (ipHandle == true) {
+            RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+            HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
+            String prefix =
+                    pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName() + ".";
+            String remoteAddr = request.getRemoteAddr();
+            Long createDate = (Long) redisTemplate.opsForValue().get(prefix + remoteAddr);
+            if (createDate != null) {
+                long totalTime = (System.currentTimeMillis() - createDate);
+                if (totalTime < ipHandleInterval) {
+                    return Response.build(ResponseCode.TOO_FAST);
+                }
+            }
+            redisTemplate.opsForValue().set(prefix + remoteAddr,System.currentTimeMillis(),ipRedisInterval, TimeUnit.MINUTES);
+        }
 
         long startTime = System.currentTimeMillis();
 

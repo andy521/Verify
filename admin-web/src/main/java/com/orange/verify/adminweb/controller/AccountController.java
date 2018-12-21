@@ -82,19 +82,15 @@ public class AccountController extends BaseController {
     }
 
     @ApiOperation(value = "获取rsa钥匙-开放接口")
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "getPublicKey",method = RequestMethod.POST)
     @ResponseBody
-    public Response getPublicKey(HttpServletRequest request) {
+    public Response getPublicKey() {
 
-        String ip = IpUtil.getIp(request);
-
-        ServiceResult<String> result = accountService.getPublicKey(ip);
+        ServiceResult<String> result = accountService.getPublicKey();
         switch (result.getCode()) {
             case 1:
                 return Response.build(ResponseCode.QUERY_SUCCESS,ResponseCode.QUERY_SUCCESS.getDesc(),result.getData());
-            case 2:
-                return Response.build(ResponseCode.TOO_FAST);
             case 3:
                 return Response.build(ResponseCode.KEY_ERROR);
             default:
@@ -104,7 +100,7 @@ public class AccountController extends BaseController {
     }
 
     @ApiOperation(value = "用户注册-开放接口")
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
     public Response register(@Validated AccountRegisterVo accountRegisterVo, BindingResult result,
@@ -116,9 +112,7 @@ public class AccountController extends BaseController {
         accountRegisterVo.setPassword(accountRegisterVo.getPassword().replaceAll(" ","+"));
         accountRegisterVo.setCode(accountRegisterVo.getCode().replaceAll(" ","+"));
 
-        String ip = IpUtil.getIp(request);
-
-        accountRegisterVo.setIp(ip);
+        accountRegisterVo.setIp(IpUtil.getIp(request));
 
         ServiceResult<Integer> register = accountService.register(accountRegisterVo);
         switch (register.getCode()) {
@@ -146,7 +140,7 @@ public class AccountController extends BaseController {
     }
 
     @ApiOperation(value = "用户登陆-开放接口")
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
     public Response login(@Validated AccountLoginVo accountLoginVo, BindingResult result) throws ParameterError {

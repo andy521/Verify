@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisImpl {
 
-    private final String PREFIX = "com.orange.verify.";
+    private final String PREFIX = "com.orange.verify.admin.";
 
     @Autowired
     private RedisTemplate<String,Object> template;
