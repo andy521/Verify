@@ -133,6 +133,10 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.ACCOUNT_ALREADY_EXIST);
             case 7:
                 return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
+            case 8:
+                return Response.build(ResponseCode.SOFT_CLOSE,register.getMsg());
+            case 9:
+                return Response.build(ResponseCode.REGISTER_CLOSE,register.getMsg());
             default:
                 return Response.build(ResponseCode.ERROR);
         }
@@ -140,14 +144,37 @@ public class AccountController extends BaseController {
     }
 
     @ApiOperation(value = "用户登陆-开放接口")
-    @RspHandle(ipHandle = true)
+    @RspHandle
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
-    public Response login(@Validated AccountLoginVo accountLoginVo, BindingResult result) throws ParameterError {
+    public Response login(@Validated AccountLoginVo accountLoginVo, BindingResult result,
+                          HttpServletRequest request) throws ParameterError {
 
         parametric(result);
 
-        return Response.error();
+        accountLoginVo.setPublicKey(accountLoginVo.getPublicKey().replaceAll(" ","+"));
+        accountLoginVo.setPassword(accountLoginVo.getPassword().replaceAll(" ","+"));
+        accountLoginVo.setCode(accountLoginVo.getCode().replaceAll(" ","+"));
+
+        accountLoginVo.setIp(IpUtil.getIp(request));
+
+        ServiceResult<Integer> login = accountService.login(accountLoginVo);
+        switch (login.getCode()) {
+            case 1:
+                return Response.build(ResponseCode.LOGIN_SUCCESS);
+            case 2:
+                return Response.build(ResponseCode.LOGIN_ERROR);
+            case 3:
+                return Response.build(ResponseCode.KEY_EMPTY);
+            case 4:
+                return Response.build(ResponseCode.SOFT_EMPTY);
+            case 5:
+                return Response.build(ResponseCode.KEY_ERROR);
+            case 6:
+                return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
+            default:
+                return Response.build(ResponseCode.ERROR);
+        }
     }
 
 }

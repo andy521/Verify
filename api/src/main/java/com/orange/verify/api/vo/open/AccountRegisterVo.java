@@ -31,13 +31,6 @@ public class AccountRegisterVo implements Serializable {
     @Size(min = 1,max = 10,message = "真实姓名长度是10位哟")
     private String name;
 
-    /**
-     * 用户电脑的机器码
-     * code
-     */
-    @NotBlank(message = "code不能为空")
-    private String code;
-
     private String ip;
 
     @NotBlank(message = "公钥不能为空")

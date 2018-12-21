@@ -42,14 +42,6 @@
               </el-input>
             </el-form-item>
 
-            <el-form-item label="Rsa加密公钥" prop="rsaPublicKey">
-              <el-input v-model="form.rsaPublicKey" class="common-width"></el-input>
-            </el-form-item>
-
-            <el-form-item label="Rsa加密私钥" prop="rsaPrivateKey">
-              <el-input v-model="form.rsaPrivateKey" class="common-width"></el-input>
-            </el-form-item>
-
             <el-form-item label="换绑策略" prop="changeStrategy">
               <el-radio-group v-model="form.changeStrategy" size="medium">
                 <el-radio border :label=0 >支持换绑定</el-radio>
@@ -215,8 +207,6 @@
         form: {
           name: '',
           notice: '',
-          rsaPublicKey: '',
-          rsaPrivateKey: '',
           changeStrategy: 0,
           dosingStrategy: 0,
           emailNotificatio: 0,
@@ -233,14 +223,6 @@
           notice: [
             {required: true, message: '请填写软件公告', trigger: 'blur'},
             {min: 1, max: 255, message: '长度在 1 到 255 个字符', trigger: 'blur'}
-          ],
-          rsaPublicKey: [
-            {required: true, message: '请填写软件默认绑定rsa加密算法公钥', trigger: 'blur'},
-            {min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur'}
-          ],
-          rsaPrivateKey: [
-            {required: true, message: '请填写软件默认绑定rsa加密算法私钥', trigger: 'blur'},
-            {min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur'}
           ],
           changeStrategy: [
             {required: true, message: '请勾选换绑策略', trigger: 'blur'},

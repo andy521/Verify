@@ -14,6 +14,12 @@ public enum ResponseCode {
 
     REGISTER_SUCCESS(15,"注册成功"),
     REGISTER_ERROR(15,"注册失败"),
+    LOGIN_SUCCESS(15,"登陆成功"),
+    LOGIN_ERROR(15,"登陆失败"),
+
+    SOFT_CLOSE(15,"软件关闭开放使用"),
+
+    REGISTER_CLOSE(15,"注册关闭"),
 
     TOO_FAST(15,"访问过快"),
 

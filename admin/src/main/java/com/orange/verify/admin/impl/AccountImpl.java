@@ -13,6 +13,7 @@ import com.orange.verify.api.bean.Soft;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.vo.AccountVo;
+import com.orange.verify.api.vo.open.AccountLoginVo;
 import com.orange.verify.api.vo.open.AccountRegisterVo;
 import com.orange.verify.common.ip.BaiduIp;
 import com.orange.verify.common.rsa.RsaUtil;
@@ -85,23 +86,28 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         }
 
         Soft soft = softMapper.selectById(accountRegisterVo.getSoftId());
-        //软件不存在直接返回
         if (soft == null) {
             result.setCode(3);
+            return result;
+        } else if (soft.getServiceStatus() == 2) {
+            result.setCode(8);
+            result.setMsg(soft.getServiceCloseMsg());
+            return result;
+        } else if (soft.getRegisterStatus() == 1) {
+            result.setCode(9);
+            result.setMsg(soft.getRegisteCloseMsg());
             return result;
         }
 
         //进行解密 >>> password 和 code >>> 解密成真实文本
         String password = null;
-        String code = null;
         try {
             password = RsaUtil.decodeRsa(accountRegisterVo.getPassword(), privateKey);
-            code = RsaUtil.decodeRsa(accountRegisterVo.getCode(), privateKey);
         } catch (Exception e) {
             result.setCode(5);
             return result;
         }
-        if (StrUtil.hasEmpty(password,code)) {
+        if (StrUtil.hasEmpty(password)) {
             result.setCode(5);
             return result;
         } else if (password.length() > 10) {
@@ -124,7 +130,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         //进行转型然后插入数据库
         accountRegisterVo.setPassword(password);
-        accountRegisterVo.setCode(code);
 
         Account account = transition.fromVo(accountRegisterVo);
         account.setCreateIpInfo(addressByIp);
@@ -134,6 +139,63 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         result.setCode(1);
         result.setData(insert);
 
+        return result;
+    }
+
+    @Override
+    public ServiceResult<Integer> login(AccountLoginVo accountLoginVo) {
+
+        ServiceResult<Integer> result = new ServiceResult<>();
+
+        String privateKey = (String)redis.getByKey(accountLoginVo.getPublicKey());
+        //钥匙不存在直接返回
+        if (StrUtil.hasEmpty(privateKey)) {
+            result.setCode(3);
+            return result;
+        }
+
+        Soft soft = softMapper.selectById(accountLoginVo.getSoftId());
+        //软件不存在直接返回
+        if (soft == null) {
+            result.setCode(4);
+            return result;
+        } else if (soft.getServiceStatus() == 2) {
+            result.setCode(8);
+            result.setMsg(soft.getServiceCloseMsg());
+            return result;
+        }
+
+        //进行解密 >>> password 和 code >>> 解密成真实文本
+        String password = null;
+        String code = null;
+        try {
+            password = RsaUtil.decodeRsa(accountLoginVo.getPassword(), privateKey);
+            code = RsaUtil.decodeRsa(accountLoginVo.getCode(), privateKey);
+        } catch (Exception e) {
+            result.setCode(5);
+            return result;
+        }
+        if (StrUtil.hasEmpty(password,code)) {
+            result.setCode(5);
+            return result;
+        } else if (password.length() > 10) {
+            result.setCode(6);
+            return result;
+        }
+
+        QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
+                accountLoginVo.getUsername()).eq("password",password);
+
+        //只支持单机 或者 是收费 进行机器码控制打开软件
+        if (soft.getDosingStrategy() == 0 || soft.getServiceStatus() == 0) {
+            queryWrapper.eq("code",code);
+        }
+        Integer account = super.baseMapper.selectCount(queryWrapper);
+        if (account > 0) {
+            result.setCode(1);
+            return result;
+        }
+        result.setCode(2);
         return result;
     }
 

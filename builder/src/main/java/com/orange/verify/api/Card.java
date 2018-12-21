@@ -31,4 +31,7 @@ public class Card extends BaseEntity {
     @Column(columnDefinition = "int comment '开始使用时间'")
     private Long startDate;
 
+    @Column(columnDefinition = "int comment '结束时间'")
+    private Long endDate;
+
 }

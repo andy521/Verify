@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.orange.verify.api.bean.Account;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.vo.AccountVo;
+import com.orange.verify.api.vo.open.AccountLoginVo;
 import com.orange.verify.api.vo.open.AccountRegisterVo;
 
 import java.util.HashMap;
@@ -16,5 +17,7 @@ public interface AccountService extends IService<Account> {
     ServiceResult<String> getPublicKey();
 
     ServiceResult<Integer> register(AccountRegisterVo accountRegisterVo);
+
+    ServiceResult<Integer> login(AccountLoginVo accountLoginVo);
 
 }
