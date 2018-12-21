@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件
  * t_soft
  * @author Orange
- * @date 2018/12/19
+ * @date 2018/12/21
  */
 @TableName("t_soft")
 @KeySequence("SEQ_TEST")
@@ -79,18 +79,6 @@ public class Soft implements Serializable {
      * register_status
      */
     private Integer registerStatus;
-
-    /**
-     * 软件默认绑定rsa加密算法 私钥key设置
-     * rsa_private_key
-     */
-    private String rsaPrivateKey;
-
-    /**
-     * 软件默认绑定rsa加密算法 公钥key设置
-     * rsa_public_key
-     */
-    private String rsaPublicKey;
 
     /**
      * 关闭状态下的返回信息
@@ -206,22 +194,6 @@ public class Soft implements Serializable {
 
     public void setRegisterStatus(Integer registerStatus) {
         this.registerStatus = registerStatus;
-    }
-
-    public String getRsaPrivateKey() {
-        return rsaPrivateKey;
-    }
-
-    public void setRsaPrivateKey(String rsaPrivateKey) {
-        this.rsaPrivateKey = rsaPrivateKey == null ? null : rsaPrivateKey.trim();
-    }
-
-    public String getRsaPublicKey() {
-        return rsaPublicKey;
-    }
-
-    public void setRsaPublicKey(String rsaPublicKey) {
-        this.rsaPublicKey = rsaPublicKey == null ? null : rsaPublicKey.trim();
     }
 
     public String getServiceCloseMsg() {

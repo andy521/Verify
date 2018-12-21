@@ -13,10 +13,10 @@ import javax.persistence.Entity;
 @Table(appliesTo = "t_soft_versions",comment = "软件版本控制")
 public class SoftVersions extends BaseEntity {
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '软件绑定id'")
+    @Column(columnDefinition = "varchar(100) comment '软件绑定id'")
     private String softId;
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '版本号'")
+    @Column(columnDefinition = "varchar(100) comment '版本号'")
     private String number;
 
     @Column(columnDefinition = "int(2) default 0 comment '是否强制更新 0.不强制 1.强制'")

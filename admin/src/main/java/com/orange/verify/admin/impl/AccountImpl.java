@@ -32,9 +32,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     @Autowired
     private Transition transition;
 
-    private final String PREFIX_GETPUBLICKEY_IP = "impl.AccountImpl.getPublicKey.ip.";
-    private final String PREFIX_REGISTER_IP = "impl.AccountImpl.register.ip.";
-
     @Override
     public Page<AccountVo> page(AccountVo accountVo, Page page) {
 

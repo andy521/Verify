@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @Table(appliesTo = "t_soft",comment = "软件")
 public class Soft extends BaseEntity {
 
-    @Column(nullable = false,columnDefinition = "varchar(20) comment '软件名称'")
+    @Column(columnDefinition = "varchar(20) comment '软件名称'")
     private String name;
 
     @Column(columnDefinition = "int(2) default 0 comment '服务状态 0.收费 1.免费开放 2.关闭开放使用'")
@@ -22,7 +22,7 @@ public class Soft extends BaseEntity {
     @Column(columnDefinition = "varchar(255) default '' comment '关闭状态下的返回信息'")
     private String serviceCloseMsg;
 
-    @Column(nullable = false,columnDefinition = "varchar(255) comment '公告'")
+    @Column(columnDefinition = "varchar(255) comment '公告'")
     private String notice;
 
     @Column(columnDefinition = "int(2) default 0 comment '注册状态 0.开放注册 1.关闭注册'")
@@ -36,12 +36,6 @@ public class Soft extends BaseEntity {
 
     @Column(columnDefinition = "int(2) default 0 comment '换绑策略 0.支持换绑定 1.不支持换绑定'")
     private Integer changeStrategy;
-
-    @Column(nullable = false,columnDefinition = "varchar(20) comment '软件默认绑定rsa加密算法 公钥key设置'")
-    private String rsaPublicKey;
-
-    @Column(nullable = false,columnDefinition = "varchar(20) comment '软件默认绑定rsa加密算法 私钥key设置'")
-    private String rsaPrivateKey;
 
     @Column(columnDefinition = "int(2) default 0 comment '软件被留言 是否邮件通知 0.通知 1.不通知'")
     private Integer emailNotificatio;

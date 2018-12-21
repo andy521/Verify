@@ -15,34 +15,34 @@ import javax.persistence.Entity;
 @Table(appliesTo = "t_account",comment = "软件用户表")
 public class Account extends BaseEntity {
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '软件绑定id'")
+    @Column(columnDefinition = "varchar(100) comment '软件绑定id'")
     private String softId;
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '卡密绑定id'")
+    @Column(columnDefinition = "varchar(100) comment '卡密绑定id'")
     private String cardId;
 
-    @Column(nullable = false,columnDefinition = "varchar(10) comment '用户名'")
+    @Column(columnDefinition = "varchar(30) comment '用户名'")
     private String username;
 
-    @Column(nullable = false,columnDefinition = "varchar(10) comment '用户密码'")
+    @Column(columnDefinition = "varchar(30) comment '用户密码'")
     private String password;
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '用户电脑的机器码'")
+    @Column(columnDefinition = "varchar(100) comment '用户电脑的机器码'")
     private String code;
 
-    @Column(columnDefinition = "varchar(20) comment '用户的联系QQ'")
+    @Column(columnDefinition = "varchar(15) comment '用户的联系QQ'")
     private String qq;
 
-    @Column(columnDefinition = "varchar(20) comment '用户的联系手机号'")
+    @Column(columnDefinition = "varchar(13) comment '用户的联系手机号'")
     private String phoneNumber;
 
     @Column(columnDefinition = "varchar(10) comment '用户的真实姓名'")
     private String name;
 
-    @Column(nullable = false,columnDefinition = "varchar(20) comment '用户注册的时候ip地址'")
+    @Column(columnDefinition = "varchar(100) comment '用户注册的时候ip地址'")
     private String createIp;
 
-    @Column(nullable = false,columnDefinition = "varchar(255) comment '创建时候的ip信息'")
+    @Column(columnDefinition = "varchar(255) comment '创建时候的ip信息'")
     private String createIpInfo;
 
     @Column(columnDefinition = "int(2) default 0 comment '是否加入了黑名单 0.不是 1.是的'")

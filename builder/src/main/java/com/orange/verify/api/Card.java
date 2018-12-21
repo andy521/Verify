@@ -16,10 +16,10 @@ public class Card extends BaseEntity {
     @Column(columnDefinition = "varchar(100) comment '用户绑定id'")
     private String accountId;
 
-    @Column(nullable = false,columnDefinition = "varchar(100) comment '卡类绑定id'")
+    @Column(columnDefinition = "varchar(100) comment '卡类绑定id'")
     private String cardTypeId;
 
-    @Column(nullable = false,columnDefinition = "varchar(255) comment '充值卡号'")
+    @Column(columnDefinition = "varchar(255) comment '充值卡号'")
     private String cardNumber;
 
     @Column(columnDefinition = "int(2) default 0 comment '使用状态 0.未使用 1.已使用'")

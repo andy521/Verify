@@ -14,10 +14,10 @@ import javax.persistence.Entity;
 @Table(appliesTo = "t_email_account",comment = "邮箱账户")
 public class EmailAccount extends BaseEntity {
 
-    @Column(nullable = false,columnDefinition = "varchar(255) comment '用户名'")
+    @Column(columnDefinition = "varchar(255) comment '用户名'")
     private String username;
 
-    @Column(nullable = false,columnDefinition = "varchar(255) comment '用户密码'")
+    @Column(columnDefinition = "varchar(255) comment '用户密码'")
     private String password;
 
     @Column(columnDefinition = "int(2) default 0 comment '是否使用 0.使用 1.不使用'")
