@@ -1,11 +1,8 @@
 package com.orange.verify.admin.impl;
 
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.asymmetric.KeyType;
-import cn.hutool.crypto.asymmetric.RSA;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.orange.verify.admin.mapper.AccountMapper;
@@ -20,9 +17,7 @@ import com.orange.verify.api.vo.open.AccountRegisterVo;
 import com.orange.verify.common.ip.BaiduIp;
 import com.orange.verify.common.rsa.RsaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -37,6 +32,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     @Autowired
     private Transition transition;
 
+    private final String PREFIX_GETPUBLICKEY_IP = "admin.impl.AccountImpl.getPublicKey.ip.";
+    private final String PREFIX_REGISTER_IP = "admin.impl.AccountImpl.register.ip.";
+
     @Override
     public Page<AccountVo> page(AccountVo accountVo, Page page) {
 
@@ -50,16 +48,11 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         ip = ip.replaceAll(":",".");
 
-        //验证短时间内不能再次发送
-        Map<String,Object> v = (HashMap<String, Object>) redis.getByKey(ip);
-        if (v != null) {
-            Long createDate = (Long) v.get("createDate");
-            long totalTime = (System.currentTimeMillis() - createDate);
-            //小于10000毫秒秒，不批发key出去
-            if (totalTime < 10000) {
-                result.setCode(2);
-                return result;
-            }
+        //验证短时间内不能做某事
+        boolean shortVerificationTime = redis.shortVerificationTime(PREFIX_GETPUBLICKEY_IP + ip, 3000);
+        if (shortVerificationTime == false) {
+            result.setCode(2);
+            return result;
         }
 
         //rsa
@@ -70,16 +63,13 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             publicKeyToBase64 = RsaUtil.getPublicKeyToBase64(initKey);
             privateKeyToBase64 = RsaUtil.getPrivateKeyToBase64(initKey);
         } catch (Exception e) {
-            e.printStackTrace();
+            result.setCode(3);
+            return result;
         }
 
         redis.save10Minutes(publicKeyToBase64,privateKeyToBase64);
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("ip",ip);
-        map.put("createDate",System.currentTimeMillis());
-
-        redis.save10Minutes(ip, map);
+        redis.saveToShortVerificationTime(PREFIX_GETPUBLICKEY_IP + ip);
 
         result.setCode(1);
         result.setData(publicKeyToBase64);
@@ -99,6 +89,23 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
+        //验证短时间内不能再注册
+        boolean shortVerificationTime = redis.shortVerificationTime(PREFIX_REGISTER_IP + accountRegisterVo.getIp(),
+                3000);
+        if (shortVerificationTime == false) {
+            result.setCode(8);
+            return result;
+        }
+
+        QueryWrapper<Account> username = new QueryWrapper<Account>().eq("username",
+                accountRegisterVo.getUsername());
+        Integer selectCount = super.baseMapper.selectCount(username);
+        //用户名是否存在
+        if (selectCount > 0) {
+            result.setCode(6);
+            return result;
+        }
+
         Soft soft = softMapper.selectById(accountRegisterVo.getSoftId());
         //软件不存在直接返回
         if (soft == null) {
@@ -113,7 +120,15 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             password = RsaUtil.decodeRsa(accountRegisterVo.getPassword(), privateKey);
             code = RsaUtil.decodeRsa(accountRegisterVo.getCode(), privateKey);
         } catch (Exception e) {
-            e.printStackTrace();
+            result.setCode(5);
+            return result;
+        }
+        if (StrUtil.hasEmpty(password,code)) {
+            result.setCode(5);
+            return result;
+        } else if (password.length() > 10) {
+            result.setCode(7);
+            return result;
         }
 
         //查询ip信息
@@ -140,6 +155,8 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         result.setCode(1);
         result.setData(insert);
+
+        redis.saveToShortVerificationTime(PREFIX_REGISTER_IP + accountRegisterVo.getIp());
 
         return result;
     }

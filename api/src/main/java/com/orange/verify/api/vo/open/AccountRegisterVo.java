@@ -35,7 +35,7 @@ public class AccountRegisterVo implements Serializable {
      * 用户电脑的机器码
      * code
      */
-    @NotBlank(message = "机器码不能为空")
+    @NotBlank(message = "code不能为空")
     private String code;
 
     private String ip;

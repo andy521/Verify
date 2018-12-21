@@ -19,6 +19,12 @@ public enum ResponseCode {
 
     KEY_EMPTY(15,"钥匙为空"),
 
+    KEY_ERROR(15,"服务器钥匙错误"),
+
+    ACCOUNT_ALREADY_EXIST(15,"用户名已存在"),
+
+    PASSWORD_LENGTH_ERROR(15,"密码长度最多只能10位哟！"),
+
     SOFT_EMPTY(15,"软件不存在"),
 
     BAIDU_API_ERROR(15,"IP错误"),

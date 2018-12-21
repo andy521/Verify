@@ -95,6 +95,8 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.QUERY_SUCCESS,ResponseCode.QUERY_SUCCESS.getDesc(),result.getData());
             case 2:
                 return Response.build(ResponseCode.TOO_FAST);
+            case 3:
+                return Response.build(ResponseCode.KEY_ERROR);
             default:
                 return Response.build(ResponseCode.ERROR);
         }
@@ -131,6 +133,12 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.SOFT_EMPTY);
             case 4:
                 return Response.build(ResponseCode.BAIDU_API_ERROR);
+            case 5:
+                return Response.build(ResponseCode.KEY_ERROR);
+            case 6:
+                return Response.build(ResponseCode.ACCOUNT_ALREADY_EXIST);
+            case 7:
+                return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
             default:
                 return Response.build(ResponseCode.ERROR);
         }
