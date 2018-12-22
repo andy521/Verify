@@ -10,6 +10,8 @@ import com.orange.verify.api.bean.Account;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.vo.AccountVo;
+import com.orange.verify.api.vo.open.AccountBindingCardVo;
+import com.orange.verify.api.vo.open.AccountBindingCodeVo;
 import com.orange.verify.api.vo.open.AccountLoginVo;
 import com.orange.verify.api.vo.open.AccountRegisterVo;
 import com.orange.verify.common.ip.IpUtil;
@@ -110,7 +112,6 @@ public class AccountController extends BaseController {
 
         accountRegisterVo.setPublicKey(accountRegisterVo.getPublicKey().replaceAll(" ","+"));
         accountRegisterVo.setPassword(accountRegisterVo.getPassword().replaceAll(" ","+"));
-        accountRegisterVo.setCode(accountRegisterVo.getCode().replaceAll(" ","+"));
 
         accountRegisterVo.setIp(IpUtil.getIp(request));
 
@@ -161,7 +162,7 @@ public class AccountController extends BaseController {
         ServiceResult<Integer> login = accountService.login(accountLoginVo);
         switch (login.getCode()) {
             case 1:
-                return Response.build(ResponseCode.LOGIN_SUCCESS);
+                return Response.build(ResponseCode.LOGIN_SUCCESS,login.getData());
             case 2:
                 return Response.build(ResponseCode.LOGIN_ERROR);
             case 3:
@@ -172,9 +173,41 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.KEY_ERROR);
             case 6:
                 return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
+            case 8:
+                return Response.build(ResponseCode.SOFT_CLOSE,login.getMsg());
+            case 9:
+                return Response.build(ResponseCode.CARD_EMPTY);
+            case 10:
+                return Response.build(ResponseCode.CARD_CLOSURE);
+            case 11:
+                return Response.build(ResponseCode.CARD_PAST_DUE);
             default:
                 return Response.build(ResponseCode.ERROR);
         }
+    }
+
+    @ApiOperation(value = "用户绑定卡密-开放接口")
+    @RspHandle
+    @RequestMapping(value = "bindingCard",method = RequestMethod.POST)
+    @ResponseBody
+    public Response bindingCard(@Validated AccountBindingCardVo accountBindingCardVo, BindingResult result)
+            throws ParameterError {
+
+        parametric(result);
+
+        return Response.success();
+    }
+
+    @ApiOperation(value = "用户换绑定机器-开放接口")
+    @RspHandle
+    @RequestMapping(value = "bindingCode",method = RequestMethod.POST)
+    @ResponseBody
+    public Response bindingCode(@Validated AccountBindingCodeVo accountBindingCodeVo, BindingResult result)
+            throws ParameterError {
+
+        parametric(result);
+
+        return Response.success();
     }
 
 }

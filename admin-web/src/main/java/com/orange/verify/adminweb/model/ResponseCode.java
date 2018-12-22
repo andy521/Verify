@@ -25,6 +25,12 @@ public enum ResponseCode {
 
     KEY_EMPTY(15,"钥匙为空"),
 
+    CARD_EMPTY(15,"卡密不存在"),
+
+    CARD_CLOSURE(15,"卡密已被封停"),
+
+    CARD_PAST_DUE(15,"卡密已过期"),
+
     KEY_ERROR(15,"服务器钥匙错误"),
 
     ACCOUNT_ALREADY_EXIST(15,"用户名已存在"),

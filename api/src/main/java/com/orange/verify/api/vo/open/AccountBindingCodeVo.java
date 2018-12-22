@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data
-public class AccountLoginVo implements Serializable {
+public class AccountBindingCodeVo implements Serializable {
 
     @NotBlank(message = "用户名不能为空")
     @Size(min = 1,max = 10,message = "用户名长度是10位哟")
@@ -19,9 +19,6 @@ public class AccountLoginVo implements Serializable {
     @NotBlank(message = "软件id不能为空")
     private String softId;
 
-    @NotBlank(message = "公钥不能为空")
-    String publicKey;
-
     /**
      * 用户电脑的机器码
      * code
@@ -29,6 +26,7 @@ public class AccountLoginVo implements Serializable {
     @NotBlank(message = "code不能为空")
     private String code;
 
-    private String ip;
+    @NotBlank(message = "公钥不能为空")
+    String publicKey;
 
 }

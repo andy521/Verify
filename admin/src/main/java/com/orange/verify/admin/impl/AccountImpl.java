@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.orange.verify.admin.mapper.AccountMapper;
+import com.orange.verify.admin.mapper.CardMapper;
 import com.orange.verify.admin.mapper.SoftMapper;
 import com.orange.verify.admin.transition.Transition;
 import com.orange.verify.api.bean.Account;
+import com.orange.verify.api.bean.Card;
 import com.orange.verify.api.bean.Soft;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
@@ -29,6 +31,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
     @Autowired
     private SoftMapper softMapper;
+
+    @Autowired
+    private CardMapper cardMapper;
 
     @Autowired
     private Transition transition;
@@ -184,15 +189,37 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         }
 
         QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
-                accountLoginVo.getUsername()).eq("password",password);
+                accountLoginVo.getUsername()).eq("password",password).eq("soft_id",accountLoginVo.getSoftId());
 
         //只支持单机 或者 是收费 进行机器码控制打开软件
         if (soft.getDosingStrategy() == 0 || soft.getServiceStatus() == 0) {
-            queryWrapper.eq("code",code);
+            queryWrapper = queryWrapper.eq("code",code);
         }
-        Integer account = super.baseMapper.selectCount(queryWrapper);
-        if (account > 0) {
+        Account account = super.baseMapper.selectOne(queryWrapper);
+        if (account != null) {
+            Card card = null;
+            if (soft.getServiceStatus() == 0) {
+                String cardId = account.getCardId();
+                if (StrUtil.hasEmpty(cardId)) {
+                    result.setCode(9);
+                    return result;
+                }
+                card = cardMapper.selectById(cardId);
+                if (card == null) {
+                    result.setCode(9);
+                    return result;
+                } else if (card.getClosure() == 1) {
+                    result.setCode(10);
+                    return result;
+                }
+                long totalTime = card.getEndDate() - System.currentTimeMillis();
+                if (totalTime < 1) {
+                    result.setCode(11);
+                    return result;
+                }
+            }
             result.setCode(1);
+            result.setData(card.getEndDate());
             return result;
         }
         result.setCode(2);

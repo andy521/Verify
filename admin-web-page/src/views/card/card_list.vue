@@ -23,7 +23,7 @@
               收起
             </el-button>
           </div>
-          
+
           <el-form :inline="true" :model="seachForm" class="demo-form-inline" @submit.native.prevent>
             <el-form-item label="软件选择">
               <el-select v-model="seachForm.softId" placeholder="请选择软件">
@@ -82,7 +82,7 @@
               收起
             </el-button>
           </div>
- 
+
           <!--表格展示区-->
           <el-table
             :data="tableData"
@@ -140,6 +140,11 @@
             <el-table-column
               prop="startDate"
               label="开始使用时间"
+              align="center"
+            />
+            <el-table-column
+              prop="endDate"
+              label="结束使用时间"
               align="center"
             />
             <el-table-column
@@ -274,6 +279,7 @@ export default {
         for (let i = 0; i < rsp.data.records.length; i++) {
           rsp.data.records[i].createDate = time.timeStampDate({time:rsp.data.records[i].createDate});
           rsp.data.records[i].startDate = time.timeStampDate({time:rsp.data.records[i].startDate});
+          rsp.data.records[i].endDate = time.timeStampDate({time:rsp.data.records[i].endDate});
           switch (rsp.data.records[i].cardTypeUnit) {
             case 0:
               rsp.data.records[i].cardTypeUnit = "分";
@@ -316,7 +322,7 @@ export default {
       this.getTableData()
     },
     closureChange(value,row) {
-      
+
       this.$axios.post('card/closure', this.$qs.stringify({
         cardId: row.id,
         closure: value ? 1 : 0
