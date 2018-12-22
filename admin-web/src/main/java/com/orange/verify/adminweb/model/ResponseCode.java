@@ -19,13 +19,23 @@ public enum ResponseCode {
 
     SOFT_CLOSE(15,"软件关闭开放使用"),
 
+    SOFT_NO_CHANGE(15,"软件不支持换绑机器"),
+
+    BINDING_CARD_SUCCESS(15,"卡密绑定成功"),
+
+    BINDING_CODE_SUCCESS(15,"换绑定成功"),
+
     REGISTER_CLOSE(15,"注册关闭"),
 
     TOO_FAST(15,"访问过快"),
 
     KEY_EMPTY(15,"钥匙为空"),
 
+    ACCOUNT_EMPTY(15,"用户不存在"),
+
     CARD_EMPTY(15,"卡密不存在"),
+
+    CARD_USE(15,"卡密已被使用"),
 
     CARD_CLOSURE(15,"卡密已被封停"),
 

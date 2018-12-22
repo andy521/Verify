@@ -19,7 +19,7 @@ public class CardType extends BaseEntity {
     @Column(columnDefinition = "int(2) default 0 comment '卡类单位 0.分 1.时 2.天 3.周 4.月 5.年'")
     private Integer unit;
 
-    @Column(columnDefinition = "bigint comment '卡类值 比如对应的是分填1就是1分钟 以此类推'")
-    private Long value;
+    @Column(columnDefinition = "int comment '卡类值 比如对应的是分填1就是1分钟 以此类推'")
+    private Integer value;
 
 }

@@ -159,7 +159,7 @@ public class AccountController extends BaseController {
 
         accountLoginVo.setIp(IpUtil.getIp(request));
 
-        ServiceResult<Integer> login = accountService.login(accountLoginVo);
+        ServiceResult<Long> login = accountService.login(accountLoginVo);
         switch (login.getCode()) {
             case 1:
                 return Response.build(ResponseCode.LOGIN_SUCCESS,login.getData());
@@ -195,7 +195,31 @@ public class AccountController extends BaseController {
 
         parametric(result);
 
-        return Response.success();
+        ServiceResult<Integer> bindingCard = accountService.bindingCard(accountBindingCardVo);
+        switch (bindingCard.getCode()) {
+            case 1:
+                return Response.build(ResponseCode.BINDING_CARD_SUCCESS);
+            case 3:
+                return Response.build(ResponseCode.KEY_EMPTY);
+            case 4:
+                return Response.build(ResponseCode.SOFT_EMPTY);
+            case 5:
+                return Response.build(ResponseCode.KEY_ERROR);
+            case 6:
+                return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
+            case 8:
+                return Response.build(ResponseCode.SOFT_CLOSE,bindingCard.getMsg());
+            case 9:
+                return Response.build(ResponseCode.ACCOUNT_EMPTY);
+            case 10:
+                return Response.build(ResponseCode.CARD_EMPTY);
+            case 13:
+                return Response.build(ResponseCode.CARD_USE);
+            case 14:
+                return Response.build(ResponseCode.SOFT_CLOSE);
+            default:
+                return Response.build(ResponseCode.ERROR);
+        }
     }
 
     @ApiOperation(value = "用户换绑定机器-开放接口")
@@ -207,7 +231,27 @@ public class AccountController extends BaseController {
 
         parametric(result);
 
-        return Response.success();
+        ServiceResult<Integer> bindingCode = accountService.bindingCode(accountBindingCodeVo);
+        switch (bindingCode.getCode()) {
+            case 1:
+                return Response.build(ResponseCode.BINDING_CODE_SUCCESS);
+            case 3:
+                return Response.build(ResponseCode.KEY_EMPTY);
+            case 4:
+                return Response.build(ResponseCode.SOFT_EMPTY);
+            case 5:
+                return Response.build(ResponseCode.KEY_ERROR);
+            case 6:
+                return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
+            case 8:
+                return Response.build(ResponseCode.SOFT_CLOSE,bindingCode.getMsg());
+            case 9:
+                return Response.build(ResponseCode.ACCOUNT_EMPTY);
+            case 10:
+                return Response.build(ResponseCode.SOFT_NO_CHANGE);
+            default:
+                return Response.build(ResponseCode.ERROR);
+        }
     }
 
 }

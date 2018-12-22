@@ -15,6 +15,9 @@ public class TimeTest {
 
         Date date = DateUtil.parse(now);
 
+        long time1 = date.getTime();
+        System.out.println(time1);
+
         DateTime dateTime = DateUtil.offsetMillisecond(date, 1);
         long time = dateTime.getTime();
 

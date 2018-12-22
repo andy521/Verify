@@ -28,10 +28,10 @@ public class Card extends BaseEntity {
     @Column(columnDefinition = "int(2) default 0 comment '是否封停使用 0.未封停 1.已封停'")
     private Integer closure;
 
-    @Column(columnDefinition = "int comment '开始使用时间'")
+    @Column(columnDefinition = "bigint comment '开始使用时间'")
     private Long startDate;
 
-    @Column(columnDefinition = "int comment '结束时间'")
+    @Column(columnDefinition = "bigint comment '结束时间'")
     private Long endDate;
 
 }

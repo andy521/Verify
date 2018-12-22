@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件充值卡
  * t_card
  * @author Orange
- * @date 2018/12/22
+ * @date 2018/12/23
  */
 @TableName("t_card")
 @KeySequence("SEQ_TEST")
@@ -60,13 +60,13 @@ public class Card implements Serializable {
      * 结束时间
      * end_date
      */
-    private Integer endDate;
+    private Long endDate;
 
     /**
      * 开始使用时间
      * start_date
      */
-    private Integer startDate;
+    private Long startDate;
 
     /**
      * 使用状态 0.未使用 1.已使用
@@ -146,19 +146,19 @@ public class Card implements Serializable {
         this.closure = closure;
     }
 
-    public Integer getEndDate() {
+    public Long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Integer endDate) {
+    public void setEndDate(Long endDate) {
         this.endDate = endDate;
     }
 
-    public Integer getStartDate() {
+    public Long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Integer startDate) {
+    public void setStartDate(Long startDate) {
         this.startDate = startDate;
     }
 
