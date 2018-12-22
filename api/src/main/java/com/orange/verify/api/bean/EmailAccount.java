@@ -48,7 +48,7 @@ public class EmailAccount implements Serializable {
      * 被使用的次数
      * total
      */
-    private Integer total;
+    private Long total;
 
     /**
      * 用户名
@@ -112,11 +112,11 @@ public class EmailAccount implements Serializable {
         this.password = password == null ? null : password.trim();
     }
 
-    public Integer getTotal() {
+    public Long getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
 
