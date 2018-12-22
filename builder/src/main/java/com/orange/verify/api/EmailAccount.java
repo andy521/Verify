@@ -23,7 +23,7 @@ public class EmailAccount extends BaseEntity {
     @Column(columnDefinition = "int(2) default 0 comment '是否使用 0.使用 1.不使用'")
     private Integer isUse;
 
-    @Column(columnDefinition = "int default 0 comment '被使用的次数'")
+    @Column(columnDefinition = "bigint default 0 comment '被使用的次数'")
     private Long total;
 
 }
