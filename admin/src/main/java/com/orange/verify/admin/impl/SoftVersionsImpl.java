@@ -42,4 +42,10 @@ public class SoftVersionsImpl extends ServiceImpl<SoftVersionsMapper, SoftVersio
         return super.save(softVersions);
     }
 
+    @Override
+    public com.orange.verify.api.vo.open.SoftVersionsVo getVersions(String softId) {
+
+        return super.baseMapper.getVersions(softId);
+    }
+
 }

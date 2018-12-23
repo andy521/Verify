@@ -230,7 +230,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
                 }
             }
             result.setCode(1);
-            result.setData(card.getEndDate());
             return result;
         }
         result.setCode(2);

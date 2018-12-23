@@ -7,6 +7,7 @@ import com.orange.verify.admin.mapper.SoftMapper;
 import com.orange.verify.api.bean.Soft;
 import com.orange.verify.api.service.SoftService;
 import com.orange.verify.api.vo.SoftVo;
+import com.orange.verify.api.vo.open.SoftVersionsVo;
 
 @Service
 public class SoftImpl extends ServiceImpl<SoftMapper, Soft> implements SoftService {

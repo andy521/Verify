@@ -1,5 +1,6 @@
 package com.orange.verify.adminweb.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orange.verify.adminweb.annotation.RspHandle;
@@ -10,6 +11,7 @@ import com.orange.verify.api.bean.CardType;
 import com.orange.verify.api.service.CardService;
 import com.orange.verify.api.vo.CardTypeVo;
 import com.orange.verify.api.vo.CardVo;
+import com.orange.verify.api.vo.open.CardTimeLimitVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -90,6 +92,24 @@ public class CardController {
             return Response.success();
         }
         return Response.error();
+    }
+
+    @ApiOperation(value = "查询卡密使用期限-开放接口")
+    @RspHandle
+    @RequestMapping(value = "getCardTimeLimit",method = RequestMethod.POST)
+    @ResponseBody
+    public Response getCardTimeLimit(String username,String password,String softId) {
+
+        if (StrUtil.hasEmpty(username,password,softId)) {
+            return Response.build(ResponseCode.PARAMETER_ERROR);
+        }
+
+        CardTimeLimitVo cardTimeLimit = cardService.getCardTimeLimit(username, password, softId);
+        if (cardTimeLimit == null) {
+            return Response.build(ResponseCode.CARD_EMPTY);
+        }
+
+        return Response.build(ResponseCode.QUERY_SUCCESS,cardTimeLimit);
     }
 
 }

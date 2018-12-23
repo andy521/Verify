@@ -29,6 +29,8 @@ public enum ResponseCode {
 
     TOO_FAST(15,"访问过快"),
 
+    VERSIONS_EMPTY(15,"版本不存在"),
+
     KEY_EMPTY(15,"钥匙为空"),
 
     ACCOUNT_EMPTY(15,"用户不存在"),

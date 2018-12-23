@@ -1,5 +1,6 @@
 package com.orange.verify.adminweb.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
@@ -56,6 +57,25 @@ public class SoftVersionsController {
             return Response.success();
         }
         return Response.error();
+    }
+
+
+    @ApiOperation(value = "根据软件id查询版本-开放接口")
+    @RspHandle
+    @RequestMapping(value = "getVersions",method = RequestMethod.POST)
+    @ResponseBody
+    public Response getVersions(String softId) {
+
+        if (StrUtil.hasEmpty(softId)) {
+            return Response.build(ResponseCode.PARAMETER_ERROR,"软件id为空");
+        }
+
+        com.orange.verify.api.vo.open.SoftVersionsVo versions = softVersionsService.getVersions(softId);
+        if (versions == null) {
+            return Response.build(ResponseCode.VERSIONS_EMPTY);
+        }
+
+        return Response.build(ResponseCode.QUERY_SUCCESS,versions);
     }
 
 }

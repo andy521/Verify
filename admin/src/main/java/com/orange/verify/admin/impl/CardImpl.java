@@ -7,7 +7,7 @@ import com.orange.verify.admin.mapper.CardMapper;
 import com.orange.verify.api.bean.Card;
 import com.orange.verify.api.service.CardService;
 import com.orange.verify.api.vo.CardVo;
-import org.springframework.transaction.annotation.Transactional;
+import com.orange.verify.api.vo.open.CardTimeLimitVo;
 
 import java.util.UUID;
 
@@ -33,4 +33,11 @@ public class CardImpl extends ServiceImpl<CardMapper, Card> implements CardServi
 
         return true;
     }
+
+    @Override
+    public CardTimeLimitVo getCardTimeLimit(String username,String password,String softId) {
+
+        return super.baseMapper.getCardTimeLimit(username,password,softId);
+    }
+
 }

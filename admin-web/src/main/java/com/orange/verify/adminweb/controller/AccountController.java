@@ -162,7 +162,7 @@ public class AccountController extends BaseController {
         ServiceResult<Long> login = accountService.login(accountLoginVo);
         switch (login.getCode()) {
             case 1:
-                return Response.build(ResponseCode.LOGIN_SUCCESS,login.getData());
+                return Response.build(ResponseCode.LOGIN_SUCCESS);
             case 2:
                 return Response.build(ResponseCode.LOGIN_ERROR);
             case 3:
@@ -194,6 +194,10 @@ public class AccountController extends BaseController {
             throws ParameterError {
 
         parametric(result);
+
+        accountBindingCardVo.setPublicKey(accountBindingCardVo.getPublicKey().replaceAll(" ","+"));
+        accountBindingCardVo.setPassword(accountBindingCardVo.getPassword().replaceAll(" ","+"));
+        accountBindingCardVo.setCode(accountBindingCardVo.getCode().replaceAll(" ","+"));
 
         ServiceResult<Integer> bindingCard = accountService.bindingCard(accountBindingCardVo);
         switch (bindingCard.getCode()) {
@@ -230,6 +234,10 @@ public class AccountController extends BaseController {
             throws ParameterError {
 
         parametric(result);
+
+        accountBindingCodeVo.setPublicKey(accountBindingCodeVo.getPublicKey().replaceAll(" ","+"));
+        accountBindingCodeVo.setPassword(accountBindingCodeVo.getPassword().replaceAll(" ","+"));
+        accountBindingCodeVo.setCode(accountBindingCodeVo.getCode().replaceAll(" ","+"));
 
         ServiceResult<Integer> bindingCode = accountService.bindingCode(accountBindingCodeVo);
         switch (bindingCode.getCode()) {
