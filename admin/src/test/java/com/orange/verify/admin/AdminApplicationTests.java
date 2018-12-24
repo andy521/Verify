@@ -7,6 +7,7 @@ import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.orange.verify.admin.impl.RedisImpl;
 import com.orange.verify.api.bean.Account;
+import com.orange.verify.api.bean.Card;
 import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Log
 public class AdminApplicationTests {
 
-//    @Autowired
-//    private RedisImpl redis;
-
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
 
@@ -31,12 +29,6 @@ public class AdminApplicationTests {
 
     @Test
     public void contextLoads() {
-
-        Object byKey1 = redis.getByKey("4444");
-
-        Object byKey = redisTemplate.opsForValue().get("4444");
-
-        System.out.println(byKey);
 
     }
 

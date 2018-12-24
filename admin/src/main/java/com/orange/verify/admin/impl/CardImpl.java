@@ -8,6 +8,7 @@ import com.orange.verify.api.bean.Card;
 import com.orange.verify.api.service.CardService;
 import com.orange.verify.api.vo.CardVo;
 import com.orange.verify.api.vo.open.CardTimeLimitVo;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class CardImpl extends ServiceImpl<CardMapper, Card> implements CardServi
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean saveLogic(Card card, Integer count) {
 
         for (int i = 0;i < count;i++) {

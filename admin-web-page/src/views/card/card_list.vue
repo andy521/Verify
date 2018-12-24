@@ -118,6 +118,20 @@
               </template>
             </el-table-column>
             <el-table-column
+              prop="sellStatus"
+              label="卖出状态"
+              align="center"
+            >
+              <template slot-scope="scope">
+                <el-switch
+                  @change="sellStatusChange($event,scope.row)"
+                  v-model="scope.row.sellStatus"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949">
+                </el-switch>
+              </template>
+            </el-table-column>
+            <el-table-column
               prop="softName"
               label="软件名称"
               align="center"
@@ -303,6 +317,7 @@ export default {
 
           rsp.data.records[i].useStatus = (rsp.data.records[i].useStatus == 0) ? '未使用' : '已使用';
           rsp.data.records[i].closure = (rsp.data.records[i].closure == 0) ? false : true;
+          rsp.data.records[i].sellStatus = (rsp.data.records[i].sellStatus == 0) ? false : true;
         }
         this.tableData = rsp.data.records
       })
@@ -326,6 +341,16 @@ export default {
       this.$axios.post('card/closure', this.$qs.stringify({
         cardId: row.id,
         closure: value ? 1 : 0
+      })).then((rsp) => {
+        this.getTableData();
+        this.$message(rsp.msg)
+      })
+    },
+    sellStatusChange(value,row) {
+
+      this.$axios.post('card/sellStatus', this.$qs.stringify({
+        cardId: row.id,
+        sellStatus: value ? 1 : 0
       })).then((rsp) => {
         this.getTableData();
         this.$message(rsp.msg)

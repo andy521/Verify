@@ -51,7 +51,7 @@ public class CardController {
     @RspHandle
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
-    public Response create(Card card,Integer count) throws Exception {
+    public Response create(Card card,Integer count) {
 
         if (count > 100) {
             return Response.build(ResponseCode.PRODUCTION_TOO_MUCH);
@@ -73,6 +73,23 @@ public class CardController {
         Card card = new Card();
         card.setId(cardId);
         card.setClosure(closure);
+        boolean b = cardService.updateById(card);
+
+        if (b == true) {
+            return Response.success();
+        }
+        return Response.error();
+    }
+
+    @ApiOperation(value = "卖出卡密-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "sellStatus",method = RequestMethod.POST)
+    @ResponseBody
+    public Response sellStatus(String cardId,Integer sellStatus) {
+
+        Card card = new Card();
+        card.setId(cardId);
+        card.setSellStatus(sellStatus);
         boolean b = cardService.updateById(card);
 
         if (b == true) {
