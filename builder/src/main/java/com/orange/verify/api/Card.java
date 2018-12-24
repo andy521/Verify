@@ -25,6 +25,9 @@ public class Card extends BaseEntity {
     @Column(columnDefinition = "int(2) default 0 comment '使用状态 0.未使用 1.已使用'")
     private Integer useStatus;
 
+    @Column(columnDefinition = "int(2) default 0 comment '销售状态 0.未卖出 1.已卖出'")
+    private Integer sellStatus;
+
     @Column(columnDefinition = "int(2) default 0 comment '是否封停使用 0.未封停 1.已封停'")
     private Integer closure;
 

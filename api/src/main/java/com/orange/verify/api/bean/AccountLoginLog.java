@@ -4,14 +4,14 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 
 /**
- * 软件版本控制
- * t_soft_versions
+ * 用户登录日志
+ * t_account_login_log
  * @author Orange
  * @date 2018/12/24
  */
-@TableName("t_soft_versions")
+@TableName("t_account_login_log")
 @KeySequence("SEQ_TEST")
-public class SoftVersions implements Serializable {
+public class AccountLoginLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
@@ -33,34 +33,19 @@ public class SoftVersions implements Serializable {
     private Long updateDate;
 
     /**
-     * 更新公告
-     * notice
+     * account_id
      */
-    private String notice;
+    private String accountId;
 
     /**
-     * 是否强制更新 0.不强制 1.强制
-     * novatio_necessaria
+     * ip
      */
-    private Integer novatioNecessaria;
+    private String ip;
 
     /**
-     * 版本号
-     * number
+     * ip_info
      */
-    private String number;
-
-    /**
-     * 软件绑定id
-     * soft_id
-     */
-    private String softId;
-
-    /**
-     * 更新url
-     * update_url
-     */
-    private String updateUrl;
+    private String ipInfo;
 
     public String getId() {
         return id;
@@ -102,43 +87,27 @@ public class SoftVersions implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public String getNotice() {
-        return notice;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public void setNotice(String notice) {
-        this.notice = notice == null ? null : notice.trim();
+    public void setAccountId(String accountId) {
+        this.accountId = accountId == null ? null : accountId.trim();
     }
 
-    public Integer getNovatioNecessaria() {
-        return novatioNecessaria;
+    public String getIp() {
+        return ip;
     }
 
-    public void setNovatioNecessaria(Integer novatioNecessaria) {
-        this.novatioNecessaria = novatioNecessaria;
+    public void setIp(String ip) {
+        this.ip = ip == null ? null : ip.trim();
     }
 
-    public String getNumber() {
-        return number;
+    public String getIpInfo() {
+        return ipInfo;
     }
 
-    public void setNumber(String number) {
-        this.number = number == null ? null : number.trim();
-    }
-
-    public String getSoftId() {
-        return softId;
-    }
-
-    public void setSoftId(String softId) {
-        this.softId = softId == null ? null : softId.trim();
-    }
-
-    public String getUpdateUrl() {
-        return updateUrl;
-    }
-
-    public void setUpdateUrl(String updateUrl) {
-        this.updateUrl = updateUrl == null ? null : updateUrl.trim();
+    public void setIpInfo(String ipInfo) {
+        this.ipInfo = ipInfo == null ? null : ipInfo.trim();
     }
 }

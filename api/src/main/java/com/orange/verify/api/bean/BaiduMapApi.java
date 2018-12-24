@@ -4,14 +4,14 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 
 /**
- * 邮箱账户
- * t_email_account
+ * 百度地理api配置
+ * t_baidu_map_api
  * @author Orange
  * @date 2018/12/24
  */
-@TableName("t_email_account")
+@TableName("t_baidu_map_api")
 @KeySequence("SEQ_TEST")
-public class EmailAccount implements Serializable {
+public class BaiduMapApi implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
@@ -33,28 +33,10 @@ public class EmailAccount implements Serializable {
     private Long updateDate;
 
     /**
-     * 是否使用 0.使用 1.不使用
-     * is_use
+     * appkey
+     * appkey
      */
-    private Integer isUse;
-
-    /**
-     * 用户密码
-     * password
-     */
-    private String password;
-
-    /**
-     * 被使用的次数
-     * total
-     */
-    private Long total;
-
-    /**
-     * 用户名
-     * username
-     */
-    private String username;
+    private String appkey;
 
     public String getId() {
         return id;
@@ -96,35 +78,11 @@ public class EmailAccount implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public Integer getIsUse() {
-        return isUse;
+    public String getAppkey() {
+        return appkey;
     }
 
-    public void setIsUse(Integer isUse) {
-        this.isUse = isUse;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setAppkey(String appkey) {
+        this.appkey = appkey == null ? null : appkey.trim();
     }
 }

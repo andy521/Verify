@@ -181,6 +181,8 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.CARD_CLOSURE);
             case 11:
                 return Response.build(ResponseCode.CARD_PAST_DUE);
+            case 12:
+                return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
             default:
                 return Response.build(ResponseCode.ERROR);
         }
@@ -217,6 +219,8 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.ACCOUNT_EMPTY);
             case 10:
                 return Response.build(ResponseCode.CARD_EMPTY);
+            case 12:
+                return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
             case 13:
                 return Response.build(ResponseCode.CARD_USE);
             case 14:
@@ -257,6 +261,8 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.ACCOUNT_EMPTY);
             case 10:
                 return Response.build(ResponseCode.SOFT_NO_CHANGE);
+            case 12:
+                return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
             default:
                 return Response.build(ResponseCode.ERROR);
         }

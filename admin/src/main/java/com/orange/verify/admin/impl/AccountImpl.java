@@ -8,15 +8,9 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.orange.verify.admin.mapper.AccountMapper;
-import com.orange.verify.admin.mapper.CardMapper;
-import com.orange.verify.admin.mapper.CardTypeMapper;
-import com.orange.verify.admin.mapper.SoftMapper;
+import com.orange.verify.admin.mapper.*;
 import com.orange.verify.admin.transition.Transition;
-import com.orange.verify.api.bean.Account;
-import com.orange.verify.api.bean.Card;
-import com.orange.verify.api.bean.CardType;
-import com.orange.verify.api.bean.Soft;
+import com.orange.verify.api.bean.*;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.vo.AccountVo;
@@ -48,6 +42,12 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
     @Autowired
     private CardTypeMapper cardTypeMapper;
+
+    @Autowired
+    private AccountRegisterLogMapper accountRegisterLogMapper;
+
+    @Autowired
+    private AccountLoginLogMapper accountLoginLogMapper;
 
     @Override
     public Page<AccountVo> page(AccountVo accountVo, Page page) {
@@ -152,6 +152,12 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         int insert = super.baseMapper.insert(account);
 
+        AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
+        accountRegisterLog.setAccountId(account.getId());
+        accountRegisterLog.setIp(account.getCreateIp());
+        accountRegisterLog.setIpInfo(addressByIp);
+        accountRegisterLogMapper.insert(accountRegisterLog);
+
         result.setCode(1);
         result.setData(insert);
 
@@ -208,6 +214,12 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         }
         Account account = super.baseMapper.selectOne(queryWrapper);
         if (account != null) {
+
+            if (account.getBlacklist() == 1) {
+                result.setCode(12);
+                return result;
+            }
+
             Card card = null;
             if (soft.getServiceStatus() == 0) {
                 String cardId = account.getCardId();
@@ -229,6 +241,26 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
                     return result;
                 }
             }
+
+            //查询ip信息
+            String addressByIp = "";
+            if (!"127.0.0.1".equals(accountLoginVo.getIp())) {
+
+                try {
+                    addressByIp = BaiduIp.start("m1ykK4CPuUVgZW3KDZO3lrvGzW2ZzYn6")
+                            .getAddressByIp(accountLoginVo.getIp());
+                } catch (Exception e) {
+                    result.setCode(4);
+                    return result;
+                }
+            }
+
+            AccountLoginLog accountLoginLog = new AccountLoginLog();
+            accountLoginLog.setAccountId(account.getId());
+            accountLoginLog.setIp(accountLoginVo.getIp());
+            accountLoginLog.setIpInfo(addressByIp);
+            accountLoginLogMapper.insert(accountLoginLog);
+
             result.setCode(1);
             return result;
         }
@@ -282,6 +314,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         Account account = super.baseMapper.selectOne(queryWrapper);
         if (account == null) {
             result.setCode(9);
+            return result;
+        } else if (account.getBlacklist() == 1) {
+            result.setCode(12);
             return result;
         }
         Card card = cardMapper.selectOne(new QueryWrapper<Card>().eq("card_number",
@@ -339,6 +374,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         cardUpdate.setStartDate(startTime);
         cardUpdate.setEndDate(endTime);
         cardUpdate.setUseStatus(1);
+        cardUpdate.setSellStatus(1);
         cardUpdate.setAccountId(account.getId());
         cardMapper.updateById(cardUpdate);
 
@@ -401,6 +437,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         Account account = super.baseMapper.selectOne(queryWrapper);
         if (account == null) {
             result.setCode(9);
+            return result;
+        } else if (account.getBlacklist() == 1) {
+            result.setCode(12);
             return result;
         }
 

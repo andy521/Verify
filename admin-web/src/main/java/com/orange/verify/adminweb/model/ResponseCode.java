@@ -10,6 +10,8 @@ public enum ResponseCode {
 
     PARAMETER_ERROR(902,"参数错误"),
 
+    EMPTY(17,"无"),
+
     PRODUCTION_TOO_MUCH(15,"生产过多充值卡密"),
 
     REGISTER_SUCCESS(15,"注册成功"),
@@ -18,6 +20,8 @@ public enum ResponseCode {
     LOGIN_ERROR(15,"登陆失败"),
 
     SOFT_CLOSE(15,"软件关闭开放使用"),
+
+    ACCOUNT_BLACKLIST(15,"此账号已被加入黑名单"),
 
     SOFT_NO_CHANGE(15,"软件不支持换绑机器"),
 
