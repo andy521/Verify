@@ -10,7 +10,7 @@ public enum ResponseCode {
 
     PARAMETER_ERROR(902,"参数错误"),
 
-    EMPTY(17,"无"),
+    EMPTY(906,"无"),
 
     PRODUCTION_TOO_MUCH(15,"生产过多充值卡密"),
 

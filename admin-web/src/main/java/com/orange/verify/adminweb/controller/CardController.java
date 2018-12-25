@@ -7,17 +7,18 @@ import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.Card;
-import com.orange.verify.api.bean.CardType;
 import com.orange.verify.api.service.CardService;
-import com.orange.verify.api.vo.CardTypeVo;
 import com.orange.verify.api.vo.CardVo;
 import com.orange.verify.api.vo.open.CardTimeLimitVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Api(description = "卡密")
 @Controller
@@ -96,6 +97,17 @@ public class CardController {
             return Response.success();
         }
         return Response.error();
+    }
+
+    @ApiOperation(value = "批量卖出卡密-需要验证api")
+    @RspHandle
+    @RequestMapping(value = "sell",method = RequestMethod.POST)
+    @ResponseBody
+    public Response sell(@RequestBody List<String> sell) {
+
+        cardService.sell(sell);
+
+        return Response.success();
     }
 
     @ApiOperation(value = "删除卡密-需要验证api")

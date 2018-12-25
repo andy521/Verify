@@ -10,6 +10,7 @@ import com.orange.verify.api.vo.CardVo;
 import com.orange.verify.api.vo.open.CardTimeLimitVo;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -40,6 +41,18 @@ public class CardImpl extends ServiceImpl<CardMapper, Card> implements CardServi
     public CardTimeLimitVo getCardTimeLimit(String username,String password,String softId) {
 
         return super.baseMapper.getCardTimeLimit(username,password,softId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void sell(List<String> sell) {
+
+        for (String id : sell) {
+            Card card = new Card();
+            card.setId(id);
+            card.setSellStatus(1);
+            super.baseMapper.updateById(card);
+        }
     }
 
 }

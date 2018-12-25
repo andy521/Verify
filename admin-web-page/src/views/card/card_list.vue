@@ -78,6 +78,7 @@
             <i class="el-icon-edit"/>
             <span> 操作</span>
             <span style="color: #409EFF;cursor: pointer;margin-left: 20px" @click="search">刷新数据</span>
+            <span style="color: #409EFF;cursor: pointer;margin-left: 20px" @click="exportCard">导出卡密</span>
             <el-button style="float: right; padding: 3px 0" type="text" @click="workingArea = !workingArea">
               收起
             </el-button>
@@ -85,9 +86,14 @@
 
           <!--表格展示区-->
           <el-table
+            ref="multipleTable"
             :data="tableData"
             border
             style="width: 100%;margin-top: 10px">
+            <el-table-column
+              type="selection"
+              width="55">
+            </el-table-column>
             <el-table-column
               prop="createDate"
               label="创建时间"
@@ -191,6 +197,25 @@
 
     </el-row>
 
+    <el-dialog
+      :title="exportCardDialogNumber"
+      :visible.sync="exportCardDialog"
+      :close-on-click-modal="false"
+      :lock-scroll="false"
+      width="30%"
+      center>
+      <el-input
+        type="textarea"
+        :rows="15"
+        v-model="exportCardDialogContent">
+      </el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="exportCardDialog = false">取 消</el-button>
+        <el-button type="primary" @click="sellCard">卖出卡密</el-button>
+      </span>
+    </el-dialog>
+
+
   </div>
 </template>
 
@@ -229,7 +254,11 @@ export default {
       tableData: [],
       tablePageNum: 1,
       tablePageSize: 10,
-      tablePageSizes: [10, 50, 100, 200]
+      tablePageSizes: [10, 50, 100, 200],
+      multipleTable: [],
+      exportCardDialog: false,
+      exportCardDialogContent: '',
+      exportCardDialogNumber: '提示: 0张卡密',
     }
   },
   mounted() {
@@ -329,6 +358,36 @@ export default {
     handleCurrentChange(val) {
       this.tablePageNum = val
       this.getTableData()
+    },
+    exportCard() {
+      this.exportCardDialog = true;
+      let selection = this.$refs.multipleTable.selection;
+      this.exportCardDialogContent = "";
+      let count = 0;
+      for (let i = 0;i < selection.length;i++) {
+        if (selection[i].sellStatus == false && selection[i].closure == false) {
+          count+=1;
+          if (i == selection.length - 1) {
+            this.exportCardDialogContent+=selection[i].cardNumber;
+          } else {
+            this.exportCardDialogContent+=selection[i].cardNumber+"\n";
+          }
+        }
+      }
+      this.exportCardDialogNumber = "提示：" + count + "张卡密";
+    },
+    sellCard() {
+      let selection = this.$refs.multipleTable.selection;
+      let data = [];
+      for (let i = 0;i < selection.length;i++) {
+        if (selection[i].sellStatus == false && selection[i].closure == false) {
+          data.push(selection[i].id);
+        }
+      }
+      this.$axios.post('card/sell', data).then((rsp) => {
+        this.getTableData();
+        this.$message(rsp.msg)
+      })
     },
     search(isPrompt) {
       if (isPrompt == true) {

@@ -39,7 +39,7 @@ public class BaiduMapApiController {
 
     @ApiOperation(value = "新增-需要验证api")
     @RspHandle
-    @RequestMapping(value = "create",method = RequestMethod.GET)
+    @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
     public Response create(BaiduMapApi baiduMapApi) {
 
@@ -52,7 +52,7 @@ public class BaiduMapApiController {
 
     @ApiOperation(value = "修改-需要验证api")
     @RspHandle
-    @RequestMapping(value = "update",method = RequestMethod.GET)
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public Response update(BaiduMapApi baiduMapApi) {
 

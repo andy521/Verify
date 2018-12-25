@@ -149,6 +149,12 @@ export const constantRouterMap = [
         component: () => import('@/views/config/email_account_form'),
         meta: { title: '邮箱操作', icon: 'table' }
       },
+      {
+        path: 'baidu_map_api_form',
+        name: 'BaiduMapApiForm',
+        component: () => import('@/views/config/baidu_map_api_form'),
+        meta: { title: '百度地理api', icon: '地图' }
+      },
     ]
   },
 
