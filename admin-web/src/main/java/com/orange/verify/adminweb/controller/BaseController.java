@@ -1,7 +1,6 @@
 package com.orange.verify.adminweb.controller;
 
 import com.orange.verify.adminweb.annotation.ParameterError;
-import com.orange.verify.adminweb.model.ResponseCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 

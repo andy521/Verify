@@ -41,10 +41,10 @@
       <el-col :span="2"></el-col>
       <el-col :span="20">
         <el-card shadow="always" style="text-align: center">
-          <!-- 折线图 -->
-          <div id="chartmainline" style="width:600px; height:400px;"></div>
-          <!-- 柱状图 -->
-          <div id="chartmainbar" style="width:100%; height:400px;"></div>
+          <!-- 登陆次数 -->
+          <div id="login" style="width:100%; height:400px;"></div>
+          <!-- 注册次数 -->
+          <div id="register" style="width:100%; height:400px;"></div>
         </el-card>
       </el-col>
       <el-col :span="2"></el-col>
@@ -56,6 +56,61 @@
 <script>
 export default {
   mounted() {
+
+    let date = this.getDate();
+
+    this.loginbar.xAxis[0].data = date;
+    this.registerbar.xAxis[0].data = date;
+
+    var loginDateMap = new Map();
+    var registerDateMap = new Map();
+
+    for (let i = 0;i < date.length;i++) {
+      loginDateMap.set(date[i],0);
+      registerDateMap.set(date[i],0);
+    }
+
+    this.$axios.get("accountLoginLog/getBeforeData").then((rsp) => {
+      for (let i = 0;i < rsp.data.length;i++) {
+        let data = rsp.data[i].split(" ");
+        let d = data[0];
+
+        for (let x of loginDateMap) {
+          if (x[0] == d) {
+            loginDateMap.set(x[0],x[1]+1);
+          }
+        }
+
+      }
+      for (let xx of loginDateMap) {
+        this.loginbar.series[0].data.push(xx[1]);
+      }
+
+      let login = this.$echarts.init(document.getElementById("login"));
+      login.setOption(this.loginbar);
+    })
+    this.$axios.get("accountRegisterLog/getBeforeData").then((rsp) => {
+      for (let i = 0;i < rsp.data.length;i++) {
+        let data = rsp.data[i].split(" ");
+        let d = data[0];
+
+        for (let x of registerDateMap) {
+          if (x[0] == d) {
+            registerDateMap.set(x[0],x[1]+1);
+          }
+        }
+
+      }
+      for (let xx of registerDateMap) {
+        this.registerbar.series[0].data.push(xx[1]);
+      }
+
+      let register = this.$echarts.init(document.getElementById("register"));
+      register.setOption(this.registerbar);
+    })
+
+
+
     this.$axios.get("soft/count").then((rsp) => {
       this.softCount = rsp.data
     })
@@ -65,12 +120,7 @@ export default {
     this.$axios.get("account/count").then((rsp) => {
       this.accountCount = rsp.data
     })
-    //基于准本好的DOM，初始化echarts实例
-    let chartmainline = this.$echarts.init(document.getElementById("chartmainline"));
-    let chartmainbar = this.$echarts.init(document.getElementById("chartmainbar"));
-    //绘制图表
-    chartmainline.setOption(this.optionline);
-    chartmainbar.setOption(this.optionbar);
+
   },
   data() {
     return {
@@ -78,36 +128,16 @@ export default {
       softCount: 0,
       cardCount: 0,
       accountCount: 0,
-      optionline:{
-        title:{
-          text:'ECharts 数据统计'
-        },
-        tooltip:{},
-        legend:{
-          data:['用户来源']
-        },
-        xAxis:{
-          data:["Android","IOS","PC","Ohter"]
-        },
-        yAxis:{
-
-        },
-        series:[{
-          name:'访问量',
-          type:'line', //设置图表主题
-          data:[500,200,360,100]
-        }]
-      },
-      optionbar:{
+      loginbar:{
         title : {
-          text: '某地区蒸发量和降水量',
-          subtext: '纯属虚构'
+          text: '登陆次数',
+          subtext: '登陆次数'
         },
         tooltip : {
           trigger: 'axis'
         },
         legend: {
-          data:['蒸发量','降水量']
+          data:['登陆次数']
         },
         toolbox: {
           show : true,
@@ -122,7 +152,7 @@ export default {
         xAxis : [
           {
             type : 'category',
-            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+            data : [],
           }
         ],
         yAxis : [
@@ -132,9 +162,9 @@ export default {
         ],
         series : [
           {
-            name:'蒸发量',
+            name:'登陆次数',
             type:'bar',
-            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            data:[],
             markPoint : {
               data : [
                 {type : 'max', name: '最大值'},
@@ -147,27 +177,87 @@ export default {
               ]
             }
           },
+        ]
+      },
+      registerbar:{
+        title : {
+          text: '注册次数',
+          subtext: '注册次数'
+        },
+        tooltip : {
+          trigger: 'axis'
+        },
+        legend: {
+          data:['注册次数']
+        },
+        toolbox: {
+          show : true,
+          feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+          }
+        },
+        calculable : true,
+        xAxis : [
           {
-            name:'降水量',
+            type : 'category',
+            data : [],
+          }
+        ],
+        yAxis : [
+          {
+            type : 'value'
+          }
+        ],
+        series : [
+          {
+            name:'注册次数',
             type:'bar',
-            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+            data:[],
             markPoint : {
               data : [
-                {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},
-                {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                {type : 'max', name: '最大值'},
+                {type : 'min', name: '最小值'}
               ]
             },
             markLine : {
               data : [
-                {type : 'average', name : '平均值'}
+                {type : 'average', name: '平均值'}
               ]
             }
-          }
+          },
         ]
-      }
+      },
     }
   },
   methods: {
-  }
+    getDay(time){
+      var now = new Date();//获取当前时间
+
+      var nowMs = now.getTime();//获取当前时间的毫秒数
+
+      var beforeMs =  nowMs -  1000 * 60 * 60 * 24 * parseInt(time);//前几天，n就取几，整数
+
+      var beforeDate = new Date().setTime(beforeMs);
+
+      let date = new Date(beforeDate);
+      let year = date.getFullYear();
+      let month = date.getMonth()+1;
+      let day = date.getDate();
+      month = month < 10 ? "0"+month:month;
+      day = day < 10 ? "0"+day:day;
+      beforeDate = year+'-'+month+'-'+day;
+      return beforeDate;
+    },
+    getDate() {
+      let date = [];
+      for (let i = 7;i >= 0;i--) {
+        date.push(this.getDay(i));
+      }
+      return date;
+    },
+}
 }
 </script>
