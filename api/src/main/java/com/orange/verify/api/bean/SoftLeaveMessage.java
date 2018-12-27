@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件留言
  * t_soft_leave_message
  * @author Orange
- * @date 2018/12/24
+ * @date 2018/12/27
  */
 @TableName("t_soft_leave_message")
 @KeySequence("SEQ_TEST")
@@ -37,6 +37,16 @@ public class SoftLeaveMessage implements Serializable {
      * content
      */
     private String content;
+
+    /**
+     * ip
+     */
+    private String ip;
+
+    /**
+     * ip_info
+     */
+    private String ipInfo;
 
     /**
      * 用户的QQ号
@@ -96,6 +106,22 @@ public class SoftLeaveMessage implements Serializable {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip == null ? null : ip.trim();
+    }
+
+    public String getIpInfo() {
+        return ipInfo;
+    }
+
+    public void setIpInfo(String ipInfo) {
+        this.ipInfo = ipInfo == null ? null : ipInfo.trim();
     }
 
     public String getQq() {

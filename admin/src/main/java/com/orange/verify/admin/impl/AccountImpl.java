@@ -21,6 +21,7 @@ import com.orange.verify.api.vo.open.AccountRegisterVo;
 import com.orange.verify.common.ip.BaiduIp;
 import com.orange.verify.common.rsa.RsaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Map;
@@ -84,6 +85,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ServiceResult<Integer> register(AccountRegisterVo accountRegisterVo) {
 
         ServiceResult<Integer> result = new ServiceResult<>();
@@ -139,7 +141,8 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         try {
             addressByIp = getIpInfo(accountRegisterVo.getIp());
         } catch (Exception e) {
-            e.printStackTrace();
+            result.setCode(4);
+            return result;
         }
 
         //进行转型然后插入数据库
@@ -245,7 +248,8 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             try {
                 addressByIp = getIpInfo(accountLoginVo.getIp());
             } catch (Exception e) {
-                e.printStackTrace();
+                result.setCode(4);
+                return result;
             }
 
             AccountLoginLog accountLoginLog = new AccountLoginLog();
@@ -281,6 +285,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ServiceResult<Integer> bindingCard(AccountBindingCardVo accountBindingCardVo) {
 
         ServiceResult<Integer> result = new ServiceResult<>();

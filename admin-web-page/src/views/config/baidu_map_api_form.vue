@@ -51,7 +51,7 @@
     mounted() {
 
       this.$axios.get("baiduMapApi/single").then((rsp) => {
-        if (rsp.code != 906) {
+        if (rsp.code == 9) {
           this.form = rsp.data;
           this.isCreate = 1;
           this.formButtonName = '立即保存';

@@ -22,4 +22,8 @@ public class SoftLeaveMessage extends BaseEntity {
     @Column(columnDefinition = "varchar(20) comment '用户的QQ号'")
     private String qq;
 
+    private String ip;
+
+    private String ipInfo;
+
 }

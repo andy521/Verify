@@ -2,21 +2,29 @@ package com.orange.verify.adminweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.orange.verify.adminweb.annotation.ParameterError;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.SoftLeaveMessage;
+import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.SoftLeaveMessageService;
 import com.orange.verify.api.vo.SoftLeaveMessageVo;
+import com.orange.verify.api.vo.open.SoftLeaveMeesageSubmitVo;
+import com.orange.verify.common.ip.IpUtil;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping(value = "softLeaveMessage")
-public class SoftLeaveMessageController {
+public class SoftLeaveMessageController extends BaseController {
 
     @Reference
     private SoftLeaveMessageService softLeaveMessageService;
@@ -27,7 +35,7 @@ public class SoftLeaveMessageController {
     @ResponseBody
     public Response page(SoftLeaveMessageVo softLeaveMessageVo, Page page) {
 
-        Page<SoftLeaveMessage> softLeaveMessagePage = softLeaveMessageService.page(softLeaveMessageVo, page);
+        Page<SoftLeaveMessageVo> softLeaveMessagePage = softLeaveMessageService.page(softLeaveMessageVo, page);
 
         return Response.build(ResponseCode.QUERY_SUCCESS,softLeaveMessagePage);
     }
@@ -43,6 +51,31 @@ public class SoftLeaveMessageController {
             return Response.success();
         }
         return Response.error();
+    }
+
+    @RspHandle(ipHandle = true,ipHandleInterval = 60000)
+    @RequestMapping(value = "create",method = RequestMethod.POST)
+    @ResponseBody
+    public Response create(@Validated SoftLeaveMeesageSubmitVo softLeaveMeesageSubmitVo, BindingResult result,
+                           HttpServletRequest request) throws ParameterError {
+
+        parametric(result);
+
+        softLeaveMeesageSubmitVo.setIp(IpUtil.getIp(request));
+
+        ServiceResult serviceResult = softLeaveMessageService.create(softLeaveMeesageSubmitVo);
+        switch (serviceResult.getCode()) {
+            case 1:
+                return Response.build(ResponseCode.LEAVE_MESSAGE_SEND_SUCCESS);
+            case 3:
+                return Response.build(ResponseCode.SOFT_EMPTY);
+            case 4:
+                return Response.build(ResponseCode.SOFT_CLOSE);
+            case 5:
+                return Response.build(ResponseCode.BAIDU_API_ERROR);
+            default:
+                return Response.build(ResponseCode.ERROR);
+        }
     }
 
 }

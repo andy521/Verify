@@ -17,6 +17,8 @@ public enum ResponseCode {
 
     BINDING_CODE_SUCCESS(103,"换绑定成功"),
 
+    LEAVE_MESSAGE_SEND_SUCCESS(104,"留言发送成功"),
+
 
     //失败
     UNKNOWN_ERROR(901,"不好意思，发生了未知错误"),

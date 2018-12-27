@@ -9,23 +9,11 @@ public class TimeTest {
 
     public static void main(String[] args) {
 
-        String now = DateUtil.now();
+        long a = 1545910903611L;
 
-        System.out.println(now);
+        long totalTime = (System.currentTimeMillis() - a);
 
-        Date date = DateUtil.parse(now);
-
-        long time1 = date.getTime();
-        System.out.println(time1);
-
-        DateTime dateTime = DateUtil.offsetMillisecond(date, 1);
-        long time = dateTime.getTime();
-
-        System.out.println(time - System.currentTimeMillis());
-
-        System.out.println(time);
-        String toDateStr = dateTime.toString();
-        System.out.println(toDateStr);
+        System.out.println(totalTime);
 
     }
 
