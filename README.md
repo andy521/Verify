@@ -1,13 +1,28 @@
 # verify
 
 #### 项目介绍
-{**以下是码云平台说明，您可以替换为您的项目简介**
-码云是开源中国推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+专门为中小软件提供的开源网络验证系统
 
 #### 软件架构
-软件架构说明
+项目采用前后端分离架构开发
 
+admin >>> 为admin-web提供服务，service,mapper层处理
+admin-web >>> 提供给外部访问接口，controller
+api >>> 提供给各个服务的vo,bean等等使用
+common >>> 自写的工具包
+buider >>> 数据库和java bean一键生成的项目
+admin-web-page >>> 后台管理页面(vue编写)
+sdk >>> 各大语言的sdk(1.易语言sdk)
+
+项目围绕dubbo开发,主要采用的技术有:
+1.dubbo(项目rpc通信)
+2.mybatis plus(mapper访问层)
+3.hibernate(用于生成数据库和验证vo)
+4.shiro(登陆验证)
+5.前端采用(vue - element ui)
+6.hutool(工具包)
+7.redis(用作缓存)
+8.mysql
 
 #### 安装教程
 
