@@ -1,12 +1,13 @@
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { Message, MessageBox } from 'element-ui'
 
 const user = {
   state: {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: []
+    roles: [1]
   },
 
   mutations: {
@@ -30,9 +31,13 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
+          if (response.code == 100) {
+            Message.success("登陆成功");
+            setToken("1")
+            commit('SET_TOKEN', "1")
+          } else {
+            Message.error("登陆失败");
+          }
           resolve()
         }).catch(error => {
           reject(error)

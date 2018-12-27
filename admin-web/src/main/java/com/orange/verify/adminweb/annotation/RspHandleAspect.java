@@ -3,6 +3,7 @@ package com.orange.verify.adminweb.annotation;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.AuthenticationException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -67,6 +68,8 @@ public class RspHandleAspect {
         Response response = null;
         try {
             response = (Response) pjp.proceed();
+        } catch (AuthenticationException e) {
+            return Response.build(ResponseCode.LOGIN_ERROR);
         } catch (ParameterError e) {
             return Response.build(ResponseCode.PARAMETER_ERROR,e.getMessage());
         } catch (Exception e) {

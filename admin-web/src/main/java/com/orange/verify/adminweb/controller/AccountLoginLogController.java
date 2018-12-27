@@ -7,6 +7,7 @@ import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.service.AccountLoginLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ public class AccountLoginLogController extends BaseController {
 
     @ApiOperation(value = "找出以往7天到现在的数据-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "getBeforeData",method = RequestMethod.GET)
     @ResponseBody
     public Response getBeforeData() {

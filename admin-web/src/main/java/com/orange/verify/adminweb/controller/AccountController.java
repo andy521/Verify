@@ -17,6 +17,7 @@ import com.orange.verify.api.vo.open.AccountRegisterVo;
 import com.orange.verify.common.ip.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -36,6 +37,7 @@ public class AccountController extends BaseController {
 
     @ApiOperation(value = "获取用户-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "page",method = RequestMethod.GET)
     @ResponseBody
     public Response page(AccountVo accountVo, Page page) {
@@ -46,6 +48,7 @@ public class AccountController extends BaseController {
 
     @ApiOperation(value = "获取用户数量-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "count",method = RequestMethod.GET)
     @ResponseBody
     public Response count() {
@@ -56,6 +59,7 @@ public class AccountController extends BaseController {
 
     @ApiOperation(value = "用户黑名单设置-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "blacklist",method = RequestMethod.POST)
     @ResponseBody
     public Response blacklist(String accountId,Integer blacklist) {
@@ -72,6 +76,7 @@ public class AccountController extends BaseController {
 
     @ApiOperation(value = "删除用户-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "remove",method = RequestMethod.POST)
     @ResponseBody
     public Response remove(String accountId) {

@@ -10,6 +10,7 @@ import com.orange.verify.api.service.CardTypeService;
 import com.orange.verify.api.vo.CardTypeVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ public class CardTypeController {
 
     @ApiOperation(value = "获取分页卡类型-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "page",method = RequestMethod.GET)
     @ResponseBody
     public Response page(CardType cardType, Page page) {
@@ -37,6 +39,7 @@ public class CardTypeController {
 
     @ApiOperation(value = "获取全部类型-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
     public Response list() {
@@ -47,6 +50,7 @@ public class CardTypeController {
 
     @ApiOperation(value = "获取单个-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "single",method = RequestMethod.GET)
     @ResponseBody
     public Response single(String cardTypeId) {
@@ -57,6 +61,7 @@ public class CardTypeController {
 
     @ApiOperation(value = "增加卡-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
     public Response create(CardType cardType) {
@@ -70,6 +75,7 @@ public class CardTypeController {
 
     @ApiOperation(value = "修改卡-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public Response update(CardType cardType) {
@@ -83,6 +89,7 @@ public class CardTypeController {
 
     @ApiOperation(value = "删除卡-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "remove",method = RequestMethod.POST)
     @ResponseBody
     public Response remove(String cardTypeId) {

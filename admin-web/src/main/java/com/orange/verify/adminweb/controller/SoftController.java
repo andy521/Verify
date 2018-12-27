@@ -10,6 +10,7 @@ import com.orange.verify.api.service.SoftService;
 import com.orange.verify.api.vo.SoftVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ public class SoftController {
 
     @ApiOperation(value = "获取分页软件-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "page",method = RequestMethod.GET)
     @ResponseBody
     public Response page(Soft soft, Page page) {
@@ -37,6 +39,7 @@ public class SoftController {
 
     @ApiOperation(value = "获取软件数量-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "count",method = RequestMethod.GET)
     @ResponseBody
     public Response count() {

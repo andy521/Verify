@@ -12,6 +12,7 @@ import com.orange.verify.api.vo.CardVo;
 import com.orange.verify.api.vo.open.CardTimeLimitVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class CardController {
 
     @ApiOperation(value = "获取分页卡密类型-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "page",method = RequestMethod.GET)
     @ResponseBody
     public Response page(CardVo cardVo, Page page) {
@@ -40,6 +42,7 @@ public class CardController {
 
     @ApiOperation(value = "获取卡密数量-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "count",method = RequestMethod.GET)
     @ResponseBody
     public Response count() {
@@ -50,6 +53,7 @@ public class CardController {
 
     @ApiOperation(value = "增加卡密-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
     public Response create(Card card,Integer count) {
@@ -67,6 +71,7 @@ public class CardController {
 
     @ApiOperation(value = "封停卡密-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "closure",method = RequestMethod.POST)
     @ResponseBody
     public Response closure(String cardId,Integer closure) {
@@ -84,6 +89,7 @@ public class CardController {
 
     @ApiOperation(value = "卖出卡密-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "sellStatus",method = RequestMethod.POST)
     @ResponseBody
     public Response sellStatus(String cardId,Integer sellStatus) {
@@ -101,6 +107,7 @@ public class CardController {
 
     @ApiOperation(value = "批量卖出卡密-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "sell",method = RequestMethod.POST)
     @ResponseBody
     public Response sell(@RequestBody List<String> sell) {
@@ -112,6 +119,7 @@ public class CardController {
 
     @ApiOperation(value = "删除卡密-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "remove",method = RequestMethod.POST)
     @ResponseBody
     public Response remove(String cardId) {

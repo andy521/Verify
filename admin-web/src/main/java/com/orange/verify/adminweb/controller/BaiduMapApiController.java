@@ -8,6 +8,7 @@ import com.orange.verify.api.bean.BaiduMapApi;
 import com.orange.verify.api.service.BaiduMapApiService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ public class BaiduMapApiController {
 
     @ApiOperation(value = "获取-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "single",method = RequestMethod.GET)
     @ResponseBody
     public Response single() {
@@ -39,6 +41,7 @@ public class BaiduMapApiController {
 
     @ApiOperation(value = "新增-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
     public Response create(BaiduMapApi baiduMapApi) {
@@ -52,6 +55,7 @@ public class BaiduMapApiController {
 
     @ApiOperation(value = "修改-需要验证api")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public Response update(BaiduMapApi baiduMapApi) {

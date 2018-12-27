@@ -10,6 +10,7 @@ import com.orange.verify.api.service.SoftVersionsService;
 import com.orange.verify.api.vo.SoftVersionsVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ public class SoftVersionsController {
 
     @ApiOperation(value = "查询版本")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "getSingleBySoftId",method = RequestMethod.GET)
     @ResponseBody
     public Response getSingleBySoftId(String softId) {
@@ -35,6 +37,7 @@ public class SoftVersionsController {
 
     @ApiOperation(value = "创建版本")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
     public Response create(SoftVersions softVersions) {
@@ -48,6 +51,7 @@ public class SoftVersionsController {
 
     @ApiOperation(value = "修改版本")
     @RspHandle
+    @RequiresUser
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public Response update(SoftVersions softVersions) {
