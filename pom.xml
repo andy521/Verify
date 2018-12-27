@@ -15,8 +15,6 @@
         <module>admin-web</module>
         <module>builder</module>
         <module>common</module>
-        <module>discovery</module>
-        <module>dal</module>
 
     </modules>
 

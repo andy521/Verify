@@ -10,8 +10,6 @@
         <module name="api" />
         <module name="builder" />
         <module name="common" />
-        <module name="dal" />
-        <module name="discovery" />
         <module name="verifymaster" />
       </profile>
       <profile name="Annotation profile for verify-master" enabled="true">
