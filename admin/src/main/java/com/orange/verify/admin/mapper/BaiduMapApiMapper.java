@@ -9,4 +9,7 @@ public interface BaiduMapApiMapper extends BaseMapper<BaiduMapApi> {
     @Select("select count(*) from t_baidu_map_api")
     int getBaiduMapApiCount();
 
+    @Select("select * from t_baidu_map_api")
+    BaiduMapApi getSingle();
+
 }

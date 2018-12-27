@@ -28,24 +28,6 @@ public class RedisImpl {
         template.opsForValue().set(PREFIX + key,value);
     }
 
-    public boolean shortVerificationTime(String key, long millisecond) {
-        Map<String,Object> v = (HashMap<String, Object>) this.getByKey(key);
-        if (v != null) {
-            Long createDate = (Long) v.get("createDate");
-            long totalTime = (System.currentTimeMillis() - createDate);
-            //小于多少毫秒 不能通过
-            if (totalTime < millisecond) {
-                return false;
-            }
-        }
-        return true;
-    }
-    public void saveToShortVerificationTime(String key) {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("createDate",System.currentTimeMillis());
-        this.save10Minutes(key,map);
-    }
-
     public Object getByKey(String key) {
         return template.opsForValue().get(PREFIX + key);
     }

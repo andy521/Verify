@@ -49,6 +49,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     @Autowired
     private AccountLoginLogMapper accountLoginLogMapper;
 
+    @Autowired
+    private BaiduMapApiMapper baiduMapApiMapper;
+
     @Override
     public Page<AccountVo> page(AccountVo accountVo, Page page) {
 
@@ -133,15 +136,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         //查询ip信息
         String addressByIp = "";
-        if (!"127.0.0.1".equals(accountRegisterVo.getIp())) {
-
-            try {
-                addressByIp = BaiduIp.start("m1ykK4CPuUVgZW3KDZO3lrvGzW2ZzYn6")
-                        .getAddressByIp(accountRegisterVo.getIp());
-            } catch (Exception e) {
-                result.setCode(4);
-                return result;
-            }
+        try {
+            addressByIp = getIpInfo(accountRegisterVo.getIp());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //进行转型然后插入数据库
@@ -244,15 +242,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
             //查询ip信息
             String addressByIp = "";
-            if (!"127.0.0.1".equals(accountLoginVo.getIp())) {
-
-                try {
-                    addressByIp = BaiduIp.start("m1ykK4CPuUVgZW3KDZO3lrvGzW2ZzYn6")
-                            .getAddressByIp(accountLoginVo.getIp());
-                } catch (Exception e) {
-                    result.setCode(4);
-                    return result;
-                }
+            try {
+                addressByIp = getIpInfo(accountLoginVo.getIp());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             AccountLoginLog accountLoginLog = new AccountLoginLog();
@@ -266,6 +259,25 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         }
         result.setCode(2);
         return result;
+    }
+
+    private String getIpInfo(String ip) throws Exception {
+
+        BaiduMapApi single = baiduMapApiMapper.getSingle();
+        if (single == null) {
+            throw new Exception();
+        }
+
+        String ipInfo = "";
+        if (!"127.0.0.1".equals(ip)) {
+            try {
+                ipInfo = BaiduIp.start(single.getAppkey())
+                        .getAddressByIp(ip);
+            } catch (Exception e) {
+                throw new Exception();
+            }
+        }
+        return ipInfo;
     }
 
     @Override
