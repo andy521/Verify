@@ -10,8 +10,6 @@ import com.orange.verify.api.bean.Card;
 import com.orange.verify.api.service.CardService;
 import com.orange.verify.api.vo.CardVo;
 import com.orange.verify.api.vo.open.CardTimeLimitVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-@Api(description = "卡密")
 @Controller
 @RequestMapping(value = "card")
 public class CardController {
@@ -29,7 +26,6 @@ public class CardController {
     @Reference
     private CardService cardService;
 
-    @ApiOperation(value = "获取分页卡密类型-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "page",method = RequestMethod.GET)
@@ -40,7 +36,6 @@ public class CardController {
         return Response.build(ResponseCode.QUERY_SUCCESS,cardVoPage);
     }
 
-    @ApiOperation(value = "获取卡密数量-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "count",method = RequestMethod.GET)
@@ -51,7 +46,6 @@ public class CardController {
         return Response.build(ResponseCode.QUERY_SUCCESS,count);
     }
 
-    @ApiOperation(value = "增加卡密-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
@@ -69,7 +63,6 @@ public class CardController {
         return Response.error();
     }
 
-    @ApiOperation(value = "封停卡密-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "closure",method = RequestMethod.POST)
@@ -87,7 +80,6 @@ public class CardController {
         return Response.error();
     }
 
-    @ApiOperation(value = "卖出卡密-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "sellStatus",method = RequestMethod.POST)
@@ -105,7 +97,6 @@ public class CardController {
         return Response.error();
     }
 
-    @ApiOperation(value = "批量卖出卡密-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "sell",method = RequestMethod.POST)
@@ -117,7 +108,6 @@ public class CardController {
         return Response.success();
     }
 
-    @ApiOperation(value = "删除卡密-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "remove",method = RequestMethod.POST)
@@ -131,7 +121,6 @@ public class CardController {
         return Response.error();
     }
 
-    @ApiOperation(value = "查询卡密使用期限-开放接口")
     @RspHandle
     @RequestMapping(value = "getCardTimeLimit",method = RequestMethod.POST)
     @ResponseBody

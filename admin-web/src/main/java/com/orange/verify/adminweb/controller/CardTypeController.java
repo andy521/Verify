@@ -8,8 +8,6 @@ import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.CardType;
 import com.orange.verify.api.service.CardTypeService;
 import com.orange.verify.api.vo.CardTypeVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-@Api(description = "卡类型")
 @Controller
 @RequestMapping(value = "cardType")
 public class CardTypeController {
@@ -26,7 +23,6 @@ public class CardTypeController {
     @Reference
     private CardTypeService cardTypeService;
 
-    @ApiOperation(value = "获取分页卡类型-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "page",method = RequestMethod.GET)
@@ -37,7 +33,6 @@ public class CardTypeController {
         return Response.build(ResponseCode.QUERY_SUCCESS,cardTypeVoPage);
     }
 
-    @ApiOperation(value = "获取全部类型-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "list",method = RequestMethod.GET)
@@ -48,7 +43,6 @@ public class CardTypeController {
         return Response.build(ResponseCode.QUERY_SUCCESS,list);
     }
 
-    @ApiOperation(value = "获取单个-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "single",method = RequestMethod.GET)
@@ -59,7 +53,6 @@ public class CardTypeController {
         return Response.build(ResponseCode.QUERY_SUCCESS,cardType);
     }
 
-    @ApiOperation(value = "增加卡-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
@@ -73,7 +66,6 @@ public class CardTypeController {
         return Response.error();
     }
 
-    @ApiOperation(value = "修改卡-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "update",method = RequestMethod.POST)
@@ -87,7 +79,6 @@ public class CardTypeController {
         return Response.error();
     }
 
-    @ApiOperation(value = "删除卡-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "remove",method = RequestMethod.POST)

@@ -6,8 +6,6 @@ import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.EmailAccount;
 import com.orange.verify.api.service.EmailAccountService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-@Api(description = "邮箱账户录入")
 @Controller
 @RequestMapping(value = "emailAccount")
 public class EmailAccountController {
@@ -24,7 +21,6 @@ public class EmailAccountController {
     @Reference
     private EmailAccountService emailAccountService;
 
-    @ApiOperation(value = "获取邮箱账户-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "list",method = RequestMethod.GET)
@@ -35,7 +31,6 @@ public class EmailAccountController {
         return Response.build(ResponseCode.QUERY_SUCCESS,list);
     }
 
-    @ApiOperation(value = "获取单个邮箱账户-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "single",method = RequestMethod.GET)
@@ -46,7 +41,6 @@ public class EmailAccountController {
         return Response.build(ResponseCode.QUERY_SUCCESS,emailAccount);
     }
 
-    @ApiOperation(value = "增加邮箱账户-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
@@ -60,7 +54,6 @@ public class EmailAccountController {
         return Response.error();
     }
 
-    @ApiOperation(value = "修改邮箱账户-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "update",method = RequestMethod.POST)
@@ -74,7 +67,6 @@ public class EmailAccountController {
         return Response.error();
     }
 
-    @ApiOperation(value = "删除邮箱账户-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "remove",method = RequestMethod.POST)

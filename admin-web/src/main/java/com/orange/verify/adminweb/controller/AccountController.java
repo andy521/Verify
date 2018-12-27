@@ -15,8 +15,6 @@ import com.orange.verify.api.vo.open.AccountBindingCodeVo;
 import com.orange.verify.api.vo.open.AccountLoginVo;
 import com.orange.verify.api.vo.open.AccountRegisterVo;
 import com.orange.verify.common.ip.IpUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Api(description = "用户接口")
 @Controller
 @RequestMapping(value = "account")
 public class AccountController extends BaseController {
@@ -35,7 +32,6 @@ public class AccountController extends BaseController {
     @Reference
     private AccountService accountService;
 
-    @ApiOperation(value = "获取用户-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "page",method = RequestMethod.GET)
@@ -46,7 +42,6 @@ public class AccountController extends BaseController {
         return Response.build(ResponseCode.QUERY_SUCCESS,cardTypeVoPage);
     }
 
-    @ApiOperation(value = "获取用户数量-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "count",method = RequestMethod.GET)
@@ -57,7 +52,6 @@ public class AccountController extends BaseController {
         return Response.build(ResponseCode.QUERY_SUCCESS,count);
     }
 
-    @ApiOperation(value = "用户黑名单设置-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "blacklist",method = RequestMethod.POST)
@@ -74,7 +68,6 @@ public class AccountController extends BaseController {
         return Response.error();
     }
 
-    @ApiOperation(value = "删除用户-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "remove",method = RequestMethod.POST)
@@ -88,7 +81,6 @@ public class AccountController extends BaseController {
         return Response.error();
     }
 
-    @ApiOperation(value = "获取rsa钥匙-开放接口")
     @RspHandle(ipHandle = true)
     @RequestMapping(value = "getPublicKey",method = RequestMethod.POST)
     @ResponseBody
@@ -106,7 +98,6 @@ public class AccountController extends BaseController {
 
     }
 
-    @ApiOperation(value = "用户注册-开放接口")
     @RspHandle(ipHandle = true)
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
@@ -149,7 +140,6 @@ public class AccountController extends BaseController {
 
     }
 
-    @ApiOperation(value = "用户登陆-开放接口")
     @RspHandle
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
@@ -193,7 +183,6 @@ public class AccountController extends BaseController {
         }
     }
 
-    @ApiOperation(value = "用户绑定卡密-开放接口")
     @RspHandle
     @RequestMapping(value = "bindingCard",method = RequestMethod.POST)
     @ResponseBody
@@ -235,7 +224,6 @@ public class AccountController extends BaseController {
         }
     }
 
-    @ApiOperation(value = "用户换绑定机器-开放接口")
     @RspHandle
     @RequestMapping(value = "bindingCode",method = RequestMethod.POST)
     @ResponseBody

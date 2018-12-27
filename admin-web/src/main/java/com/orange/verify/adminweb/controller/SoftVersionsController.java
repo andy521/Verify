@@ -8,15 +8,12 @@ import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.SoftVersions;
 import com.orange.verify.api.service.SoftVersionsService;
 import com.orange.verify.api.vo.SoftVersionsVo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Api(description = "软件版本")
 @Controller
 @RequestMapping(value = "softVersions")
 public class SoftVersionsController {
@@ -24,7 +21,6 @@ public class SoftVersionsController {
     @Reference
     private SoftVersionsService softVersionsService;
 
-    @ApiOperation(value = "查询版本")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "getSingleBySoftId",method = RequestMethod.GET)
@@ -35,7 +31,6 @@ public class SoftVersionsController {
         return Response.build(ResponseCode.QUERY_SUCCESS, singleBySoftId);
     }
 
-    @ApiOperation(value = "创建版本")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
@@ -49,7 +44,6 @@ public class SoftVersionsController {
         return Response.error();
     }
 
-    @ApiOperation(value = "修改版本")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "update",method = RequestMethod.POST)
@@ -64,7 +58,6 @@ public class SoftVersionsController {
     }
 
 
-    @ApiOperation(value = "根据软件id查询版本-开放接口")
     @RspHandle
     @RequestMapping(value = "getVersions",method = RequestMethod.POST)
     @ResponseBody

@@ -6,8 +6,6 @@ import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.BaiduMapApi;
 import com.orange.verify.api.service.BaiduMapApiService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-@Api(description = "百度地图api配置")
 @Controller
 @RequestMapping(value = "baiduMapApi")
 public class BaiduMapApiController {
@@ -24,7 +21,6 @@ public class BaiduMapApiController {
     @Reference
     private BaiduMapApiService baiduMapApiService;
 
-    @ApiOperation(value = "获取-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "single",method = RequestMethod.GET)
@@ -39,7 +35,6 @@ public class BaiduMapApiController {
         return Response.build(ResponseCode.QUERY_SUCCESS,list.get(0));
     }
 
-    @ApiOperation(value = "新增-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "create",method = RequestMethod.POST)
@@ -53,7 +48,6 @@ public class BaiduMapApiController {
         return Response.error();
     }
 
-    @ApiOperation(value = "修改-需要验证api")
     @RspHandle
     @RequiresUser
     @RequestMapping(value = "update",method = RequestMethod.POST)
