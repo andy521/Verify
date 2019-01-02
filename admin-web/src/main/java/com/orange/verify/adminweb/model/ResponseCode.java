@@ -21,6 +21,8 @@ public enum ResponseCode {
 
     UPDATE_PASSWORD_SUCCESS(105,"改密成功"),
 
+    LOGOUT_SUCCESS(106,"登出成功"),
+
 
     //失败
     UNKNOWN_ERROR(901,"不好意思，发生了未知错误"),
@@ -70,6 +72,8 @@ public enum ResponseCode {
     BAIDU_API_ERROR(923,"IP错误"),
 
     UPDATE_PASSWORD_ERROR(924,"改密失败"),
+
+    LOGOUT_ERROR(925,"登出失败"),
 
 
     //基础

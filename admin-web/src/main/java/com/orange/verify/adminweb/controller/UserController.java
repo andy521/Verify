@@ -36,4 +36,21 @@ public class UserController {
         return Response.build(ResponseCode.LOGIN_SUCCESS);
     }
 
+    @RspHandle
+    @RequestMapping(value = "logout",method = RequestMethod.POST)
+    @ResponseBody
+    public Response logout() {
+
+        try {
+
+            Subject subject = SecurityUtils.getSubject();
+            subject.logout();
+
+        }catch (Exception e) {
+            return Response.build(ResponseCode.LOGOUT_ERROR);
+        }
+
+        return Response.build(ResponseCode.LOGOUT_SUCCESS);
+    }
+
 }
