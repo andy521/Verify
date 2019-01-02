@@ -14,10 +14,7 @@ import com.orange.verify.api.bean.*;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.vo.AccountVo;
-import com.orange.verify.api.vo.open.AccountBindingCardVo;
-import com.orange.verify.api.vo.open.AccountBindingCodeVo;
-import com.orange.verify.api.vo.open.AccountLoginVo;
-import com.orange.verify.api.vo.open.AccountRegisterVo;
+import com.orange.verify.api.vo.open.*;
 import com.orange.verify.common.ip.BaiduIp;
 import com.orange.verify.common.rsa.RsaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -467,6 +464,31 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         accountUpdate.setId(account.getId());
         accountUpdate.setCode(code);
         super.baseMapper.updateById(accountUpdate);
+
+        result.setCode(1);
+        return result;
+    }
+
+    @Override
+    public ServiceResult<Integer> updatePassword(AccountUpdatePasswordVo accountUpdatePasswordVo) {
+
+        ServiceResult<Integer> result = new ServiceResult<>();
+
+        Soft soft = softMapper.selectById(accountUpdatePasswordVo.getSoftId());
+        //软件不存在直接返回
+        if (soft == null) {
+            result.setCode(3);
+            return result;
+        } else if (soft.getServiceStatus() == 2) {
+            result.setCode(4);
+            result.setMsg(soft.getServiceCloseMsg());
+            return result;
+        }
+
+        int updatePassword = super.baseMapper.updatePassword(accountUpdatePasswordVo);
+        if (updatePassword == 0) {
+            result.setCode(2);
+        }
 
         result.setCode(1);
         return result;

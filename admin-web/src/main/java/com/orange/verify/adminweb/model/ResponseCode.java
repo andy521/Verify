@@ -19,6 +19,8 @@ public enum ResponseCode {
 
     LEAVE_MESSAGE_SEND_SUCCESS(104,"留言发送成功"),
 
+    UPDATE_PASSWORD_SUCCESS(105,"改密成功"),
+
 
     //失败
     UNKNOWN_ERROR(901,"不好意思，发生了未知错误"),
@@ -66,6 +68,8 @@ public enum ResponseCode {
     SOFT_EMPTY(922,"软件不存在"),
 
     BAIDU_API_ERROR(923,"IP错误"),
+
+    UPDATE_PASSWORD_ERROR(924,"改密失败"),
 
 
     //基础

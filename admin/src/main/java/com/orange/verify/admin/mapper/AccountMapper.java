@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orange.verify.api.bean.Account;
 import com.orange.verify.api.vo.AccountVo;
+import com.orange.verify.api.vo.open.AccountUpdatePasswordVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,5 +23,11 @@ public interface AccountMapper extends BaseMapper<Account> {
             "order by create_date desc" +
             "</script>")
     List<AccountVo> page(@Param("accountVo") AccountVo accountVo, Page page);
+
+    @Update("update t_account set password = #{password} where " +
+            "soft_id = #{softId} and " +
+            "username = #{username} and " +
+            "security_code = #{securityCode}")
+    int updatePassword(AccountUpdatePasswordVo accountUpdatePasswordVo);
 
 }

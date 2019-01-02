@@ -10,10 +10,7 @@ import com.orange.verify.api.bean.Account;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.vo.AccountVo;
-import com.orange.verify.api.vo.open.AccountBindingCardVo;
-import com.orange.verify.api.vo.open.AccountBindingCodeVo;
-import com.orange.verify.api.vo.open.AccountLoginVo;
-import com.orange.verify.api.vo.open.AccountRegisterVo;
+import com.orange.verify.api.vo.open.*;
 import com.orange.verify.common.ip.IpUtil;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
@@ -108,6 +105,7 @@ public class AccountController extends BaseController {
 
         accountRegisterVo.setPublicKey(accountRegisterVo.getPublicKey().replaceAll(" ","+"));
         accountRegisterVo.setPassword(accountRegisterVo.getPassword().replaceAll(" ","+"));
+        accountRegisterVo.setCode(accountRegisterVo.getCode().replaceAll(" ","+"));
 
         accountRegisterVo.setIp(IpUtil.getIp(request));
 
@@ -256,6 +254,29 @@ public class AccountController extends BaseController {
                 return Response.build(ResponseCode.SOFT_NO_CHANGE);
             case 12:
                 return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
+            default:
+                return Response.build(ResponseCode.ERROR);
+        }
+    }
+
+    @RspHandle
+    @RequestMapping(value = "updatePassword",method = RequestMethod.POST)
+    @ResponseBody
+    public Response updatePassword(@Validated AccountUpdatePasswordVo accountUpdatePasswordVo, BindingResult result)
+            throws ParameterError {
+
+        parametric(result);
+
+        ServiceResult<Integer> bindingCode = accountService.updatePassword(accountUpdatePasswordVo);
+        switch (bindingCode.getCode()) {
+            case 1:
+                return Response.build(ResponseCode.UPDATE_PASSWORD_SUCCESS);
+            case 2:
+                return Response.build(ResponseCode.UPDATE_PASSWORD_ERROR);
+            case 3:
+                return Response.build(ResponseCode.SOFT_EMPTY);
+            case 4:
+                return Response.build(ResponseCode.SOFT_CLOSE);
             default:
                 return Response.build(ResponseCode.ERROR);
         }

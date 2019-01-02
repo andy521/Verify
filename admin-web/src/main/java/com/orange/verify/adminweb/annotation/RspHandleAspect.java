@@ -68,8 +68,6 @@ public class RspHandleAspect {
         Response response = null;
         try {
             response = (Response) pjp.proceed();
-        } catch (AuthenticationException e) {
-            return Response.build(ResponseCode.LOGIN_ERROR);
         } catch (ParameterError e) {
             return Response.build(ResponseCode.PARAMETER_ERROR,e.getMessage());
         } catch (Exception e) {
