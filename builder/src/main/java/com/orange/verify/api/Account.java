@@ -30,6 +30,9 @@ public class Account extends BaseEntity {
     @Column(columnDefinition = "varchar(100) comment '用户电脑的机器码'")
     private String code;
 
+    @Column(columnDefinition = "varchar(100) comment '安全码，找回密码用'")
+    private String securityCode;
+
     @Column(columnDefinition = "varchar(15) comment '用户的联系QQ'")
     private String qq;
 

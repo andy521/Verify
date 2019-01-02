@@ -23,6 +23,17 @@ public class AccountRegisterVo implements Serializable {
     @NotBlank(message = "软件id不能为空")
     private String softId;
 
+    @NotBlank(message = "安全码不能为空")
+    @Size(min = 1,max = 10,message = "安全码长度是10位哟")
+    private String securityCode;
+
+    /**
+     * 用户电脑的机器码
+     * code
+     */
+    @NotBlank(message = "code不能为空")
+    private String code;
+
     /**
      * 用户的真实姓名
      * name

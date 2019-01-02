@@ -122,8 +122,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         //进行解密 >>> password 和 code >>> 解密成真实文本
         String password = null;
+        String code = null;
         try {
             password = RsaUtil.decodeRsa(accountRegisterVo.getPassword(), privateKey);
+            code = RsaUtil.decodeRsa(accountRegisterVo.getCode(), privateKey);
         } catch (Exception e) {
             result.setCode(5);
             return result;
@@ -147,6 +149,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         //进行转型然后插入数据库
         accountRegisterVo.setPassword(password);
+        accountRegisterVo.setCode(code);
 
         Account account = transition.fromVo(accountRegisterVo);
         account.setCreateIpInfo(addressByIp);

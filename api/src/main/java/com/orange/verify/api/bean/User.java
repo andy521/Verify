@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 平台管理用户
  * t_user
  * @author Orange
- * @date 2018/12/27
+ * @date 2019/01/02
  */
 @TableName("t_user")
 @KeySequence("SEQ_TEST")

@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件用户表
  * t_account
  * @author Orange
- * @date 2018/12/27
+ * @date 2019/01/02
  */
 @TableName("t_account")
 @KeySequence("SEQ_TEST")
@@ -85,6 +85,12 @@ public class Account implements Serializable {
      * qq
      */
     private String qq;
+
+    /**
+     * 安全码，找回密码用
+     * security_code
+     */
+    private String securityCode;
 
     /**
      * 软件绑定id
@@ -208,6 +214,14 @@ public class Account implements Serializable {
 
     public void setQq(String qq) {
         this.qq = qq == null ? null : qq.trim();
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode == null ? null : securityCode.trim();
     }
 
     public String getSoftId() {
