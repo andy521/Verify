@@ -18,7 +18,7 @@ public class BaiduIp {
 
     public static final String API_BAIDU_ERROR = "API_BAIDU_ERROR";
 
-    private String ak = "m1ykK4CPuUVgZW3KDZO3lrvGzW2ZzYn6";
+    private String ak = "";
 
     public static BaiduIp start(String ak) {
         return new BaiduIp().init(ak);
@@ -39,7 +39,7 @@ public class BaiduIp {
 
         String url = "https://api.map.baidu.com/location/ip";
 
-        String data = "?ip=" + ip + "&ak=" + ak + "&coor=bd09ll";
+        String data = "?ip=" + ip + "&ak=" + this.ak + "&coor=bd09ll";
 
         HttpResponse execute = HttpRequest.get(url + data).execute();
 
