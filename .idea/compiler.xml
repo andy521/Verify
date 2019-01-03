@@ -37,9 +37,9 @@
     <bytecodeTargetLevel>
       <module name="admin" target="1.8" />
       <module name="admin-web" target="1.8" />
-      <module name="api" target="1.8" />
+      <module name="api" target="1.5" />
       <module name="builder" target="1.8" />
-      <module name="common" target="1.8" />
+      <module name="common" target="1.5" />
       <module name="dal" target="1.8" />
       <module name="discovery" target="1.8" />
       <module name="verifymaster" target="1.5" />
