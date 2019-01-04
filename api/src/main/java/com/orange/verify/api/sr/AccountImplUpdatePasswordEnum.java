@@ -12,4 +12,8 @@ public class AccountImplUpdatePasswordEnum implements Serializable {
 
     public static final int SOFT_CLOSE = 4;
 
+    public static final int ACCOUNT_EMPTY = 5;
+
+    public static final int ACCOUNT_BLACKLIST = 6;
+
 }

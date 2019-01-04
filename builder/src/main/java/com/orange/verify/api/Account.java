@@ -21,10 +21,10 @@ public class Account extends BaseEntity {
     @Column(columnDefinition = "varchar(100) comment '卡密绑定id'")
     private String cardId;
 
-    @Column(columnDefinition = "varchar(30) comment '用户名'")
+    @Column(columnDefinition = "varchar(100) comment '用户名'")
     private String username;
 
-    @Column(columnDefinition = "varchar(30) comment '用户密码'")
+    @Column(columnDefinition = "varchar(100) comment '用户密码'")
     private String password;
 
     @Column(columnDefinition = "varchar(100) comment '用户电脑的机器码'")
@@ -33,13 +33,13 @@ public class Account extends BaseEntity {
     @Column(columnDefinition = "varchar(100) comment '安全码，找回密码用'")
     private String securityCode;
 
-    @Column(columnDefinition = "varchar(15) comment '用户的联系QQ'")
+    @Column(columnDefinition = "varchar(100) comment '用户的联系QQ'")
     private String qq;
 
-    @Column(columnDefinition = "varchar(13) comment '用户的联系手机号'")
+    @Column(columnDefinition = "varchar(100) comment '用户的联系手机号'")
     private String phoneNumber;
 
-    @Column(columnDefinition = "varchar(10) comment '用户的真实姓名'")
+    @Column(columnDefinition = "varchar(100) comment '用户的真实姓名'")
     private String name;
 
     @Column(columnDefinition = "varchar(100) comment '用户注册的时候ip地址'")

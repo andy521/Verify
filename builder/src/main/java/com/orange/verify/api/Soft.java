@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @Table(appliesTo = "t_soft",comment = "软件")
 public class Soft extends BaseEntity {
 
-    @Column(columnDefinition = "varchar(20) comment '软件名称'")
+    @Column(columnDefinition = "varchar(100) comment '软件名称'")
     private String name;
 
     @Column(columnDefinition = "int(2) default 0 comment '服务状态 0.收费 1.免费开放 2.关闭开放使用'")
@@ -40,7 +40,7 @@ public class Soft extends BaseEntity {
     @Column(columnDefinition = "int(2) default 0 comment '软件被留言 是否邮件通知 0.通知 1.不通知'")
     private Integer emailNotificatio;
 
-    @Column(columnDefinition = "varchar(20) default '' comment '被通知的邮箱账户名'")
+    @Column(columnDefinition = "varchar(100) default '' comment '被通知的邮箱账户名'")
     private String emailName;
 
 }

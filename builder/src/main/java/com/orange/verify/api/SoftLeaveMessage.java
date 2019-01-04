@@ -19,7 +19,7 @@ public class SoftLeaveMessage extends BaseEntity {
     @Column(columnDefinition = "varchar(255) comment '用户留言内容'")
     private String content;
 
-    @Column(columnDefinition = "varchar(20) comment '用户的QQ号'")
+    @Column(columnDefinition = "varchar(100) comment '用户的QQ号'")
     private String qq;
 
     private String ip;

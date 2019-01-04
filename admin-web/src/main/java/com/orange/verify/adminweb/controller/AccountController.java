@@ -117,9 +117,6 @@ public class AccountController extends BaseController {
             case AccountImplRegisterEnum.REGISTER_SUCCESS:
                 return Response.build(ResponseCode.REGISTER_SUCCESS);
 
-            case AccountImplRegisterEnum.REGISTER_ERROR:
-                return Response.build(ResponseCode.REGISTER_ERROR);
-
             case AccountImplRegisterEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
 
@@ -332,6 +329,12 @@ public class AccountController extends BaseController {
 
             case AccountImplUpdatePasswordEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE);
+
+            case AccountImplUpdatePasswordEnum.ACCOUNT_EMPTY:
+                return Response.build(ResponseCode.ACCOUNT_EMPTY);
+
+            case AccountImplUpdatePasswordEnum.ACCOUNT_BLACKLIST:
+                return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
 
             default:
                 return Response.build(ResponseCode.UNKNOWN_ERROR);

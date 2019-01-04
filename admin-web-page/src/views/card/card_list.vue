@@ -365,7 +365,7 @@ export default {
       this.exportCardDialogContent = "";
       let count = 0;
       for (let i = 0;i < selection.length;i++) {
-        if (selection[i].sellStatus == false && selection[i].closure == false) {
+        if (selection[i].sellStatus == false && selection[i].closure == false && selection[i].useStatus == '未使用') {
           count+=1;
           if (i == selection.length - 1) {
             this.exportCardDialogContent+=selection[i].cardNumber;
@@ -380,7 +380,7 @@ export default {
       let selection = this.$refs.multipleTable.selection;
       let data = [];
       for (let i = 0;i < selection.length;i++) {
-        if (selection[i].sellStatus == false && selection[i].closure == false) {
+        if (selection[i].sellStatus == false && selection[i].closure == false && selection[i].useStatus == '未使用') {
           data.push(selection[i].id);
         }
       }

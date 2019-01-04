@@ -15,13 +15,13 @@ import javax.persistence.Entity;
 @Table(appliesTo = "t_user",comment = "平台管理用户")
 public class User extends BaseEntity {
 
-    @Column(columnDefinition = "varchar(10) comment '管理用户名'")
+    @Column(columnDefinition = "varchar(100) comment '管理用户名'")
     private String username;
 
-    @Column(columnDefinition = "varchar(10) comment '管理用户密码'")
+    @Column(columnDefinition = "varchar(100) comment '管理用户密码'")
     private String password;
 
-    @Column(columnDefinition = "varchar(10) comment '管理标识符'")
+    @Column(columnDefinition = "varchar(100) comment '管理标识符'")
     private String flag;
 
 }

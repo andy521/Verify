@@ -152,18 +152,16 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         Account account = transition.fromVo(accountRegisterVo);
         account.setCreateIpInfo(addressByIp);
 
-        int insert = super.baseMapper.insert(account);
-        if (insert == 1) {
-            AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
-            accountRegisterLog.setAccountId(account.getId());
-            accountRegisterLog.setIp(account.getCreateIp());
-            accountRegisterLog.setIpInfo(addressByIp);
-            accountRegisterLogMapper.insert(accountRegisterLog);
+        super.baseMapper.insert(account);
 
-            result.setCode(AccountImplRegisterEnum.REGISTER_SUCCESS);
-        }
+        AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
+        accountRegisterLog.setAccountId(account.getId());
+        accountRegisterLog.setIp(account.getCreateIp());
+        accountRegisterLog.setIpInfo(addressByIp);
+        accountRegisterLogMapper.insert(accountRegisterLog);
 
-        result.setCode(AccountImplRegisterEnum.REGISTER_ERROR);
+        result.setCode(AccountImplRegisterEnum.REGISTER_SUCCESS);
+
         return result;
     }
 
@@ -497,10 +495,18 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
-        int updatePassword = super.baseMapper.updatePassword(accountUpdatePasswordVo);
-        if (updatePassword == 0) {
-            result.setCode(AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_ERROR);
+        QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
+                accountUpdatePasswordVo.getUsername()).eq("security_code",accountUpdatePasswordVo.getSecurityCode());
+        Account account = super.baseMapper.selectOne(queryWrapper);
+        if (account == null) {
+            result.setCode(AccountImplUpdatePasswordEnum.ACCOUNT_EMPTY);
+            return result;
+        } else if (account.getBlacklist() == 1) {
+            result.setCode(AccountImplUpdatePasswordEnum.ACCOUNT_BLACKLIST);
+            return result;
         }
+
+        super.baseMapper.updatePassword(accountUpdatePasswordVo);
 
         result.setCode(AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_SUCCESS);
         return result;
