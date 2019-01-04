@@ -9,6 +9,7 @@ import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.Account;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
+import com.orange.verify.api.sr.*;
 import com.orange.verify.api.vo.AccountVo;
 import com.orange.verify.api.vo.open.*;
 import com.orange.verify.common.ip.IpUtil;
@@ -85,12 +86,14 @@ public class AccountController extends BaseController {
 
         ServiceResult<String> result = accountService.getPublicKey();
         switch (result.getCode()) {
-            case 1:
+            case AccountImplGetPublicKeyEnum.SUCCESS:
                 return Response.build(ResponseCode.QUERY_SUCCESS,ResponseCode.QUERY_SUCCESS.getDesc(),result.getData());
-            case 3:
+
+            case AccountImplGetPublicKeyEnum.KEY_ERROR:
                 return Response.build(ResponseCode.KEY_ERROR);
+
             default:
-                return Response.build(ResponseCode.ERROR);
+                return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
 
     }
@@ -101,7 +104,7 @@ public class AccountController extends BaseController {
     public Response register(@Validated AccountRegisterVo accountRegisterVo, BindingResult result,
                              HttpServletRequest request) throws ParameterError {
 
-        parametric(result);
+        super.parametric(result);
 
         accountRegisterVo.setPublicKey(accountRegisterVo.getPublicKey().replaceAll(" ","+"));
         accountRegisterVo.setPassword(accountRegisterVo.getPassword().replaceAll(" ","+"));
@@ -111,29 +114,38 @@ public class AccountController extends BaseController {
 
         ServiceResult<Integer> register = accountService.register(accountRegisterVo);
         switch (register.getCode()) {
-            case 1:
-                if (register.getData() == 1) {
-                    return Response.build(ResponseCode.REGISTER_SUCCESS);
-                }
+            case AccountImplRegisterEnum.REGISTER_SUCCESS:
+                return Response.build(ResponseCode.REGISTER_SUCCESS);
+
+            case AccountImplRegisterEnum.REGISTER_ERROR:
                 return Response.build(ResponseCode.REGISTER_ERROR);
-            case 2:
+
+            case AccountImplRegisterEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
-            case 3:
+
+            case AccountImplRegisterEnum.SOFT_EMPTY:
                 return Response.build(ResponseCode.SOFT_EMPTY);
-            case 4:
+
+            case AccountImplRegisterEnum.BAIDU_API_ERROR:
                 return Response.build(ResponseCode.BAIDU_API_ERROR);
-            case 5:
+
+            case AccountImplRegisterEnum.KEY_ERROR:
                 return Response.build(ResponseCode.KEY_ERROR);
-            case 6:
+
+            case AccountImplRegisterEnum.ACCOUNT_ALREADY_EXIST:
                 return Response.build(ResponseCode.ACCOUNT_ALREADY_EXIST);
-            case 7:
+
+            case AccountImplRegisterEnum.PASSWORD_LENGTH_ERROR:
                 return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
-            case 8:
+
+            case AccountImplRegisterEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE,register.getMsg());
-            case 9:
+
+            case AccountImplRegisterEnum.REGISTER_CLOSE:
                 return Response.build(ResponseCode.REGISTER_CLOSE,register.getMsg());
+
             default:
-                return Response.build(ResponseCode.ERROR);
+                return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
 
     }
@@ -144,7 +156,7 @@ public class AccountController extends BaseController {
     public Response login(@Validated AccountLoginVo accountLoginVo, BindingResult result,
                           HttpServletRequest request) throws ParameterError {
 
-        parametric(result);
+        super.parametric(result);
 
         accountLoginVo.setPublicKey(accountLoginVo.getPublicKey().replaceAll(" ","+"));
         accountLoginVo.setPassword(accountLoginVo.getPassword().replaceAll(" ","+"));
@@ -154,30 +166,47 @@ public class AccountController extends BaseController {
 
         ServiceResult<Long> login = accountService.login(accountLoginVo);
         switch (login.getCode()) {
-            case 1:
+            case AccountImplLoginEnum.LOGIN_SUCCESS:
                 return Response.build(ResponseCode.LOGIN_SUCCESS);
-            case 2:
+
+            case AccountImplLoginEnum.LOGIN_ERROR:
                 return Response.build(ResponseCode.LOGIN_ERROR);
-            case 3:
+
+            case AccountImplLoginEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
-            case 4:
+
+            case AccountImplLoginEnum.SOFT_EMPTY:
                 return Response.build(ResponseCode.SOFT_EMPTY);
-            case 5:
+
+            case AccountImplLoginEnum.KEY_ERROR:
                 return Response.build(ResponseCode.KEY_ERROR);
-            case 6:
+
+            case AccountImplLoginEnum.PASSWORD_LENGTH_ERROR:
                 return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
-            case 8:
+
+            case AccountImplLoginEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE,login.getMsg());
-            case 9:
+
+            case AccountImplLoginEnum.CARD_EMPTY:
                 return Response.build(ResponseCode.CARD_EMPTY);
-            case 10:
+
+            case AccountImplLoginEnum.CARD_CLOSURE:
                 return Response.build(ResponseCode.CARD_CLOSURE);
-            case 11:
+
+            case AccountImplLoginEnum.CARD_PAST_DUE:
                 return Response.build(ResponseCode.CARD_PAST_DUE);
-            case 12:
+
+            case AccountImplLoginEnum.ACCOUNT_BLACKLIST:
                 return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
+
+            case AccountImplLoginEnum.BAIDU_API_ERROR:
+                return Response.build(ResponseCode.BAIDU_API_ERROR);
+
+            case AccountImplLoginEnum.ACCOUNT_EMPTY:
+                return Response.build(ResponseCode.ACCOUNT_EMPTY);
+
             default:
-                return Response.build(ResponseCode.ERROR);
+                return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
     }
 
@@ -187,7 +216,7 @@ public class AccountController extends BaseController {
     public Response bindingCard(@Validated AccountBindingCardVo accountBindingCardVo, BindingResult result)
             throws ParameterError {
 
-        parametric(result);
+        super.parametric(result);
 
         accountBindingCardVo.setPublicKey(accountBindingCardVo.getPublicKey().replaceAll(" ","+"));
         accountBindingCardVo.setPassword(accountBindingCardVo.getPassword().replaceAll(" ","+"));
@@ -195,30 +224,44 @@ public class AccountController extends BaseController {
 
         ServiceResult<Integer> bindingCard = accountService.bindingCard(accountBindingCardVo);
         switch (bindingCard.getCode()) {
-            case 1:
+            case AccountImplBindingCardEnum.BINDING_CARD_SUCCESS:
                 return Response.build(ResponseCode.BINDING_CARD_SUCCESS);
-            case 3:
+
+            case AccountImplBindingCardEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
-            case 4:
+
+            case AccountImplBindingCardEnum.SOFT_EMPTY:
                 return Response.build(ResponseCode.SOFT_EMPTY);
-            case 5:
+
+            case AccountImplBindingCardEnum.KEY_ERROR:
                 return Response.build(ResponseCode.KEY_ERROR);
-            case 6:
+
+            case AccountImplBindingCardEnum.PASSWORD_LENGTH_ERROR:
                 return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
-            case 8:
+
+            case AccountImplBindingCardEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE,bindingCard.getMsg());
-            case 9:
+
+            case AccountImplBindingCardEnum.ACCOUNT_EMPTY:
                 return Response.build(ResponseCode.ACCOUNT_EMPTY);
-            case 10:
+
+            case AccountImplBindingCardEnum.CARD_EMPTY:
                 return Response.build(ResponseCode.CARD_EMPTY);
-            case 12:
+
+            case AccountImplBindingCardEnum.ACCOUNT_BLACKLIST:
                 return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
-            case 13:
+
+            case AccountImplBindingCardEnum.CARD_USE:
                 return Response.build(ResponseCode.CARD_USE);
-            case 14:
-                return Response.build(ResponseCode.SOFT_CLOSE);
+
+            case AccountImplBindingCardEnum.CARD_CLOSURE:
+                return Response.build(ResponseCode.CARD_CLOSURE);
+
+            case AccountImplBindingCardEnum.SOFT_INCONSISTENCY:
+                return Response.build(ResponseCode.SOFT_INCONSISTENCY);
+
             default:
-                return Response.build(ResponseCode.ERROR);
+                return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
     }
 
@@ -228,7 +271,7 @@ public class AccountController extends BaseController {
     public Response bindingCode(@Validated AccountBindingCodeVo accountBindingCodeVo, BindingResult result)
             throws ParameterError {
 
-        parametric(result);
+        super.parametric(result);
 
         accountBindingCodeVo.setPublicKey(accountBindingCodeVo.getPublicKey().replaceAll(" ","+"));
         accountBindingCodeVo.setPassword(accountBindingCodeVo.getPassword().replaceAll(" ","+"));
@@ -236,26 +279,35 @@ public class AccountController extends BaseController {
 
         ServiceResult<Integer> bindingCode = accountService.bindingCode(accountBindingCodeVo);
         switch (bindingCode.getCode()) {
-            case 1:
+            case AccountImplBindingCodeEnum.BINDING_CODE_SUCCESS:
                 return Response.build(ResponseCode.BINDING_CODE_SUCCESS);
-            case 3:
+
+            case AccountImplBindingCodeEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
-            case 4:
+
+            case AccountImplBindingCodeEnum.SOFT_EMPTY:
                 return Response.build(ResponseCode.SOFT_EMPTY);
-            case 5:
+
+            case AccountImplBindingCodeEnum.KEY_ERROR:
                 return Response.build(ResponseCode.KEY_ERROR);
-            case 6:
+
+            case AccountImplBindingCodeEnum.PASSWORD_LENGTH_ERROR:
                 return Response.build(ResponseCode.PASSWORD_LENGTH_ERROR);
-            case 8:
+
+            case AccountImplBindingCodeEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE,bindingCode.getMsg());
-            case 9:
+
+            case AccountImplBindingCodeEnum.ACCOUNT_EMPTY:
                 return Response.build(ResponseCode.ACCOUNT_EMPTY);
-            case 10:
+
+            case AccountImplBindingCodeEnum.SOFT_NO_CHANGE:
                 return Response.build(ResponseCode.SOFT_NO_CHANGE);
-            case 12:
+
+            case AccountImplBindingCodeEnum.ACCOUNT_BLACKLIST:
                 return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
+
             default:
-                return Response.build(ResponseCode.ERROR);
+                return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
     }
 
@@ -265,20 +317,24 @@ public class AccountController extends BaseController {
     public Response updatePassword(@Validated AccountUpdatePasswordVo accountUpdatePasswordVo, BindingResult result)
             throws ParameterError {
 
-        parametric(result);
+        super.parametric(result);
 
         ServiceResult<Integer> bindingCode = accountService.updatePassword(accountUpdatePasswordVo);
         switch (bindingCode.getCode()) {
-            case 1:
+            case AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_SUCCESS:
                 return Response.build(ResponseCode.UPDATE_PASSWORD_SUCCESS);
-            case 2:
+
+            case AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_ERROR:
                 return Response.build(ResponseCode.UPDATE_PASSWORD_ERROR);
-            case 3:
+
+            case AccountImplUpdatePasswordEnum.SOFT_EMPTY:
                 return Response.build(ResponseCode.SOFT_EMPTY);
-            case 4:
+
+            case AccountImplUpdatePasswordEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE);
+
             default:
-                return Response.build(ResponseCode.ERROR);
+                return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
     }
 

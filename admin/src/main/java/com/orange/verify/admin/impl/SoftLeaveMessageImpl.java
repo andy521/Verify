@@ -17,6 +17,7 @@ import com.orange.verify.api.bean.Soft;
 import com.orange.verify.api.bean.SoftLeaveMessage;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.SoftLeaveMessageService;
+import com.orange.verify.api.sr.SoftLeaveMessageImplCreateEnum;
 import com.orange.verify.api.vo.SoftLeaveMessageVo;
 import com.orange.verify.api.vo.open.SoftLeaveMeesageSubmitVo;
 import com.orange.verify.common.ip.BaiduIp;
@@ -56,10 +57,10 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
 
         Soft soft = softMapper.selectById(softLeaveMeesageSubmitVo.getSoftId());
         if (soft == null) {
-            result.setCode(3);
+            result.setCode(SoftLeaveMessageImplCreateEnum.SOFT_EMPTY);
             return result;
         } else if (soft.getServiceStatus() == 2) {
-            result.setCode(4);
+            result.setCode(SoftLeaveMessageImplCreateEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
         }
@@ -69,11 +70,11 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
         try {
             addressByIp = getIpInfo(softLeaveMeesageSubmitVo.getIp());
         } catch (Exception e) {
-            result.setCode(5);
+            result.setCode(SoftLeaveMessageImplCreateEnum.BAIDU_API_ERROR);
             return result;
         }
 
-        SoftLeaveMessage softLeaveMessage = transition.toVo(softLeaveMeesageSubmitVo);
+        SoftLeaveMessage softLeaveMessage = transition.fromVo(softLeaveMeesageSubmitVo);
         softLeaveMessage.setIpInfo(addressByIp);
 
         super.baseMapper.insert(softLeaveMessage);
@@ -92,7 +93,7 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
             emailAccountMapper.use(emailAccount.getId());
         }
 
-        result.setCode(1);
+        result.setCode(SoftLeaveMessageImplCreateEnum.LEAVE_MESSAGE_SEND_SUCCESS);
         return result;
     }
 

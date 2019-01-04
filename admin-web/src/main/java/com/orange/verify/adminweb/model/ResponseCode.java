@@ -35,7 +35,7 @@ public enum ResponseCode {
 
     REGISTER_ERROR(905,"注册失败"),
 
-    LOGIN_ERROR(906,"登陆失败"),
+    LOGIN_ERROR(906,"登陆失败,可能由于密码错误等原因！"),
 
     SOFT_CLOSE(907,"软件关闭开放使用"),
 
@@ -74,6 +74,8 @@ public enum ResponseCode {
     UPDATE_PASSWORD_ERROR(924,"改密失败"),
 
     LOGOUT_ERROR(925,"登出失败"),
+
+    SOFT_INCONSISTENCY(926,"卡密使用绑定软件不一致"),
 
 
     //基础

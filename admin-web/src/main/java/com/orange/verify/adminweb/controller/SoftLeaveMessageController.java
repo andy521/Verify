@@ -9,6 +9,7 @@ import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.SoftLeaveMessage;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.SoftLeaveMessageService;
+import com.orange.verify.api.sr.SoftLeaveMessageImplCreateEnum;
 import com.orange.verify.api.vo.SoftLeaveMessageVo;
 import com.orange.verify.api.vo.open.SoftLeaveMeesageSubmitVo;
 import com.orange.verify.common.ip.IpUtil;
@@ -59,22 +60,26 @@ public class SoftLeaveMessageController extends BaseController {
     public Response create(@Validated SoftLeaveMeesageSubmitVo softLeaveMeesageSubmitVo, BindingResult result,
                            HttpServletRequest request) throws ParameterError {
 
-        parametric(result);
+        super.parametric(result);
 
         softLeaveMeesageSubmitVo.setIp(IpUtil.getIp(request));
 
         ServiceResult serviceResult = softLeaveMessageService.create(softLeaveMeesageSubmitVo);
         switch (serviceResult.getCode()) {
-            case 1:
+            case SoftLeaveMessageImplCreateEnum.LEAVE_MESSAGE_SEND_SUCCESS:
                 return Response.build(ResponseCode.LEAVE_MESSAGE_SEND_SUCCESS);
-            case 3:
+
+            case SoftLeaveMessageImplCreateEnum.SOFT_EMPTY:
                 return Response.build(ResponseCode.SOFT_EMPTY);
-            case 4:
+
+            case SoftLeaveMessageImplCreateEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE);
-            case 5:
+
+            case SoftLeaveMessageImplCreateEnum.BAIDU_API_ERROR:
                 return Response.build(ResponseCode.BAIDU_API_ERROR);
+
             default:
-                return Response.build(ResponseCode.ERROR);
+                return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
     }
 

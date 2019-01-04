@@ -13,6 +13,7 @@ import com.orange.verify.admin.transition.Transition;
 import com.orange.verify.api.bean.*;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.AccountService;
+import com.orange.verify.api.sr.*;
 import com.orange.verify.api.vo.AccountVo;
 import com.orange.verify.api.vo.open.*;
 import com.orange.verify.common.ip.BaiduIp;
@@ -69,13 +70,13 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             publicKeyToBase64 = RsaUtil.getPublicKeyToBase64(initKey);
             privateKeyToBase64 = RsaUtil.getPrivateKeyToBase64(initKey);
         } catch (Exception e) {
-            result.setCode(3);
+            result.setCode(AccountImplGetPublicKeyEnum.KEY_ERROR);
             return result;
         }
 
         redis.save10Minutes(publicKeyToBase64,privateKeyToBase64);
 
-        result.setCode(1);
+        result.setCode(AccountImplGetPublicKeyEnum.SUCCESS);
         result.setData(publicKeyToBase64);
 
         return result;
@@ -90,7 +91,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         String privateKey = (String)redis.getByKey(accountRegisterVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
-            result.setCode(2);
+            result.setCode(AccountImplRegisterEnum.KEY_EMPTY);
             return result;
         }
 
@@ -99,20 +100,20 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         Integer selectCount = super.baseMapper.selectCount(username);
         //用户名是否存在
         if (selectCount > 0) {
-            result.setCode(6);
+            result.setCode(AccountImplRegisterEnum.ACCOUNT_ALREADY_EXIST);
             return result;
         }
 
         Soft soft = softMapper.selectById(accountRegisterVo.getSoftId());
         if (soft == null) {
-            result.setCode(3);
+            result.setCode(AccountImplRegisterEnum.SOFT_EMPTY);
             return result;
         } else if (soft.getServiceStatus() == 2) {
-            result.setCode(8);
+            result.setCode(AccountImplRegisterEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
         } else if (soft.getRegisterStatus() == 1) {
-            result.setCode(9);
+            result.setCode(AccountImplRegisterEnum.REGISTER_CLOSE);
             result.setMsg(soft.getRegisteCloseMsg());
             return result;
         }
@@ -124,14 +125,14 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             password = RsaUtil.decodeRsa(accountRegisterVo.getPassword(), privateKey);
             code = RsaUtil.decodeRsa(accountRegisterVo.getCode(), privateKey);
         } catch (Exception e) {
-            result.setCode(5);
+            result.setCode(AccountImplRegisterEnum.KEY_ERROR);
             return result;
         }
         if (StrUtil.hasEmpty(password)) {
-            result.setCode(5);
+            result.setCode(AccountImplRegisterEnum.KEY_ERROR);
             return result;
         } else if (password.length() > 10) {
-            result.setCode(7);
+            result.setCode(AccountImplRegisterEnum.PASSWORD_LENGTH_ERROR);
             return result;
         }
 
@@ -140,7 +141,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         try {
             addressByIp = getIpInfo(accountRegisterVo.getIp());
         } catch (Exception e) {
-            result.setCode(4);
+            result.setCode(AccountImplRegisterEnum.BAIDU_API_ERROR);
             return result;
         }
 
@@ -152,16 +153,17 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         account.setCreateIpInfo(addressByIp);
 
         int insert = super.baseMapper.insert(account);
+        if (insert == 1) {
+            AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
+            accountRegisterLog.setAccountId(account.getId());
+            accountRegisterLog.setIp(account.getCreateIp());
+            accountRegisterLog.setIpInfo(addressByIp);
+            accountRegisterLogMapper.insert(accountRegisterLog);
 
-        AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
-        accountRegisterLog.setAccountId(account.getId());
-        accountRegisterLog.setIp(account.getCreateIp());
-        accountRegisterLog.setIpInfo(addressByIp);
-        accountRegisterLogMapper.insert(accountRegisterLog);
+            result.setCode(AccountImplRegisterEnum.REGISTER_SUCCESS);
+        }
 
-        result.setCode(1);
-        result.setData(insert);
-
+        result.setCode(AccountImplRegisterEnum.REGISTER_ERROR);
         return result;
     }
 
@@ -173,17 +175,17 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         String privateKey = (String)redis.getByKey(accountLoginVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
-            result.setCode(3);
+            result.setCode(AccountImplLoginEnum.KEY_EMPTY);
             return result;
         }
 
         Soft soft = softMapper.selectById(accountLoginVo.getSoftId());
         //软件不存在直接返回
         if (soft == null) {
-            result.setCode(4);
+            result.setCode(AccountImplLoginEnum.SOFT_EMPTY);
             return result;
         } else if (soft.getServiceStatus() == 2) {
-            result.setCode(8);
+            result.setCode(AccountImplLoginEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
         }
@@ -195,14 +197,22 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             password = RsaUtil.decodeRsa(accountLoginVo.getPassword(), privateKey);
             code = RsaUtil.decodeRsa(accountLoginVo.getCode(), privateKey);
         } catch (Exception e) {
-            result.setCode(5);
+            result.setCode(AccountImplLoginEnum.KEY_ERROR);
             return result;
         }
         if (StrUtil.hasEmpty(password,code)) {
-            result.setCode(5);
+            result.setCode(AccountImplLoginEnum.KEY_ERROR);
             return result;
         } else if (password.length() > 10) {
-            result.setCode(6);
+            result.setCode(AccountImplLoginEnum.PASSWORD_LENGTH_ERROR);
+            return result;
+        }
+
+        QueryWrapper<Account> username = new QueryWrapper<Account>().eq("username",
+                accountLoginVo.getUsername());
+        Integer selectCount = super.baseMapper.selectCount(username);
+        if (selectCount < 1) {
+            result.setCode(AccountImplLoginEnum.ACCOUNT_EMPTY);
             return result;
         }
 
@@ -214,54 +224,54 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             queryWrapper = queryWrapper.eq("code",code);
         }
         Account account = super.baseMapper.selectOne(queryWrapper);
-        if (account != null) {
-
-            if (account.getBlacklist() == 1) {
-                result.setCode(12);
-                return result;
-            }
-
-            Card card = null;
-            if (soft.getServiceStatus() == 0) {
-                String cardId = account.getCardId();
-                if (StrUtil.hasEmpty(cardId)) {
-                    result.setCode(9);
-                    return result;
-                }
-                card = cardMapper.selectById(cardId);
-                if (card == null) {
-                    result.setCode(9);
-                    return result;
-                } else if (card.getClosure() == 1) {
-                    result.setCode(10);
-                    return result;
-                }
-                long totalTime = card.getEndDate() - System.currentTimeMillis();
-                if (totalTime < 1) {
-                    result.setCode(11);
-                    return result;
-                }
-            }
-
-            //查询ip信息
-            String addressByIp = "";
-            try {
-                addressByIp = getIpInfo(accountLoginVo.getIp());
-            } catch (Exception e) {
-                result.setCode(4);
-                return result;
-            }
-
-            AccountLoginLog accountLoginLog = new AccountLoginLog();
-            accountLoginLog.setAccountId(account.getId());
-            accountLoginLog.setIp(accountLoginVo.getIp());
-            accountLoginLog.setIpInfo(addressByIp);
-            accountLoginLogMapper.insert(accountLoginLog);
-
-            result.setCode(1);
+        if (account == null) {
+            result.setCode(AccountImplLoginEnum.LOGIN_ERROR);
             return result;
         }
-        result.setCode(2);
+
+        if (account.getBlacklist() == 1) {
+            result.setCode(AccountImplLoginEnum.ACCOUNT_BLACKLIST);
+            return result;
+        }
+
+        Card card = null;
+        if (soft.getServiceStatus() == 0) {
+            String cardId = account.getCardId();
+            if (StrUtil.hasEmpty(cardId)) {
+                result.setCode(AccountImplLoginEnum.CARD_EMPTY);
+                return result;
+            }
+            card = cardMapper.selectById(cardId);
+            if (card == null) {
+                result.setCode(AccountImplLoginEnum.CARD_EMPTY);
+                return result;
+            } else if (card.getClosure() == 1) {
+                result.setCode(AccountImplLoginEnum.CARD_CLOSURE);
+                return result;
+            }
+            long totalTime = card.getEndDate() - System.currentTimeMillis();
+            if (totalTime < 1) {
+                result.setCode(AccountImplLoginEnum.CARD_PAST_DUE);
+                return result;
+            }
+        }
+
+        //查询ip信息
+        String addressByIp = "";
+        try {
+            addressByIp = getIpInfo(accountLoginVo.getIp());
+        } catch (Exception e) {
+            result.setCode(AccountImplLoginEnum.BAIDU_API_ERROR);
+            return result;
+        }
+
+        AccountLoginLog accountLoginLog = new AccountLoginLog();
+        accountLoginLog.setAccountId(account.getId());
+        accountLoginLog.setIp(accountLoginVo.getIp());
+        accountLoginLog.setIpInfo(addressByIp);
+        accountLoginLogMapper.insert(accountLoginLog);
+
+        result.setCode(AccountImplLoginEnum.LOGIN_SUCCESS);
         return result;
     }
 
@@ -293,17 +303,17 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         String privateKey = (String)redis.getByKey(accountBindingCardVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
-            result.setCode(3);
+            result.setCode(AccountImplBindingCardEnum.KEY_EMPTY);
             return result;
         }
 
         Soft soft = softMapper.selectById(accountBindingCardVo.getSoftId());
         //软件不存在直接返回
         if (soft == null) {
-            result.setCode(4);
+            result.setCode(AccountImplBindingCardEnum.SOFT_EMPTY);
             return result;
         } else if (soft.getServiceStatus() == 2) {
-            result.setCode(8);
+            result.setCode(AccountImplBindingCardEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
         }
@@ -315,14 +325,14 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             password = RsaUtil.decodeRsa(accountBindingCardVo.getPassword(), privateKey);
             code = RsaUtil.decodeRsa(accountBindingCardVo.getCode(), privateKey);
         } catch (Exception e) {
-            result.setCode(5);
+            result.setCode(AccountImplBindingCardEnum.KEY_ERROR);
             return result;
         }
         if (StrUtil.hasEmpty(password,code)) {
-            result.setCode(5);
+            result.setCode(AccountImplBindingCardEnum.KEY_ERROR);
             return result;
         } else if (password.length() > 10) {
-            result.setCode(6);
+            result.setCode(AccountImplBindingCardEnum.PASSWORD_LENGTH_ERROR);
             return result;
         }
 
@@ -330,30 +340,32 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
                 accountBindingCardVo.getUsername()).eq("password",password).eq("soft_id",accountBindingCardVo.getSoftId());
         Account account = super.baseMapper.selectOne(queryWrapper);
         if (account == null) {
-            result.setCode(9);
+            result.setCode(AccountImplBindingCardEnum.ACCOUNT_EMPTY);
             return result;
         } else if (account.getBlacklist() == 1) {
-            result.setCode(12);
+            result.setCode(AccountImplBindingCardEnum.ACCOUNT_BLACKLIST);
             return result;
         }
+
         Card card = cardMapper.selectOne(new QueryWrapper<Card>().eq("card_number",
                 accountBindingCardVo.getCardNumber()));
         if (card == null) {
-            result.setCode(10);
+            result.setCode(AccountImplBindingCardEnum.CARD_EMPTY);
             return result;
         } else if (card.getUseStatus() == 1) {
-            result.setCode(13);
+            result.setCode(AccountImplBindingCardEnum.CARD_USE);
             return result;
         } else if (card.getClosure() == 1) {
-            result.setCode(14);
+            result.setCode(AccountImplBindingCardEnum.CARD_CLOSURE);
             return result;
         }
+
         CardType cardType = cardTypeMapper.selectById(card.getCardTypeId());
         if (cardType == null) {
-            result.setCode(10);
+            result.setCode(AccountImplBindingCardEnum.CARD_EMPTY);
             return result;
         } else if (!accountBindingCardVo.getSoftId().equals(cardType.getSoftId())) {
-            result.setCode(4);
+            result.setCode(AccountImplBindingCardEnum.SOFT_INCONSISTENCY);
             return result;
         }
 
@@ -401,7 +413,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         accountUpdate.setCode(code);
         super.baseMapper.updateById(accountUpdate);
 
-        result.setCode(1);
+        result.setCode(AccountImplBindingCardEnum.BINDING_CARD_SUCCESS);
         return result;
     }
 
@@ -413,21 +425,21 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         String privateKey = (String)redis.getByKey(accountBindingCodeVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
-            result.setCode(3);
+            result.setCode(AccountImplBindingCodeEnum.KEY_EMPTY);
             return result;
         }
 
         Soft soft = softMapper.selectById(accountBindingCodeVo.getSoftId());
         //软件不存在直接返回
         if (soft == null) {
-            result.setCode(4);
+            result.setCode(AccountImplBindingCodeEnum.SOFT_EMPTY);
             return result;
         } else if (soft.getServiceStatus() == 2) {
-            result.setCode(8);
+            result.setCode(AccountImplBindingCodeEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
         } else if (soft.getChangeStrategy() == 1) {
-            result.setCode(10);
+            result.setCode(AccountImplBindingCodeEnum.SOFT_NO_CHANGE);
             return result;
         }
 
@@ -438,14 +450,14 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             password = RsaUtil.decodeRsa(accountBindingCodeVo.getPassword(), privateKey);
             code = RsaUtil.decodeRsa(accountBindingCodeVo.getCode(), privateKey);
         } catch (Exception e) {
-            result.setCode(5);
+            result.setCode(AccountImplBindingCodeEnum.KEY_ERROR);
             return result;
         }
         if (StrUtil.hasEmpty(password,code)) {
-            result.setCode(5);
+            result.setCode(AccountImplBindingCodeEnum.KEY_ERROR);
             return result;
         } else if (password.length() > 10) {
-            result.setCode(6);
+            result.setCode(AccountImplBindingCodeEnum.PASSWORD_LENGTH_ERROR);
             return result;
         }
 
@@ -453,10 +465,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
                 accountBindingCodeVo.getUsername()).eq("password",password).eq("soft_id",accountBindingCodeVo.getSoftId());
         Account account = super.baseMapper.selectOne(queryWrapper);
         if (account == null) {
-            result.setCode(9);
+            result.setCode(AccountImplBindingCodeEnum.ACCOUNT_EMPTY);
             return result;
         } else if (account.getBlacklist() == 1) {
-            result.setCode(12);
+            result.setCode(AccountImplBindingCodeEnum.ACCOUNT_BLACKLIST);
             return result;
         }
 
@@ -465,7 +477,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         accountUpdate.setCode(code);
         super.baseMapper.updateById(accountUpdate);
 
-        result.setCode(1);
+        result.setCode(AccountImplBindingCodeEnum.BINDING_CODE_SUCCESS);
         return result;
     }
 
@@ -477,20 +489,20 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         Soft soft = softMapper.selectById(accountUpdatePasswordVo.getSoftId());
         //软件不存在直接返回
         if (soft == null) {
-            result.setCode(3);
+            result.setCode(AccountImplUpdatePasswordEnum.SOFT_EMPTY);
             return result;
         } else if (soft.getServiceStatus() == 2) {
-            result.setCode(4);
+            result.setCode(AccountImplUpdatePasswordEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
         }
 
         int updatePassword = super.baseMapper.updatePassword(accountUpdatePasswordVo);
         if (updatePassword == 0) {
-            result.setCode(2);
+            result.setCode(AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_ERROR);
         }
 
-        result.setCode(1);
+        result.setCode(AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_SUCCESS);
         return result;
     }
 
