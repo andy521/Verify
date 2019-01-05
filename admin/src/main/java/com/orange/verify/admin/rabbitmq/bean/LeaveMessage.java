@@ -1,6 +1,5 @@
 package com.orange.verify.admin.rabbitmq.bean;
 
-
 import java.io.Serializable;
 
 public class LeaveMessage implements Serializable {

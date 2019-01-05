@@ -39,6 +39,7 @@ public interface CardMapper extends BaseMapper<Card> {
             "WHERE c.del_flag = 0 AND a.del_flag = 0 " +
             "AND a.username = #{username} AND a.password = #{password} AND a.soft_id = #{softId}")
     CardTimeLimitVo getCardTimeLimit(@Param("username") String username,
-                                     @Param("password") String password,@Param("softId") String softId);
+                                     @Param("password") String password,
+                                     @Param("softId") String softId);
 
 }

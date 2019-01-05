@@ -34,6 +34,9 @@
             <el-form-item label="IP地址">
               <el-input v-model="seachForm.createIp" placeholder="IP地址" @keyup.enter.native="search"/>
             </el-form-item>
+            <el-form-item label="用户名">
+              <el-input v-model="seachForm.username" placeholder="用户名" @keyup.enter.native="search"/>
+            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="search">查询</el-button>
             </el-form-item>
@@ -183,6 +186,7 @@ export default {
       seachForm: {
         softId: "",
         createIp: "",
+        username: "",
       },
 
       // 表格

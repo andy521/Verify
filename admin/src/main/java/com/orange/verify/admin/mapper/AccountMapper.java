@@ -18,8 +18,9 @@ public interface AccountMapper extends BaseMapper<Account> {
             "LEFT JOIN t_soft s " +
             "ON a.soft_id = s.id " +
             "where a.del_flag = 0 " +
-            "<if test=\"accountVo.softId != null and accountVo.softId != ''\"> and a.soft_id = #{ccountVo.softId} </if>" +
-            "<if test=\"accountVo.createIp != null and accountVo.createIp != ''\"> and a.create_ip = #{ccountVo.createIp} </if>" +
+            "<if test=\"accountVo.softId != null and accountVo.softId != ''\"> and a.soft_id = #{accountVo.softId} </if>" +
+            "<if test=\"accountVo.createIp != null and accountVo.createIp != ''\"> and a.create_ip = #{accountVo.createIp} </if>" +
+            "<if test=\"accountVo.username != null and accountVo.username != ''\"> and a.username like concat('%',#{accountVo.username},'%') </if>" +
             "order by create_date desc" +
             "</script>")
     List<AccountVo> page(@Param("accountVo") AccountVo accountVo, Page page);
