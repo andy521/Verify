@@ -8,7 +8,6 @@ import com.orange.verify.admin.transition.Transition;
 import com.orange.verify.api.bean.Soft;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.SoftService;
-import com.orange.verify.api.sr.AccountImplUpdatePasswordEnum;
 import com.orange.verify.api.sr.SoftImplGetSoftDescEnum;
 import com.orange.verify.api.vo.SoftVo;
 import com.orange.verify.api.vo.open.SoftGetSoftDescVo;

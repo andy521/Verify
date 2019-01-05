@@ -8,7 +8,6 @@ import com.orange.verify.admin.mapper.BaiduMapApiMapper;
 import com.orange.verify.admin.mapper.EmailAccountMapper;
 import com.orange.verify.admin.mapper.SoftLeaveMessageMapper;
 import com.orange.verify.admin.mapper.SoftMapper;
-import com.orange.verify.admin.rabbitmq.EmailReceive;
 import com.orange.verify.admin.rabbitmq.bean.LeaveMessage;
 import com.orange.verify.admin.transition.Transition;
 import com.orange.verify.api.bean.BaiduMapApi;

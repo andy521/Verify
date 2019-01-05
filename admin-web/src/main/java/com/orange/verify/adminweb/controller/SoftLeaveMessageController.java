@@ -6,7 +6,6 @@ import com.orange.verify.adminweb.annotation.ParameterError;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
-import com.orange.verify.api.bean.SoftLeaveMessage;
 import com.orange.verify.api.model.ServiceResult;
 import com.orange.verify.api.service.SoftLeaveMessageService;
 import com.orange.verify.api.sr.SoftLeaveMessageImplCreateEnum;
