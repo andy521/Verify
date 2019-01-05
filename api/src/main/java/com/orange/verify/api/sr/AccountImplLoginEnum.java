@@ -18,7 +18,7 @@ public class AccountImplLoginEnum implements Serializable {
 
     public static final int PASSWORD_LENGTH_ERROR = 7;
 
-    public static final int CARD_EMPTY = 8;
+    public static final int ACCOUNT_NOT_BOUND_CARD = 8;
 
     public static final int CARD_CLOSURE = 9;
 
@@ -29,5 +29,7 @@ public class AccountImplLoginEnum implements Serializable {
     public static final int ACCOUNT_EMPTY = 12;
 
     public static final int BAIDU_API_ERROR = 13;
+
+    public static final int PASSWORD_ERROR = 14;
 
 }

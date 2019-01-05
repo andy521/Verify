@@ -28,4 +28,8 @@ public class AccountImplBindingCardEnum implements Serializable {
 
     public static final int SOFT_INCONSISTENCY = 12;
 
+    public static final int BINDING_CARD_ERROR = 13;
+
+    public static final int PASSWORD_ERROR = 14;
+
 }

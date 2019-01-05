@@ -23,7 +23,7 @@
               收起
             </el-button>
           </div>
-          
+
           <el-form :inline="true" :model="seachForm" class="demo-form-inline" @submit.native.prevent>
             <el-form-item label="软件选择">
               <el-select v-model="seachForm.softId" placeholder="请选择软件">
@@ -97,8 +97,18 @@
               align="center"
             />
             <el-table-column
+              prop="securityCode"
+              label="安全码"
+              align="center"
+            />
+            <el-table-column
               prop="qq"
               label="联系QQ"
+              align="center"
+            />
+            <el-table-column
+              prop="name"
+              label="姓名"
               align="center"
             />
             <el-table-column
@@ -166,7 +176,7 @@ export default {
       // 控制两块区域是否显示
       searchWorkspace: true,
       workingArea: true,
-      
+
       softList: [],
 
       // 搜索表单
@@ -234,7 +244,7 @@ export default {
       this.openForm({ id: row.id })
     },
     blacklistChange(value,row) {
-      
+
       this.$axios.post('account/blacklist', this.$qs.stringify({
         accountId: row.id,
         blacklist: value ? 1 : 0

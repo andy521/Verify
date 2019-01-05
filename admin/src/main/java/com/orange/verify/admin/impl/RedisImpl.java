@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -18,6 +16,7 @@ public class RedisImpl {
 
     public void save10Minutes(String key, Object value) {
         template.opsForValue().set(PREFIX + key,value,10, TimeUnit.MINUTES);
+        //template.opsForValue().set(PREFIX + key,value,500, TimeUnit.MILLISECONDS);
     }
 
     public void save1Hours(String key, Object value) {

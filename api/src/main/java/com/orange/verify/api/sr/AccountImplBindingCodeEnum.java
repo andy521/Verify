@@ -22,4 +22,8 @@ public class AccountImplBindingCodeEnum implements Serializable {
 
     public static final int ACCOUNT_BLACKLIST = 9;
 
+    public static final int PASSWORD_ERROR = 10;
+
+    public static final int BINDING_CODE_ERROR = 11;
+
 }

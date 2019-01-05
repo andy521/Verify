@@ -25,9 +25,9 @@ public enum ResponseCode {
 
 
     //失败
-    UNKNOWN_ERROR(901,"不好意思，发生了未知错误"),
+    UNKNOWN_ERROR(901,"不好意思，发生了未知错误！"),
 
-    PARAMETER_ERROR(902,"参数错误"),
+    PARAMETER_ERROR(902,"提交参数错误，请仔细检查提交参数！"),
 
     EMPTY(903,"无"),
 
@@ -35,11 +35,11 @@ public enum ResponseCode {
 
     REGISTER_ERROR(905,"注册失败"),
 
-    LOGIN_ERROR(906,"登陆失败,可能由于密码错误等原因！"),
+    LOGIN_ERROR(906,"本软件不支持换机器进行使用"),
 
     SOFT_CLOSE(907,"软件关闭开放使用"),
 
-    ACCOUNT_BLACKLIST(908,"此账号已被加入黑名单"),
+    ACCOUNT_BLACKLIST(908,"此账号已被加入黑名单！"),
 
     SOFT_NO_CHANGE(909,"软件不支持换绑机器"),
 
@@ -49,7 +49,7 @@ public enum ResponseCode {
 
     VERSIONS_EMPTY(912,"版本不存在"),
 
-    KEY_EMPTY(913,"钥匙为空"),
+    KEY_EMPTY(913,"钥匙为空，请重启软件重试！"),
 
     ACCOUNT_EMPTY(914,"用户不存在"),
 
@@ -77,6 +77,15 @@ public enum ResponseCode {
 
     SOFT_INCONSISTENCY(926,"卡密使用绑定软件不一致"),
 
+    ACCOUNT_NOT_BOUND_CARD(927,"账号还未绑定卡密，请先充值再使用！"),
+
+    SECURITY_CODE_ERROR(928,"安全码错误！"),
+
+    BINDING_CARD_ERROR(929,"绑定卡密失败"),
+
+    PASSWORD_ERROR(930,"密码错误"),
+
+    BINDING_CODE_ERROR(931,"绑定机器失败"),
 
     //基础
     SUCCESS(10,"操作成功"),

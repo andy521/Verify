@@ -117,6 +117,9 @@ public class AccountController extends BaseController {
             case AccountImplRegisterEnum.REGISTER_SUCCESS:
                 return Response.build(ResponseCode.REGISTER_SUCCESS);
 
+            case AccountImplRegisterEnum.REGISTER_ERROR:
+                return Response.build(ResponseCode.REGISTER_ERROR);
+
             case AccountImplRegisterEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
 
@@ -184,8 +187,8 @@ public class AccountController extends BaseController {
             case AccountImplLoginEnum.SOFT_CLOSE:
                 return Response.build(ResponseCode.SOFT_CLOSE,login.getMsg());
 
-            case AccountImplLoginEnum.CARD_EMPTY:
-                return Response.build(ResponseCode.CARD_EMPTY);
+            case AccountImplLoginEnum.ACCOUNT_NOT_BOUND_CARD:
+                return Response.build(ResponseCode.ACCOUNT_NOT_BOUND_CARD);
 
             case AccountImplLoginEnum.CARD_CLOSURE:
                 return Response.build(ResponseCode.CARD_CLOSURE);
@@ -201,6 +204,9 @@ public class AccountController extends BaseController {
 
             case AccountImplLoginEnum.ACCOUNT_EMPTY:
                 return Response.build(ResponseCode.ACCOUNT_EMPTY);
+
+            case AccountImplLoginEnum.PASSWORD_ERROR:
+                return Response.build(ResponseCode.PASSWORD_ERROR);
 
             default:
                 return Response.build(ResponseCode.UNKNOWN_ERROR);
@@ -220,9 +226,13 @@ public class AccountController extends BaseController {
         accountBindingCardVo.setCode(accountBindingCardVo.getCode().replaceAll(" ","+"));
 
         ServiceResult<Integer> bindingCard = accountService.bindingCard(accountBindingCardVo);
+
         switch (bindingCard.getCode()) {
             case AccountImplBindingCardEnum.BINDING_CARD_SUCCESS:
                 return Response.build(ResponseCode.BINDING_CARD_SUCCESS);
+
+            case AccountImplBindingCardEnum.BINDING_CARD_ERROR:
+                return Response.build(ResponseCode.BINDING_CARD_ERROR);
 
             case AccountImplBindingCardEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
@@ -241,6 +251,9 @@ public class AccountController extends BaseController {
 
             case AccountImplBindingCardEnum.ACCOUNT_EMPTY:
                 return Response.build(ResponseCode.ACCOUNT_EMPTY);
+
+            case AccountImplBindingCardEnum.PASSWORD_ERROR:
+                return Response.build(ResponseCode.PASSWORD_ERROR);
 
             case AccountImplBindingCardEnum.CARD_EMPTY:
                 return Response.build(ResponseCode.CARD_EMPTY);
@@ -279,6 +292,9 @@ public class AccountController extends BaseController {
             case AccountImplBindingCodeEnum.BINDING_CODE_SUCCESS:
                 return Response.build(ResponseCode.BINDING_CODE_SUCCESS);
 
+            case AccountImplBindingCodeEnum.BINDING_CODE_ERROR:
+                return Response.build(ResponseCode.BINDING_CODE_ERROR);
+
             case AccountImplBindingCodeEnum.KEY_EMPTY:
                 return Response.build(ResponseCode.KEY_EMPTY);
 
@@ -302,6 +318,9 @@ public class AccountController extends BaseController {
 
             case AccountImplBindingCodeEnum.ACCOUNT_BLACKLIST:
                 return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
+
+            case AccountImplBindingCodeEnum.PASSWORD_ERROR:
+                return Response.build(ResponseCode.PASSWORD_ERROR);
 
             default:
                 return Response.build(ResponseCode.UNKNOWN_ERROR);
@@ -335,6 +354,9 @@ public class AccountController extends BaseController {
 
             case AccountImplUpdatePasswordEnum.ACCOUNT_BLACKLIST:
                 return Response.build(ResponseCode.ACCOUNT_BLACKLIST);
+
+            case AccountImplUpdatePasswordEnum.SECURITY_CODE_ERROR:
+                return Response.build(ResponseCode.SECURITY_CODE_ERROR);
 
             default:
                 return Response.build(ResponseCode.UNKNOWN_ERROR);

@@ -20,6 +20,7 @@ import com.orange.verify.common.ip.BaiduIp;
 import com.orange.verify.common.rsa.RsaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.Date;
 import java.util.Map;
@@ -62,24 +63,24 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         ServiceResult<String> result = new ServiceResult<>();
 
-        //rsa
-        String publicKeyToBase64 = null;
-        String privateKeyToBase64 = null;
         try {
+
             Map<String, Object> initKey = RsaUtil.initKey();
-            publicKeyToBase64 = RsaUtil.getPublicKeyToBase64(initKey);
-            privateKeyToBase64 = RsaUtil.getPrivateKeyToBase64(initKey);
+            String publicKeyToBase64 = RsaUtil.getPublicKeyToBase64(initKey);
+            String privateKeyToBase64 = RsaUtil.getPrivateKeyToBase64(initKey);
+
+            redis.save10Minutes(publicKeyToBase64,privateKeyToBase64);
+
+            result.setCode(AccountImplGetPublicKeyEnum.SUCCESS);
+            result.setData(publicKeyToBase64);
+
+            return result;
+
         } catch (Exception e) {
             result.setCode(AccountImplGetPublicKeyEnum.KEY_ERROR);
             return result;
         }
 
-        redis.save10Minutes(publicKeyToBase64,privateKeyToBase64);
-
-        result.setCode(AccountImplGetPublicKeyEnum.SUCCESS);
-        result.setData(publicKeyToBase64);
-
-        return result;
     }
 
     @Override
@@ -152,16 +153,19 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         Account account = transition.fromVo(accountRegisterVo);
         account.setCreateIpInfo(addressByIp);
 
-        super.baseMapper.insert(account);
+        int insert = super.baseMapper.insert(account);
+        if (insert > 0) {
+            AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
+            accountRegisterLog.setAccountId(account.getId());
+            accountRegisterLog.setIp(account.getCreateIp());
+            accountRegisterLog.setIpInfo(addressByIp);
+            accountRegisterLogMapper.insert(accountRegisterLog);
 
-        AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
-        accountRegisterLog.setAccountId(account.getId());
-        accountRegisterLog.setIp(account.getCreateIp());
-        accountRegisterLog.setIpInfo(addressByIp);
-        accountRegisterLogMapper.insert(accountRegisterLog);
+            result.setCode(AccountImplRegisterEnum.REGISTER_SUCCESS);
+            return result;
+        }
 
-        result.setCode(AccountImplRegisterEnum.REGISTER_SUCCESS);
-
+        result.setCode(AccountImplRegisterEnum.REGISTER_ERROR);
         return result;
     }
 
@@ -188,6 +192,14 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
+        //判断用户不存在直接返回
+        Integer selectCount = super.baseMapper.selectCount(new QueryWrapper<Account>().eq("username",
+                accountLoginVo.getUsername()).eq("soft_id",accountLoginVo.getSoftId()));
+        if (selectCount < 1) {
+            result.setCode(AccountImplLoginEnum.ACCOUNT_EMPTY);
+            return result;
+        }
+
         //进行解密 >>> password 和 code >>> 解密成真实文本
         String password = null;
         String code = null;
@@ -206,25 +218,23 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
-        QueryWrapper<Account> username = new QueryWrapper<Account>().eq("username",
-                accountLoginVo.getUsername());
-        Integer selectCount = super.baseMapper.selectCount(username);
-        if (selectCount < 1) {
-            result.setCode(AccountImplLoginEnum.ACCOUNT_EMPTY);
-            return result;
-        }
-
-        QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
-                accountLoginVo.getUsername()).eq("password",password).eq("soft_id",accountLoginVo.getSoftId());
-
-        //只支持单机 或者 是收费 进行机器码控制打开软件
-        if (soft.getDosingStrategy() == 0 || soft.getServiceStatus() == 0) {
-            queryWrapper = queryWrapper.eq("code",code);
-        }
-        Account account = super.baseMapper.selectOne(queryWrapper);
+        Account account = super.baseMapper.selectOne(new QueryWrapper<Account>().eq("username",
+                accountLoginVo.getUsername()).eq("password",password).eq("soft_id",accountLoginVo.getSoftId()));
         if (account == null) {
-            result.setCode(AccountImplLoginEnum.LOGIN_ERROR);
+            result.setCode(AccountImplLoginEnum.PASSWORD_ERROR);
             return result;
+        }
+
+        //只支持单机进行机器码控制打开软件
+        if (soft.getDosingStrategy() == 0) {
+            QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
+                    accountLoginVo.getUsername()).eq("password",password).eq("soft_id",accountLoginVo.getSoftId());
+            queryWrapper = queryWrapper.eq("code",code);
+            Account accountQ = super.baseMapper.selectOne(queryWrapper);
+            if (accountQ == null) {
+                result.setCode(AccountImplLoginEnum.LOGIN_ERROR);
+                return result;
+            }
         }
 
         if (account.getBlacklist() == 1) {
@@ -232,16 +242,15 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
-        Card card = null;
         if (soft.getServiceStatus() == 0) {
             String cardId = account.getCardId();
             if (StrUtil.hasEmpty(cardId)) {
-                result.setCode(AccountImplLoginEnum.CARD_EMPTY);
+                result.setCode(AccountImplLoginEnum.ACCOUNT_NOT_BOUND_CARD);
                 return result;
             }
-            card = cardMapper.selectById(cardId);
+            Card card = cardMapper.selectById(cardId);
             if (card == null) {
-                result.setCode(AccountImplLoginEnum.CARD_EMPTY);
+                result.setCode(AccountImplLoginEnum.ACCOUNT_NOT_BOUND_CARD);
                 return result;
             } else if (card.getClosure() == 1) {
                 result.setCode(AccountImplLoginEnum.CARD_CLOSURE);
@@ -316,6 +325,14 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
+        //判断用户不存在直接返回
+        Integer selectCount = super.baseMapper.selectCount(new QueryWrapper<Account>().eq("username",
+                accountBindingCardVo.getUsername()).eq("soft_id",accountBindingCardVo.getSoftId()));
+        if (selectCount < 1) {
+            result.setCode(AccountImplBindingCardEnum.ACCOUNT_EMPTY);
+            return result;
+        }
+
         //进行解密 >>> password 和 code >>> 解密成真实文本
         String password = null;
         String code = null;
@@ -334,11 +351,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
-        QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
-                accountBindingCardVo.getUsername()).eq("password",password).eq("soft_id",accountBindingCardVo.getSoftId());
-        Account account = super.baseMapper.selectOne(queryWrapper);
+        Account account = super.baseMapper.selectOne(new QueryWrapper<Account>().eq("username",
+                accountBindingCardVo.getUsername()).eq("password",password).eq("soft_id",accountBindingCardVo.getSoftId()));
         if (account == null) {
-            result.setCode(AccountImplBindingCardEnum.ACCOUNT_EMPTY);
+            result.setCode(AccountImplBindingCardEnum.PASSWORD_ERROR);
             return result;
         } else if (account.getBlacklist() == 1) {
             result.setCode(AccountImplBindingCardEnum.ACCOUNT_BLACKLIST);
@@ -403,15 +419,21 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         cardUpdate.setUseStatus(1);
         cardUpdate.setSellStatus(1);
         cardUpdate.setAccountId(account.getId());
-        cardMapper.updateById(cardUpdate);
+        int cardUpdateResult = cardMapper.updateById(cardUpdate);
 
         Account accountUpdate = new Account();
         accountUpdate.setId(account.getId());
         accountUpdate.setCardId(card.getId());
         accountUpdate.setCode(code);
-        super.baseMapper.updateById(accountUpdate);
+        int accountUpdateResult = super.baseMapper.updateById(accountUpdate);
 
-        result.setCode(AccountImplBindingCardEnum.BINDING_CARD_SUCCESS);
+        if (cardUpdateResult > 0 && accountUpdateResult > 0) {
+            result.setCode(AccountImplBindingCardEnum.BINDING_CARD_SUCCESS);
+            return result;
+        }
+
+        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        result.setCode(AccountImplBindingCardEnum.BINDING_CARD_ERROR);
         return result;
     }
 
@@ -441,6 +463,14 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
+        //判断用户不存在直接返回
+        Integer selectCount = super.baseMapper.selectCount(new QueryWrapper<Account>().eq("username",
+                accountBindingCodeVo.getUsername()).eq("soft_id",accountBindingCodeVo.getSoftId()));
+        if (selectCount < 1) {
+            result.setCode(AccountImplBindingCardEnum.ACCOUNT_EMPTY);
+            return result;
+        }
+
         //进行解密 >>> password 和 code >>> 解密成真实文本
         String password = null;
         String code = null;
@@ -459,11 +489,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
-        QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
-                accountBindingCodeVo.getUsername()).eq("password",password).eq("soft_id",accountBindingCodeVo.getSoftId());
-        Account account = super.baseMapper.selectOne(queryWrapper);
+        Account account = super.baseMapper.selectOne(new QueryWrapper<Account>().eq("username",
+                accountBindingCodeVo.getUsername()).eq("password",password).eq("soft_id",accountBindingCodeVo.getSoftId()));
         if (account == null) {
-            result.setCode(AccountImplBindingCodeEnum.ACCOUNT_EMPTY);
+            result.setCode(AccountImplBindingCodeEnum.PASSWORD_ERROR);
             return result;
         } else if (account.getBlacklist() == 1) {
             result.setCode(AccountImplBindingCodeEnum.ACCOUNT_BLACKLIST);
@@ -473,9 +502,13 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         Account accountUpdate = new Account();
         accountUpdate.setId(account.getId());
         accountUpdate.setCode(code);
-        super.baseMapper.updateById(accountUpdate);
+        int updateById = super.baseMapper.updateById(accountUpdate);
+        if (updateById > 0) {
+            result.setCode(AccountImplBindingCodeEnum.BINDING_CODE_SUCCESS);
+            return result;
+        }
 
-        result.setCode(AccountImplBindingCodeEnum.BINDING_CODE_SUCCESS);
+        result.setCode(AccountImplBindingCodeEnum.BINDING_CODE_ERROR);
         return result;
     }
 
@@ -495,20 +528,30 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             return result;
         }
 
-        QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
-                accountUpdatePasswordVo.getUsername()).eq("security_code",accountUpdatePasswordVo.getSecurityCode());
-        Account account = super.baseMapper.selectOne(queryWrapper);
-        if (account == null) {
+        Account accountF = super.baseMapper.selectOne(new QueryWrapper<Account>().eq("username",
+                accountUpdatePasswordVo.getUsername()).eq("soft_id",accountUpdatePasswordVo.getSoftId()));
+        if (accountF == null) {
             result.setCode(AccountImplUpdatePasswordEnum.ACCOUNT_EMPTY);
+            return result;
+        }
+
+        Account account = super.baseMapper.selectOne(new QueryWrapper<Account>().eq("username",
+                accountUpdatePasswordVo.getUsername()).eq("security_code",accountUpdatePasswordVo.getSecurityCode()));
+        if (account == null) {
+            result.setCode(AccountImplUpdatePasswordEnum.SECURITY_CODE_ERROR);
             return result;
         } else if (account.getBlacklist() == 1) {
             result.setCode(AccountImplUpdatePasswordEnum.ACCOUNT_BLACKLIST);
             return result;
         }
 
-        super.baseMapper.updatePassword(accountUpdatePasswordVo);
+        int updatePassword = super.baseMapper.updatePassword(accountUpdatePasswordVo);
+        if (updatePassword > 0) {
+            result.setCode(AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_SUCCESS);
+            return result;
+        }
 
-        result.setCode(AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_SUCCESS);
+        result.setCode(AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_ERROR);
         return result;
     }
 

@@ -16,4 +16,6 @@ public class AccountImplUpdatePasswordEnum implements Serializable {
 
     public static final int ACCOUNT_BLACKLIST = 6;
 
+    public static final int SECURITY_CODE_ERROR = 7;
+
 }
