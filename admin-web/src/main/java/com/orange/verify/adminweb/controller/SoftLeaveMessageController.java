@@ -78,6 +78,9 @@ public class SoftLeaveMessageController extends BaseController {
             case SoftLeaveMessageImplCreateEnum.BAIDU_API_ERROR:
                 return Response.build(ResponseCode.BAIDU_API_ERROR);
 
+            case SoftLeaveMessageImplCreateEnum.LEAVE_MESSAGE_SEND_ERROR:
+                return Response.build(ResponseCode.LEAVE_MESSAGE_SEND_ERROR);
+
             default:
                 return Response.build(ResponseCode.UNKNOWN_ERROR);
         }

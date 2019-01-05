@@ -77,23 +77,26 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
         SoftLeaveMessage softLeaveMessage = transition.fromVo(softLeaveMeesageSubmitVo);
         softLeaveMessage.setIpInfo(addressByIp);
 
-        super.baseMapper.insert(softLeaveMessage);
-
-        if (soft.getEmailNotificatio() == 0) {
-            EmailAccount emailAccount = emailAccountMapper.get();
-            LeaveMessage leaveMessage = new LeaveMessage();
-            leaveMessage.setTitle("Orange Verify :接收到一条留言，请查看！");
-            leaveMessage.setContent("软件名: " + soft.getName() + "\n\nQQ号: " + softLeaveMeesageSubmitVo.getQq() +
-                    " 给您留言了 \n\n留言内容: " + softLeaveMeesageSubmitVo.getContent() +
-                    "\n\nIP: " + softLeaveMeesageSubmitVo.getIp() + "\n\nIpInfo: " + addressByIp);
-            leaveMessage.setReceiveAccount(soft.getEmailName());
-            leaveMessage.setSendAccount(emailAccount.getUsername());
-            leaveMessage.setSendPassword(emailAccount.getPassword());
-            amqpTemplate.convertAndSend(RabbitMqConfig.EMAIL_SEND_CODE,leaveMessage);
-            emailAccountMapper.use(emailAccount.getId());
+        int insert = super.baseMapper.insert(softLeaveMessage);
+        if (insert > 0) {
+            if (soft.getEmailNotificatio() == 0) {
+                EmailAccount emailAccount = emailAccountMapper.get();
+                LeaveMessage leaveMessage = new LeaveMessage();
+                leaveMessage.setTitle("Orange Verify :接收到一条留言，请查看！");
+                leaveMessage.setContent("软件名: " + soft.getName() + "\n\nQQ号: " + softLeaveMeesageSubmitVo.getQq() +
+                        " 给您留言了 \n\n留言内容: " + softLeaveMeesageSubmitVo.getContent() +
+                        "\n\nIP: " + softLeaveMeesageSubmitVo.getIp() + "\n\nIpInfo: " + addressByIp);
+                leaveMessage.setReceiveAccount(soft.getEmailName());
+                leaveMessage.setSendAccount(emailAccount.getUsername());
+                leaveMessage.setSendPassword(emailAccount.getPassword());
+                amqpTemplate.convertAndSend(RabbitMqConfig.EMAIL_SEND_CODE,leaveMessage);
+                emailAccountMapper.use(emailAccount.getId());
+            }
+            result.setCode(SoftLeaveMessageImplCreateEnum.LEAVE_MESSAGE_SEND_SUCCESS);
+            return result;
         }
 
-        result.setCode(SoftLeaveMessageImplCreateEnum.LEAVE_MESSAGE_SEND_SUCCESS);
+        result.setCode(SoftLeaveMessageImplCreateEnum.LEAVE_MESSAGE_SEND_ERROR);
         return result;
     }
 

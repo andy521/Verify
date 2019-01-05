@@ -87,6 +87,8 @@ public enum ResponseCode {
 
     BINDING_CODE_ERROR(931,"绑定机器失败"),
 
+    LEAVE_MESSAGE_SEND_ERROR(932,"留言发送失败"),
+
     //基础
     SUCCESS(10,"操作成功"),
     QUERY_SUCCESS(9,"查询成功"),
