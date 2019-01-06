@@ -76,3 +76,8 @@
 
 ![描述](https://open-source-orange.oss-cn-hangzhou.aliyuncs.com/%E7%A0%81%E4%BA%91/verify-%E7%BD%91%E7%BB%9C%E9%AA%8C%E8%AF%81/Snipaste_2019-01-02_22-15-10.png)
 
+3. 易语言demo
+
+![描述](https://open-source-orange.oss-cn-hangzhou.aliyuncs.com/%E7%A0%81%E4%BA%91/verify-%E7%BD%91%E7%BB%9C%E9%AA%8C%E8%AF%81/Snipaste_2019-01-06_19-33-53.png)
+
+![描述](https://open-source-orange.oss-cn-hangzhou.aliyuncs.com/%E7%A0%81%E4%BA%91/verify-%E7%BD%91%E7%BB%9C%E9%AA%8C%E8%AF%81/Snipaste_2019-01-06_19-35-12.png)
