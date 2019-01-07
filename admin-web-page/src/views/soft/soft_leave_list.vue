@@ -91,6 +91,16 @@
               align="center"
             />
             <el-table-column
+              prop="ip"
+              label="IP地址"
+              align="center"
+            />
+            <el-table-column
+              prop="ipInfo"
+              label="IP信息"
+              align="center"
+            />
+            <el-table-column
               fixed="right"
               align="center"
               label="操作"

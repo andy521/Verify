@@ -18,12 +18,14 @@ import com.orange.verify.api.vo.AccountVo;
 import com.orange.verify.api.vo.open.*;
 import com.orange.verify.common.ip.BaiduIp;
 import com.orange.verify.common.rsa.RsaUtil;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
@@ -51,6 +53,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
     @Autowired
     private BaiduMapApiMapper baiduMapApiMapper;
+
+    @Autowired
+    private InterProcessMutex lock;
 
     @Override
     public Page<AccountVo> page(AccountVo accountVo, Page page) {
@@ -84,25 +89,64 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     }
 
     @Override
+    public void saveVerificationCode(AccountVerificationCodeVo accountVerificationCodeVo) {
+
+        String privateKey = (String) redis.getByKey(accountVerificationCodeVo.getPublicKey());
+        if (!StrUtil.hasEmpty(privateKey)) {
+            redis.save10Minutes("vc=" + accountVerificationCodeVo.getPublicKey(),
+                    accountVerificationCodeVo.getCode());
+        }
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public ServiceResult<Integer> register(AccountRegisterVo accountRegisterVo) {
 
         ServiceResult<Integer> result = new ServiceResult<>();
 
-        String privateKey = (String)redis.getByKey(accountRegisterVo.getPublicKey());
+        String privateKey = (String) redis.getByKey(accountRegisterVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
             result.setCode(AccountImplRegisterEnum.KEY_EMPTY);
             return result;
         }
 
-        QueryWrapper<Account> username = new QueryWrapper<Account>().eq("username",
-                accountRegisterVo.getUsername());
-        Integer selectCount = super.baseMapper.selectCount(username);
-        //用户名是否存在
-        if (selectCount > 0) {
-            result.setCode(AccountImplRegisterEnum.ACCOUNT_ALREADY_EXIST);
+        //验证码不匹配直接返回
+        String vc = (String) redis.getByKey("vc=" + accountRegisterVo.getPublicKey());
+        if (StrUtil.hasEmpty(vc)) {
+            result.setCode(AccountImplRegisterEnum.VC_EMPTY);
             return result;
+        } else if (!accountRegisterVo.getVc().equals(vc)) {
+            result.setCode(AccountImplRegisterEnum.VC_MISMATCHES);
+            return result;
+        }
+
+        //采用分布式锁进行用户名的唯一控制
+        try {
+            boolean acquire = lock.acquire(5, TimeUnit.SECONDS);
+            if (acquire == true) {
+                QueryWrapper<Account> username = new QueryWrapper<Account>().eq("username",
+                        accountRegisterVo.getUsername());
+                Integer selectCount = super.baseMapper.selectCount(username);
+                //用户名是否存在
+                if (selectCount > 0) {
+                    result.setCode(AccountImplRegisterEnum.ACCOUNT_ALREADY_EXIST);
+                    return result;
+                }
+            } else {
+                result.setCode(AccountImplRegisterEnum.NIMIETY);
+                return result;
+            }
+        } catch (Exception e) {
+            result.setCode(AccountImplRegisterEnum.SERVER_ERROR);
+            return result;
+        } finally {
+            try {
+                lock.release();
+            } catch (Exception e) {
+                result.setCode(AccountImplRegisterEnum.SERVER_ERROR);
+                return result;
+            }
         }
 
         Soft soft = softMapper.selectById(accountRegisterVo.getSoftId());

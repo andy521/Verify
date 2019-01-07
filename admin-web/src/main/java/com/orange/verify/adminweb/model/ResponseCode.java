@@ -89,6 +89,14 @@ public enum ResponseCode {
 
     LEAVE_MESSAGE_SEND_ERROR(932,"留言发送失败"),
 
+    VC_EMPTY(933,"验证码过期了，请重新获取验证码"),
+
+    VC_MISMATCHES(934,"验证码输入错误"),
+
+    NIMIETY(935,"当前注册人数过多，稍后再试！"),
+
+    SERVER_ERROR(936,"服务器错误"),
+
     //基础
     SUCCESS(10,"操作成功"),
     QUERY_SUCCESS(9,"查询成功"),

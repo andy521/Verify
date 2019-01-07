@@ -16,7 +16,6 @@ public class RedisImpl {
 
     public void save10Minutes(String key, Object value) {
         template.opsForValue().set(PREFIX + key,value,10, TimeUnit.MINUTES);
-        //template.opsForValue().set(PREFIX + key,value,500, TimeUnit.MILLISECONDS);
     }
 
     public void save1Hours(String key, Object value) {

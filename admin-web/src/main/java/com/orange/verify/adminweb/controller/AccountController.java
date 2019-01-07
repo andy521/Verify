@@ -1,5 +1,8 @@
 package com.orange.verify.adminweb.controller;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
+import cn.hutool.captcha.ICaptcha;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.orange.verify.adminweb.annotation.ParameterError;
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 @RequestMapping(value = "account")
@@ -98,6 +104,24 @@ public class AccountController extends BaseController {
 
     }
 
+    @RequestMapping(value = "getVerificationCode",method = RequestMethod.GET)
+    public void getVerificationCode(AccountVerificationCodeVo accountVerificationCodeVo,HttpServletResponse response) {
+
+        ICaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 6, 20);
+
+        try {
+            if (accountVerificationCodeVo == null) {
+                accountVerificationCodeVo = new AccountVerificationCodeVo();
+            }
+            accountVerificationCodeVo.setPublicKey(accountVerificationCodeVo.getPublicKey()
+                    .replaceAll(" ","+"));
+            accountVerificationCodeVo.setCode(captcha.getCode());
+            accountService.saveVerificationCode(accountVerificationCodeVo);
+            captcha.write(response.getOutputStream());
+        } catch (IOException e) {
+        }
+    }
+
     @RspHandle(ipHandle = true)
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
@@ -143,6 +167,18 @@ public class AccountController extends BaseController {
 
             case AccountImplRegisterEnum.REGISTER_CLOSE:
                 return Response.build(ResponseCode.REGISTER_CLOSE,register.getMsg());
+
+            case AccountImplRegisterEnum.VC_EMPTY:
+                return Response.build(ResponseCode.VC_EMPTY);
+
+            case AccountImplRegisterEnum.VC_MISMATCHES:
+                return Response.build(ResponseCode.VC_MISMATCHES);
+
+            case AccountImplRegisterEnum.NIMIETY:
+                return Response.build(ResponseCode.NIMIETY);
+
+            case AccountImplRegisterEnum.SERVER_ERROR:
+                return Response.build(ResponseCode.SERVER_ERROR);
 
             default:
                 return Response.build(ResponseCode.UNKNOWN_ERROR);

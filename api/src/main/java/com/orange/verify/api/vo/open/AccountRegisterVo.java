@@ -33,6 +33,13 @@ public class AccountRegisterVo implements Serializable {
      */
     @NotBlank(message = "code不能为空")
     private String code;
+    
+    /**
+     * 验证码
+     */
+    @NotBlank(message = "验证码不能为空")
+    @Size(min = 6,max = 6,message = "验证码长度是6位哟")
+    private String vc;
 
     /**
      * 用户的真实姓名

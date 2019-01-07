@@ -101,21 +101,20 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
 
     private String getIpInfo(String ip) throws Exception {
 
-        BaiduMapApi single = baiduMapApiMapper.getSingle();
-        if (single == null) {
-            throw new Exception();
+        if ("127.0.0.1".equals(ip)) {
+            return "";
         }
 
-        String ipInfo = "";
-        if (!"127.0.0.1".equals(ip)) {
-            try {
-                ipInfo = BaiduIp.start(single.getAppkey())
-                        .getAddressByIp(ip);
-            } catch (Exception e) {
-                throw new Exception();
-            }
+        try {
+            BaiduMapApi single = baiduMapApiMapper.getSingle();
+
+            String ipInfo = BaiduIp.start(single.getAppkey())
+                    .getAddressByIp(ip);
+
+            return ipInfo;
+        } catch (Exception e) {
+            throw new Exception();
         }
-        return ipInfo;
     }
 
 }

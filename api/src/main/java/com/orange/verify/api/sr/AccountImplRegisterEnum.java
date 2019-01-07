@@ -24,4 +24,12 @@ public class AccountImplRegisterEnum implements Serializable {
 
     public static final int REGISTER_ERROR = 10;
 
+    public static final int VC_EMPTY = 11;
+
+    public static final int VC_MISMATCHES = 12;
+
+    public static final int NIMIETY = 13;
+
+    public static final int SERVER_ERROR = 14;
+
 }
