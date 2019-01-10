@@ -122,7 +122,7 @@ public class AccountController extends BaseController {
         }
     }
 
-    @RspHandle(ipHandle = true)
+    @RspHandle(ipHandle = true,ipRedisInterval = 60L,ipVisits = 30)
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
     public Response register(@Validated AccountRegisterVo accountRegisterVo, BindingResult result,
@@ -186,7 +186,7 @@ public class AccountController extends BaseController {
 
     }
 
-    @RspHandle
+    @RspHandle(ipHandle = true,ipRedisInterval = 1L,ipVisits = 30)
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
     public Response login(@Validated AccountLoginVo accountLoginVo, BindingResult result,
@@ -249,7 +249,7 @@ public class AccountController extends BaseController {
         }
     }
 
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "bindingCard",method = RequestMethod.POST)
     @ResponseBody
     public Response bindingCard(@Validated AccountBindingCardVo accountBindingCardVo, BindingResult result)
@@ -306,12 +306,15 @@ public class AccountController extends BaseController {
             case AccountImplBindingCardEnum.SOFT_INCONSISTENCY:
                 return Response.build(ResponseCode.SOFT_INCONSISTENCY);
 
+            case AccountImplBindingCardEnum.SOFT_FREE:
+                return Response.build(ResponseCode.SOFT_FREE);
+
             default:
                 return Response.build(ResponseCode.UNKNOWN_ERROR);
         }
     }
 
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "bindingCode",method = RequestMethod.POST)
     @ResponseBody
     public Response bindingCode(@Validated AccountBindingCodeVo accountBindingCodeVo, BindingResult result)
@@ -363,7 +366,7 @@ public class AccountController extends BaseController {
         }
     }
 
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "updatePassword",method = RequestMethod.POST)
     @ResponseBody
     public Response updatePassword(@Validated AccountUpdatePasswordVo accountUpdatePasswordVo, BindingResult result)

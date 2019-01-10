@@ -31,12 +31,12 @@
               <el-input v-model="form.number" class="common-width"></el-input>
             </el-form-item>
 
-            <el-form-item label="更新公告" prop="notice">
+            <el-form-item label="更新公告(日志)" prop="notice">
               <el-input
                 v-model="form.notice"
                 class="common-width"
                 type="textarea"
-                :rows="4"
+                :rows="15"
                 placeholder="请输入更新公告"
               >
               </el-input>

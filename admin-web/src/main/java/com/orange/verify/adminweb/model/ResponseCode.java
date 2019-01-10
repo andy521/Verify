@@ -65,7 +65,7 @@ public enum ResponseCode {
 
     ACCOUNT_ALREADY_EXIST(920,"用户名已存在"),
 
-    PASSWORD_LENGTH_ERROR(921,"密码长度最多只能10位哟！"),
+    PASSWORD_LENGTH_ERROR(921,"密码长度是5到10位哟！"),
 
     SOFT_EMPTY(922,"软件不存在"),
 
@@ -96,6 +96,8 @@ public enum ResponseCode {
     NIMIETY(935,"当前注册人数过多，稍后再试！"),
 
     SERVER_ERROR(936,"服务器错误"),
+
+    SOFT_FREE(937,"软件是免费的，无需绑定卡密"),
 
     //基础
     SUCCESS(10,"操作成功"),

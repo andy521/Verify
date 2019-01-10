@@ -176,7 +176,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (StrUtil.hasEmpty(password)) {
             result.setCode(AccountImplRegisterEnum.KEY_ERROR);
             return result;
-        } else if (password.length() > 10) {
+        } else if (password.length() > 10 || password.length() < 5) {
             result.setCode(AccountImplRegisterEnum.PASSWORD_LENGTH_ERROR);
             return result;
         }
@@ -257,7 +257,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (StrUtil.hasEmpty(password,code)) {
             result.setCode(AccountImplLoginEnum.KEY_ERROR);
             return result;
-        } else if (password.length() > 10) {
+        } else if (password.length() > 10 || password.length() < 5) {
             result.setCode(AccountImplLoginEnum.PASSWORD_LENGTH_ERROR);
             return result;
         }
@@ -366,6 +366,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             result.setCode(AccountImplBindingCardEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
+        } else if (soft.getServiceStatus() == 1) {
+            result.setCode(AccountImplBindingCardEnum.SOFT_FREE);
+            return result;
         }
 
         //判断用户不存在直接返回
@@ -389,7 +392,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (StrUtil.hasEmpty(password,code)) {
             result.setCode(AccountImplBindingCardEnum.KEY_ERROR);
             return result;
-        } else if (password.length() > 10) {
+        } else if (password.length() > 10 || password.length() < 5) {
             result.setCode(AccountImplBindingCardEnum.PASSWORD_LENGTH_ERROR);
             return result;
         }
@@ -527,7 +530,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (StrUtil.hasEmpty(password,code)) {
             result.setCode(AccountImplBindingCodeEnum.KEY_ERROR);
             return result;
-        } else if (password.length() > 10) {
+        } else if (password.length() > 10 || password.length() < 5) {
             result.setCode(AccountImplBindingCodeEnum.PASSWORD_LENGTH_ERROR);
             return result;
         }

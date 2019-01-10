@@ -43,7 +43,7 @@ public class RspHandleAspect {
 
         boolean setErrorInfo = rspHandle.isSetErrorInfo();
         boolean ipHandle = rspHandle.ipHandle();
-        long ipHandleInterval = rspHandle.ipHandleInterval();
+        long ipVisits = rspHandle.ipVisits();
         long ipRedisInterval = rspHandle.ipRedisInterval();
 
         if (ipHandle == true) {
@@ -52,21 +52,33 @@ public class RspHandleAspect {
             String prefix =
                     pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName() + ".";
             String remoteAddr = request.getRemoteAddr();
-            Long createDate = (Long) redisTemplate.opsForValue().get(prefix + remoteAddr);
-            if (createDate != null) {
-                long totalTime = (System.currentTimeMillis() - createDate);
-                if (totalTime < ipHandleInterval) {
-                    return Response.build(ResponseCode.TOO_FAST);
-                }
+
+            String key = prefix + remoteAddr;
+            key = key.replaceAll(":",".");
+
+            long count = redisTemplate.opsForValue().increment(key, 1);
+            if (count == 1) {
+                redisTemplate.expire(key, ipRedisInterval, TimeUnit.MINUTES);
             }
-            redisTemplate.opsForValue().set(prefix + remoteAddr,System.currentTimeMillis(),ipRedisInterval, TimeUnit.MINUTES);
+            if (count > ipVisits) {
+                Long expire = redisTemplate.getExpire(key);
+                String msg = "访问过快哦！" + expire + "秒过后才能继续访问";
+                return Response.build(ResponseCode.TOO_FAST,msg);
+            }
         }
 
-        long startTime = System.currentTimeMillis();
-
-        Response response = null;
         try {
-            response = (Response) pjp.proceed();
+
+            long startTime = System.currentTimeMillis();
+
+            Response response = (Response) pjp.proceed();
+
+            long endTime = System.currentTimeMillis();
+
+            response.setTotalTime(endTime - startTime);
+
+            return response;
+
         } catch (ParameterError e) {
             return Response.build(ResponseCode.PARAMETER_ERROR,e.getMessage());
         } catch (Exception e) {
@@ -77,12 +89,6 @@ public class RspHandleAspect {
                 return Response.build(ResponseCode.UNKNOWN_ERROR);
             }
         }
-
-        long endTime = System.currentTimeMillis();
-
-        response.setTotalTime(endTime - startTime);
-
-        return response;
 
     }
 

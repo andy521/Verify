@@ -53,7 +53,7 @@ public class SoftLeaveMessageController extends BaseController {
         return Response.error();
     }
 
-    @RspHandle(ipHandle = true,ipHandleInterval = 60000)
+    @RspHandle(ipHandle = true,ipRedisInterval = 60L,ipVisits = 10)
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
     public Response create(@Validated SoftLeaveMeesageSubmitVo softLeaveMeesageSubmitVo, BindingResult result,

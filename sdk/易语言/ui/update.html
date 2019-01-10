@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="bootstrap.min.css"  media="all">
+
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+
+    <link rel="stylesheet" href="jquery/jquery.mloading.css"  media="all">
+
+    <style>
+        html,body{height:100%}
+        a{text-decoration:none}
+    </style>
+
+</head>
+<body>
+
+<div class="row" style="height: 100%;margin-right: 0px">
+    <!--广告位-->
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="height: 100%;padding-right: 0px;text-align: center">
+        <img src="image/20190109154436.png" width="100%" height="100%" >
+    </div>
+    <!--广告位 end-->
+
+    <!--公告区-->
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" style="height: 100%">
+
+        <div class="layui-card">
+            <div class="layui-card-header">最新版本</div>
+            <div class="layui-card-body">
+                <input id="newVersions" placeholder="" class="layui-input"></input>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">更新公告</div>
+            <div class="layui-card-body">
+                <textarea id="notice" placeholder="" class="layui-textarea" style="height: 150px"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">更新地址</div>
+            <div class="layui-card-body">
+                <input id="updateUrl" placeholder="" class="layui-input">
+                <button onclick="copyUrl()" class="layui-btn" style="margin-top: 5px">复制链接</button>
+            </div>
+        </div>
+
+    </div>
+    <!--公告区 end-->
+
+</div>
+
+
+<script src="jquery/jquery.min.js" charset="utf-8"></script>
+<script src="layui/layui.js" charset="utf-8"></script>
+<script src="jquery/jquery.mloading.js" charset="utf-8"></script>
+
+<script src="common/alert.js" charset="utf-8"></script>
+
+<script>
+
+    function init(data) {
+        $("#newVersions").val(data.versions.replace(/<br>/g,"\n"));
+        $("#notice").val(data.notice.replace(/<br>/g,"\n"));
+        $("#updateUrl").val(data.updateUrl.replace(/<br>/g,"\n"));
+    }
+
+    function copyUrl() {
+        callCopyUrl();
+    }
+
+</script>
+
+</body>
+</html>

@@ -108,7 +108,7 @@ public class SoftController extends BaseController {
         return Response.error();
     }
 
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "getSoftDesc",method = RequestMethod.POST)
     @ResponseBody
     public Response getSoftDesc(@Validated SoftGetSoftDescVo accountGetSoftDescVo, BindingResult result)

@@ -10,11 +10,11 @@ import java.io.Serializable;
 public class AccountRegisterVo implements Serializable {
 
     @NotBlank(message = "用户名不能为空")
-    @Size(min = 1,max = 10,message = "用户名长度是10位哟")
+    @Size(min = 5,max = 10,message = "用户名长度是5到10位哟")
     private String username;
 
     @NotBlank(message = "QQ号不能为空")
-    @Size(min = 1,max = 10,message = "QQ号长度是10位哟")
+    @Size(min = 1,max = 10,message = "QQ号长度是1到10位哟")
     private String qq;
 
     @NotBlank(message = "密码不能为空")
@@ -24,7 +24,7 @@ public class AccountRegisterVo implements Serializable {
     private String softId;
 
     @NotBlank(message = "安全码不能为空")
-    @Size(min = 1,max = 10,message = "安全码长度是10位哟")
+    @Size(min = 5,max = 10,message = "安全码长度是5到10位哟")
     private String securityCode;
 
     /**
@@ -46,7 +46,7 @@ public class AccountRegisterVo implements Serializable {
      * name
      */
     @NotBlank(message = "名字不能为空")
-    @Size(min = 1,max = 10,message = "真实姓名长度是10位哟")
+    @Size(min = 1,max = 10,message = "真实姓名长度是1到10位哟")
     private String name;
 
     private String ip;

@@ -7,7 +7,7 @@ import Vue from 'vue'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api 的 base_url
-  timeout: 5000 // 请求超时时间
+  timeout: 10000 // 请求超时时间
 })
 
 // request拦截器
@@ -30,7 +30,7 @@ service.interceptors.response.use(
   response => {
 
     const res = response.data
-    if (res.code === 12) {
+    if (res.code == 12) {
 
       Message.error("登陆失效，请重新登陆")
       store.dispatch('FedLogOut').then(() => {

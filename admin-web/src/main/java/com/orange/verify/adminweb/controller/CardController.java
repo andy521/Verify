@@ -121,7 +121,7 @@ public class CardController {
         return Response.error();
     }
 
-    @RspHandle
+    @RspHandle(ipHandle = true)
     @RequestMapping(value = "getCardTimeLimit",method = RequestMethod.POST)
     @ResponseBody
     public Response getCardTimeLimit(String username,String password,String softId) {

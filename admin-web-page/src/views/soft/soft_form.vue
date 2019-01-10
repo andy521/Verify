@@ -36,7 +36,7 @@
                 v-model="form.notice"
                 class="common-width"
                 type="textarea"
-                :rows="4"
+                :rows="8"
                 placeholder="请输入软件公告"
               >
               </el-input>

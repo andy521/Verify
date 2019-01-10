@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 邮箱账户
  * t_email_account
  * @author Orange
- * @date 2019/01/02
+ * @date 2019/01/10
  */
 @TableName("t_email_account")
 @KeySequence("SEQ_TEST")

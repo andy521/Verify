@@ -18,10 +18,10 @@ public @interface RspHandle {
     //ip访问控制
     boolean ipHandle() default false;
 
-    //ip访问间隔频率设置 毫秒 默认3秒...
-    long ipHandleInterval() default 3000L;
+    //ip访问次数，限制接口在 xx 分钟内容只能访问 xx 次，默认60次
+    long ipVisits() default 60L;
 
-    //ip redis缓存多少分钟 默认10分钟
-    long ipRedisInterval() default 10L;
+    //ip redis缓存多少分钟 默认1分钟
+    long ipRedisInterval() default 1L;
 
 }

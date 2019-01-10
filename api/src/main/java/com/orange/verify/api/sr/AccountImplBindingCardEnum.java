@@ -32,4 +32,6 @@ public class AccountImplBindingCardEnum implements Serializable {
 
     public static final int PASSWORD_ERROR = 14;
 
+    public static final int SOFT_FREE = 15;
+
 }
