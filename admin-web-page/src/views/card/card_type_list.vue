@@ -23,7 +23,7 @@
               收起
             </el-button>
           </div>
-          
+
           <el-form :inline="true" :model="seachForm" class="demo-form-inline" @submit.native.prevent>
             <el-form-item label="软件选择">
               <el-select v-model="seachForm.softId" placeholder="请选择软件">
@@ -59,7 +59,7 @@
           <div slot="header" class="clearfix">
             <i class="el-icon-edit"/>
             <span> 操作</span>
-            <span style="color: #409EFF;cursor: pointer;margin-left: 20px" @click="search">刷新数据</span>
+            <span style="color: #409EFF;cursor: pointer;margin-left: 20px" @click="search(true)">刷新数据</span>
             <el-button style="float: right; padding: 3px 0" type="text" @click="workingArea = !workingArea">
               收起
             </el-button>
@@ -136,7 +136,7 @@ export default {
       // 控制两块区域是否显示
       searchWorkspace: true,
       workingArea: true,
-      
+
       softList: [],
 
       // 搜索表单

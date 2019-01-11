@@ -25,7 +25,7 @@ public class CardImpl extends ServiceImpl<CardMapper, Card> implements CardServi
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveLogic(Card card, Integer count) {
+    public void saveLogic(Card card, Integer count) {
 
         for (int i = 0;i < count;i++) {
             Card cardSave = new Card();
@@ -33,8 +33,6 @@ public class CardImpl extends ServiceImpl<CardMapper, Card> implements CardServi
             cardSave.setCardNumber(UUID.randomUUID().toString().replaceAll("-",""));
             super.baseMapper.insert(cardSave);
         }
-
-        return true;
     }
 
     @Override
@@ -52,6 +50,15 @@ public class CardImpl extends ServiceImpl<CardMapper, Card> implements CardServi
             card.setId(id);
             card.setSellStatus(1);
             super.baseMapper.updateById(card);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void batchRemove(List<String> cardList) {
+
+        for (String id : cardList) {
+            super.baseMapper.deleteById(id);
         }
     }
 

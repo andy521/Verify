@@ -12,10 +12,12 @@ public interface CardService extends IService<Card> {
 
     Page<CardVo> page(CardVo cardVo, Page page);
 
-    boolean saveLogic(Card card,Integer count);
+    void saveLogic(Card card,Integer count);
 
     CardTimeLimitVo getCardTimeLimit(String username,String password,String softId);
 
     void sell(List<String> sell);
+
+    void batchRemove(List<String> cardList);
 
 }

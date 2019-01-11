@@ -56,11 +56,9 @@ public class CardController {
             return Response.build(ResponseCode.PRODUCTION_TOO_MUCH);
         }
 
-        boolean b = cardService.saveLogic(card,count);
-        if (b == true) {
-            return Response.success();
-        }
-        return Response.error();
+        cardService.saveLogic(card,count);
+
+        return Response.success();
     }
 
     @RspHandle
@@ -104,6 +102,17 @@ public class CardController {
     public Response sell(@RequestBody List<String> sell) {
 
         cardService.sell(sell);
+
+        return Response.success();
+    }
+
+    @RspHandle
+    @RequiresUser
+    @RequestMapping(value = "batchRemove",method = RequestMethod.POST)
+    @ResponseBody
+    public Response batchRemove(@RequestBody List<String> cardList) {
+
+        cardService.batchRemove(cardList);
 
         return Response.success();
     }

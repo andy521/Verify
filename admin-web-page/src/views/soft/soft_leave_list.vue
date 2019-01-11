@@ -59,7 +59,7 @@
           <div slot="header" class="clearfix">
             <i class="el-icon-edit"/>
             <span> 操作</span>
-            <span style="color: #409EFF;cursor: pointer;margin-left: 20px" @click="search">刷新数据</span>
+            <span style="color: #409EFF;cursor: pointer;margin-left: 20px" @click="search(true)">刷新数据</span>
             <el-button style="float: right; padding: 3px 0" type="text" @click="workingArea = !workingArea">
               收起
             </el-button>
