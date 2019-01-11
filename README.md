@@ -36,6 +36,7 @@
 
 #### 版本日志
 
+* 1.3 修复易语言 demo 和 sdk
 * 1.2 修复充值，易语言demo更新，修复vo验证字段,修复RspHandleAspect(优化ip访问控制，限制接口在 xx 分钟内容只能访问 xx 次),优化后台页面
 * 1.1 增加注册验证码，增加分布式锁，修复大量bug
 
@@ -52,9 +53,7 @@
 
 4. builder项目运行主类就可以生成数据库了，记得先创建数据库，然后修改下application.properties配置，再运行
 
-5. 易语言sdk打开可能会报找不到map支持库错误，请看此文章:https://bbs.125.la/forum.php?mod=viewthread&tid=14149200&highlight=map
-
-6. 项目使用了lombok，请先用idea安好lombok插件
+5. 项目使用了lombok，请先用idea安好lombok插件
 
 #### 图片参考
 
