@@ -3,329 +3,517 @@
 <head>
     <title></title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="bootstrap.min.css"  media="all">
-
-    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
-
-    <link rel="stylesheet" href="jquery/jquery.mloading.css"  media="all">
 
     <style>
-        html,body{height:100%;}
-        a{text-decoration:none}
+        html, body {
+            height: 100%;
+            background: url("image/Snipaste_2019-01-15_20-11-48.png") no-repeat;
+            overflow-x: hidden;
+            background-size: 100% 100%;
+        }
+        a {
+            text-decoration: none
+        }
     </style>
+    <style>
+        ul {
+            list-style: none;
+        }
+        ul, ul li {
+            padding: 0px;
+            margin: 0px;
+        }
+        .ico-font {
+            font-family: "Webdings";
+            color: #B9B9B9;
+        }
+        .win-title {
+            height: 40px;
+            background: #222;
+            line-height: 40px;
+        }
+        .win-title .title-name {
+            float: left;
+            color: #fff;
+            padding-left: 10px;
+        }
+        .win-title .button-group {
+            float: right;
+        }
+        .win-title .button-group ul li {
+            float: left;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            margin: 5px;
+            border-radius: 50%;
+            text-align: center;
+            cursor: pointer;
+            background: #393D49 ;
+        }
+        .win-title .button-group ul li:hover {
+            background: #d9534f;
+        }
+    </style>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="jquery/jquery.mloading.css" media="all">
+    <script src="jquery/jquery.min.js" charset="utf-8"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="jquery/jquery.mloading.js" charset="utf-8"></script>
+    <script src="common/alert.js" charset="utf-8"></script>
+    <script src="common/choice.js" charset="utf-8"></script>
 
 </head>
 <body>
 
-<div class="row" style="height: 100%;margin-right: 0px">
-    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="height: 100%;padding-right: 0px;text-align: center">
-        <img src="image/20190109154436.png" width="100%" height="100%" >
-    </div>
-    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" style="height: 100%">
+<div style="display: flex;flex-direction: column">
 
-        <div class="layui-card">
-            <div class="layui-card-header">
-                公告
-            </div>
-            <div class="layui-card-body" >
-                <textarea id="notice" placeholder="" class="layui-textarea" style="height: 100px"></textarea>
-            </div>
+    <div class="win-title">
+        <div class="title-name">
+            <span class="layui-badge-dot"></span>
+            <span class="layui-badge-dot layui-bg-orange"></span>
+            <span class="layui-badge-dot layui-bg-green"></span>
+            <span class="layui-badge-dot layui-bg-cyan"></span>
+            <span class="layui-badge-dot layui-bg-blue"></span>
+            <span id="softTitle" style="padding-left: 10px"></span>
         </div>
-
-        <div class="layui-tab layui-tab-brief">
-            <ul class="layui-tab-title">
-                <li class="layui-this">登陆</li>
-                <li>注册</li>
-                <li>改密</li>
-                <li id="softService" style="display: none">充值</li>
-                <li id="changeStrategy" style="display: none">绑定机器</li>
+        <div class="button-group">
+            <ul>
+                <li class="ico-font" data-toggle="tooltip" data-placement="top" title="软件留言"
+                    onclick="add(0)" style="">
+                    <i class="layui-icon layui-icon-edit"></i>
+                </li>
+                <li class="ico-font" data-toggle="tooltip" data-placement="top" title="加软件更新群"
+                    onclick="add(1)" style="">
+                    <i class="layui-icon layui-icon-user"></i>
+                </li>
+                <li class="ico-font" onclick="add(2)" data-toggle="tooltip" data-placement="top" title="加作者微信"
+                    style="">
+                    <i class="layui-icon layui-icon-login-wechat"></i>
+                </li>
+                <li class="ico-font" onclick="add(3)" data-toggle="tooltip" data-placement="top" title="加作者QQ">
+                    <i class="layui-icon layui-icon-login-qq"></i>
+                </li>
+                <li class="ico-font" onclick="add(4)" data-toggle="tooltip" data-placement="top" title="软件设置"
+                    style="margin-right: 20px">
+                    <i class="layui-icon layui-icon-set-fill"></i>
+                </li>
+                <li class="ico-font" onclick="winMin()">0</li>
+                <li class="ico-font" onclick="winMax()">1</li>
+                <li class="ico-font" onclick="winClose()">r</li>
             </ul>
-            <div class="layui-tab-content" style="height: 100px;">
+        </div>
+    </div>
 
-                <div class="layui-tab-item layui-show">
-                    <!--登陆-->
-                    <form class="layui-form" action="" lay-filter="loginV">
+    <div style="flex: auto">
 
-                        <div class="layui-form">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">用户名</label>
-                                <div class="layui-input-block">
-                                    <input name="username"
-                                           type="text" lay-verify="username" autocomplete="off"
-                                           placeholder="请输入用户名" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">密码</label>
-                                <div class="layui-input-block">
-                                    <input name="password"
-                                           lay-verify="password"
-                                           type="password" placeholder="请输入密码"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
+        <div class="row" style="height: 100%;margin-right: 0px">
 
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-                                </div>
-                            </div>
-
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button lay-submit="" lay-filter="loginSubmit" class="layui-btn layui-btn-radius">
-                                        立即提交
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-                    <!--登陆 end-->
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="height: 100%;padding-right: 0px;text-align: center">
+                <div id="myCarousel" class="carousel slide">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators" id="carOl">
+                    </ol>
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner" id="carItem">
+                    </div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
 
-                <div class="layui-tab-item">
+            </div>
 
-                    <!--注册-->
-                    <textarea id="registerCloseMsg" placeholder="" class="layui-textarea"
-                              style="height: 250px;display: none">
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" style="height: 100%">
+
+                <fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+                    <legend>公告</legend>
+                    <div>
+                        <textarea id="notice" placeholder="" class="layui-textarea"></textarea>
+                    </div>
+                </fieldset>
+
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">登陆</li>
+                        <li>注册</li>
+                        <li>改密</li>
+                        <li id="softService" style="display: none">充值</li>
+                        <li id="changeStrategy" style="display: none">绑定机器</li>
+                    </ul>
+                    <div class="layui-tab-content" style="height: 100px;">
+
+                        <div class="layui-tab-item layui-show">
+                            <!--登陆-->
+                            <form class="layui-form" action="" lay-filter="loginV">
+
+                                <div class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">用户名</label>
+                                        <div class="layui-input-block">
+                                            <input name="username"
+                                                   type="text" lay-verify="username" autocomplete="off"
+                                                   placeholder="请输入用户名" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码</label>
+                                        <div class="layui-input-block">
+                                            <input name="password"
+                                                   lay-verify="password"
+                                                   type="password" placeholder="请输入密码"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button lay-submit="" lay-filter="loginSubmit"
+                                                    class="layui-btn-normal layui-btn layui-btn-radius">
+                                                立即提交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!--登陆 end-->
+                        </div>
+
+                        <div class="layui-tab-item">
+
+                            <!--注册-->
+                            <textarea id="registerCloseMsg" placeholder="" class="layui-textarea"
+                                      style="height: 250px;display: none">
                     </textarea>
 
-                    <form id="register" class="layui-form" action="" style="display: block">
+                            <form id="register" class="layui-form" action="" style="display: block">
 
-                        <div class="layui-form">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">用户名</label>
-                                <div class="layui-input-block">
-                                    <input name="username"
-                                           type="text" lay-verify="username" autocomplete="off"
-                                           placeholder="请输入用户名" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">密码</label>
-                                <div class="layui-input-block">
-                                    <input name="password"
-                                           lay-verify="password"
-                                           type="password" placeholder="请输入密码"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">安全码</label>
-                                <div class="layui-input-block">
-                                    <input name="securityCode"
-                                           lay-verify="securityCode"
-                                           placeholder="此安全码用于修改密码时用到"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">QQ</label>
-                                <div class="layui-input-block">
-                                    <input name="qq"
-                                           lay-verify="qq"
-                                           placeholder="请输入QQ"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">姓名</label>
-                                <div class="layui-input-block">
-                                    <input name="name"
-                                           lay-verify="name"
-                                           placeholder="请输入姓名"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <img id="vcode" width="150px" height="70px" style="border: 1px solid #b2b2b2" >
-                                    <a onclick="getVCode()" class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius">
-                                        获取验证码
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">验证码</label>
-                                <div class="layui-input-block">
-                                    <input name="vc"
-                                           lay-verify="vc"
-                                           placeholder="请输入验证码"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
+                                <div class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">用户名</label>
+                                        <div class="layui-input-block">
+                                            <input name="username"
+                                                   type="text" lay-verify="username" autocomplete="off"
+                                                   placeholder="请输入用户名" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码</label>
+                                        <div class="layui-input-block">
+                                            <input name="password"
+                                                   lay-verify="password"
+                                                   type="password" placeholder="请输入密码"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">安全码</label>
+                                        <div class="layui-input-block">
+                                            <input name="securityCode"
+                                                   lay-verify="securityCode"
+                                                   placeholder="此安全码用于修改密码时用到"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">QQ</label>
+                                        <div class="layui-input-block">
+                                            <input name="qq"
+                                                   lay-verify="qq"
+                                                   placeholder="请输入QQ"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">姓名</label>
+                                        <div class="layui-input-block">
+                                            <input name="name"
+                                                   lay-verify="name"
+                                                   placeholder="请输入姓名"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <img id="vcode" width="150px" height="70px"
+                                                 style="border: 1px solid #b2b2b2">
+                                            <a onclick="getVCode()"
+                                               class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius">
+                                                获取验证码
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">验证码</label>
+                                        <div class="layui-input-block">
+                                            <input name="vc"
+                                                   lay-verify="vc"
+                                                   placeholder="请输入验证码"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
 
 
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button lay-submit="" lay-filter="registerSubmit" class="layui-btn layui-btn-radius">
-                                        立即提交
-                                    </button>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button lay-submit="" lay-filter="registerSubmit"
+                                                    class="layui-btn-normal layui-btn layui-btn-radius">
+                                                立即提交
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <br><br>
+                            </form>
+
+                            <!--注册 end-->
+
                         </div>
-                        <br><br>
-                    </form>
+                        <div class="layui-tab-item">
 
-                    <!--注册 end-->
+                            <!--改密-->
+                            <form class="layui-form" action="">
 
-                </div>
-                <div class="layui-tab-item">
+                                <div class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">用户名</label>
+                                        <div class="layui-input-block">
+                                            <input name="username"
+                                                   type="text" lay-verify="username" autocomplete="off"
+                                                   placeholder="请输入用户名" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">安全码</label>
+                                        <div class="layui-input-block">
+                                            <input name="securityCode"
+                                                   lay-verify="securityCode"
+                                                   placeholder="请输入安全码"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">新密码</label>
+                                        <div class="layui-input-block">
+                                            <input name="password"
+                                                   lay-verify="password"
+                                                   type="password" placeholder="请输入密码"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
 
-                    <!--改密-->
-                    <form class="layui-form" action="">
-
-                        <div class="layui-form">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">用户名</label>
-                                <div class="layui-input-block">
-                                    <input name="username"
-                                           type="text" lay-verify="username" autocomplete="off"
-                                           placeholder="请输入用户名" class="layui-input">
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button lay-submit="" lay-filter="updatePasswordSubmit"
+                                                    class="layui-btn-normal layui-btn layui-btn-radius">
+                                                立即提交
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">安全码</label>
-                                <div class="layui-input-block">
-                                    <input name="securityCode"
-                                           lay-verify="securityCode"
-                                           placeholder="请输入安全码"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">新密码</label>
-                                <div class="layui-input-block">
-                                    <input name="password"
-                                           lay-verify="password"
-                                           type="password" placeholder="请输入密码"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
 
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button lay-submit="" lay-filter="updatePasswordSubmit" class="layui-btn layui-btn-radius">
-                                        立即提交
-                                    </button>
-                                </div>
-                            </div>
+                            </form>
+                            <!--改密 end-->
+
                         </div>
+                        <div class="layui-tab-item">
 
-                    </form>
-                    <!--改密 end-->
+                            <!--充值-->
+                            <form class="layui-form" action="">
 
-                </div>
-                <div class="layui-tab-item">
+                                <div class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">用户名</label>
+                                        <div class="layui-input-block">
+                                            <input name="username"
+                                                   type="text" lay-verify="username" autocomplete="off"
+                                                   placeholder="请输入用户名" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码</label>
+                                        <div class="layui-input-block">
+                                            <input name="password"
+                                                   lay-verify="password"
+                                                   type="password" placeholder="请输入密码"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">卡密</label>
+                                        <div class="layui-input-block">
+                                            <input name="card"
+                                                   lay-verify="card"
+                                                   placeholder="请输入卡密"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
 
-                    <!--充值-->
-                    <form class="layui-form" action="">
-
-                        <div class="layui-form">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">用户名</label>
-                                <div class="layui-input-block">
-                                    <input name="username"
-                                           type="text" lay-verify="username" autocomplete="off"
-                                           placeholder="请输入用户名" class="layui-input">
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button lay-submit="" lay-filter="cardSubmit"
+                                                    class="layui-btn-normal layui-btn layui-btn-radius">
+                                                立即提交
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">密码</label>
-                                <div class="layui-input-block">
-                                    <input name="password"
-                                           lay-verify="password"
-                                           type="password" placeholder="请输入密码"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">卡密</label>
-                                <div class="layui-input-block">
-                                    <input name="card"
-                                           lay-verify="card"
-                                           placeholder="请输入卡密"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
 
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button lay-submit="" lay-filter="cardSubmit" class="layui-btn layui-btn-radius">
-                                        立即提交
-                                    </button>
-                                </div>
-                            </div>
+                            </form>
+                            <!--充值 end-->
+
                         </div>
+                        <div class="layui-tab-item">
 
-                    </form>
-                    <!--充值 end-->
+                            <!--绑定机器-->
+                            <form class="layui-form" action="">
 
-                </div>
-                <div class="layui-tab-item">
+                                <div class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">用户名</label>
+                                        <div class="layui-input-block">
+                                            <input name="username"
+                                                   type="text" lay-verify="username" autocomplete="off"
+                                                   placeholder="请输入用户名" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码</label>
+                                        <div class="layui-input-block">
+                                            <input name="password"
+                                                   lay-verify="password"
+                                                   type="password" placeholder="请输入密码"
+                                                   autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
 
-                    <!--绑定机器-->
-                    <form class="layui-form" action="">
-
-                        <div class="layui-form">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">用户名</label>
-                                <div class="layui-input-block">
-                                    <input name="username"
-                                           type="text" lay-verify="username" autocomplete="off"
-                                           placeholder="请输入用户名" class="layui-input">
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button lay-submit="" lay-filter="codeSubmit"
+                                                    class="layui-btn-normal layui-btn layui-btn-radius">
+                                                立即提交
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">密码</label>
-                                <div class="layui-input-block">
-                                    <input name="password"
-                                           lay-verify="password"
-                                           type="password" placeholder="请输入密码"
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
 
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button lay-submit="" lay-filter="codeSubmit" class="layui-btn layui-btn-radius">
-                                        立即提交
-                                    </button>
-                                </div>
-                            </div>
+                            </form>
+                            <!--绑定机器 end-->
+
                         </div>
-
-                    </form>
-                    <!--绑定机器 end-->
-
+                    </div>
                 </div>
+
             </div>
         </div>
 
     </div>
+
 </div>
 
-<script src="jquery/jquery.min.js" charset="utf-8"></script>
-<script src="layui/layui.js" charset="utf-8"></script>
-<script src="jquery/jquery.mloading.js" charset="utf-8"></script>
 
-<script src="common/alert.js" charset="utf-8"></script>
+<template id="setting">
+
+    <div style="width: 100%;height: 100%" class="layui-form" action="" lay-filter="setting">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建桌面快捷方式</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="speedy" lay-skin="switch" lay-filter="speedy" lay-text="开启|关闭">
+            </div>
+        </div>
+
+        Orange Verify网络验证提供技术支持
+        <br>
+        开源地址：
+        <br>
+        https://gitee.com/orangeenterprise/verify
+
+    </div>
+
+</template>
+<template id="smsg">
+    <div style="width: 100%;height: 100%" >
+        <!--提交留言-->
+        <form class="layui-form" action="" style="padding-top: 10px">
+
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">QQ</label>
+                    <div class="layui-input-block">
+                        <input name="qq"
+                               style="width: 300px"
+                               type="text" lay-verify="qq" autocomplete="off"
+                               placeholder="请输入QQ号" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内容</label>
+                    <div class="layui-input-block">
+                        <textarea
+                                style="width: 300px"
+                                lay-verify="msg"
+                                placeholder="请输入留言内容" class="layui-textarea" name="msg"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button lay-submit="" lay-filter="msgSubmit"
+                                class="layui-btn-normal layui-btn layui-btn-radius">
+                            立即提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <!--提交留言 end-->
+    </div>
+</template>
+
+<script src="common/carousel.js" charset="utf-8"></script>
+<script>
+
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+    });
+
+    $('#myCarousel').carousel({
+        interval: 3500
+    })
+
+</script>
+
 
 <script>
 
-    layui.use('element', function(){
-        var element = layui.element();
-    });
-
     function init(data) {
 
+        $("#softTitle").text(data.title);
 
         if (data.register == "true") {
             $("#register").show();
         } else if (data.register == "false") {
             $("#registerCloseMsg").show();
-            $("#registerCloseMsg").val(data.registerCloseMsg.replace(/<br>/g,"\n"));
+            $("#registerCloseMsg").val(data.registerCloseMsg.replace(/<br>/g, "\n"));
         }
 
         if (data.softService == "false") {
@@ -339,18 +527,24 @@
             $("#changeStrategy").show();
         }
 
-        $("#notice").val(data.notice.replace(/<br>/g,"\n"));
+        $("#notice").val(data.notice.replace(/<br>/g, "\n"));
         var check = false;
         if (data.check == "真") {
             check = true;
         }
+
+        speedyC = false;
+        if (data.speedy == "true") {
+            speedyC = true;
+        }
+
         //表单初始赋值
-        layui.use(['form'], function(){
+        layui.use(['form'], function () {
             var form = layui.form;
             form.val('loginV', {
                 "username": data.username
-                ,"password": data.password
-                ,"remember": check
+                , "password": data.password
+                , "remember": check
             });
         });
     }
@@ -360,26 +554,27 @@
 
 <script>
     //登陆form
-    layui.use(['form'], function(){
+    layui.use(['form'], function () {
         var form = layui.form
-            ,layer = layui.layer;
+            , layer = layui.layer;
 
         //自定义验证规则
         form.verify({
-            username: function(value){
-                if(value.length < 5 || value.length > 10){
+            username: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '用户名长度为5到10个字符';
                 }
             },
-            password: function(value){
-                if(value.length < 5 || value.length > 10){
+            password: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '密码长度为5到10个字符';
                 }
             },
         });
 
         //监听提交
-        form.on('submit(loginSubmit)', function(data){
+        form.on('submit(loginSubmit)', function (data) {
+            loadingStart();
             callLogin(JSON.stringify(data.field));
             return false;
         });
@@ -387,31 +582,31 @@
 </script>
 <script>
     //改密form
-    layui.use(['form'], function(){
+    layui.use(['form'], function () {
         var form = layui.form
-            ,layer = layui.layer;
+            , layer = layui.layer;
 
         //自定义验证规则
         form.verify({
-            username: function(value){
-                if(value.length < 5 || value.length > 10){
+            username: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '用户名长度为5到10个字符';
                 }
             },
-            password: function(value){
-                if(value.length < 5 || value.length > 10){
+            password: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '密码长度为5到10个字符';
                 }
             },
-            securityCode: function(value){
-                if(value.length < 5 || value.length > 10){
+            securityCode: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '安全码长度为5到10个字符';
                 }
             }
         });
 
         //监听提交
-        form.on('submit(updatePasswordSubmit)', function(data){
+        form.on('submit(updatePasswordSubmit)', function (data) {
             callUpdatePassword(JSON.stringify(data.field));
             return false;
         });
@@ -419,58 +614,58 @@
 </script>
 <script>
     //充值form
-    layui.use(['form'], function(){
+    layui.use(['form'], function () {
         var form = layui.form
-            ,layer = layui.layer;
+            , layer = layui.layer;
 
         //自定义验证规则
         form.verify({
-            username: function(value){
-                if(value.length < 5 || value.length > 10){
+            username: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '用户名长度为5到10个字符';
                 }
             },
-            password: function(value){
-                if(value.length < 5 || value.length > 10){
+            password: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '密码长度为5到10个字符';
                 }
             },
-            card: function(value){
-                if(value.length < 1){
+            card: function (value) {
+                if (value.length < 1) {
                     return '卡密不能为空';
                 }
             }
         });
 
         //监听提交
-        form.on('submit(cardSubmit)', function(data){
+        form.on('submit(cardSubmit)', function (data) {
             callCard(JSON.stringify(data.field));
             return false;
         });
     });
 </script>
 <script>
-    //充值form
-    layui.use(['form'], function(){
+    //绑定机器form
+    layui.use(['form'], function () {
         var form = layui.form
-            ,layer = layui.layer;
+            , layer = layui.layer;
 
         //自定义验证规则
         form.verify({
-            username: function(value){
-                if(value.length < 5 || value.length > 10){
+            username: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '用户名长度为5到10个字符';
                 }
             },
-            password: function(value){
-                if(value.length < 5 || value.length > 10){
+            password: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '密码长度为5到10个字符';
                 }
             },
         });
 
         //监听提交
-        form.on('submit(codeSubmit)', function(data){
+        form.on('submit(codeSubmit)', function (data) {
             callCode(JSON.stringify(data.field));
             return false;
         });
@@ -480,55 +675,88 @@
     function getVCode() {
         callVCode();
     }
+
     function setVCode(data) {
-        $("#vcode").attr("src","data:image/jpeg;base64," + data);
+        $("#vcode").attr("src", "data:image/jpeg;base64," + data);
     }
+
     //注册form
-    layui.use(['form'], function(){
+    layui.use(['form'], function () {
         var form = layui.form
-            ,layer = layui.layer;
+            , layer = layui.layer;
 
         //自定义验证规则
         form.verify({
-            username: function(value){
-                if(value.length < 5 || value.length > 10){
+            username: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '用户名长度为5到10个字符';
                 }
             },
-            password: function(value){
-                if(value.length < 5 || value.length > 10){
+            password: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '密码长度为5到10个字符';
                 }
             },
-            securityCode: function(value){
-                if(value.length < 5 || value.length > 10){
+            securityCode: function (value) {
+                if (value.length < 5 || value.length > 10) {
                     return '安全码长度为5到10个字符';
                 }
             },
-            name: function(value){
-                if(value.length < 1 || value.length > 10){
+            name: function (value) {
+                if (value.length < 1 || value.length > 10) {
                     return '姓名长度为1到10个字符';
                 }
             },
-            qq: function(value){
-                if(value.length < 1 || value.length > 10){
+            qq: function (value) {
+                if (value.length < 1 || value.length > 10) {
                     return 'qq长度为1到10个字符';
                 }
             },
-            vc: function(value){
-                if(value.length != 6){
+            vc: function (value) {
+                if (value.length != 6) {
                     return '验证码长度为6个字符';
                 }
             }
         });
 
         //监听提交
-        form.on('submit(registerSubmit)', function(data){
+        form.on('submit(registerSubmit)', function (data) {
             callRegister(JSON.stringify(data.field));
             return false;
         });
     });
 </script>
+<script>
+
+    //提交留言form
+    layui.use(['form'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            msg: function (value) {
+                if (value.length < 1 || value.length > 255) {
+                    return '留言内容长度为1到255个字符';
+                }
+            },
+            qq: function (value) {
+                if (value.length < 1 || value.length > 10) {
+                    return 'qq长度为1到10个字符';
+                }
+            },
+        });
+
+        //监听提交
+        form.on('submit(msgSubmit)', function (data) {
+            callMsg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+</script>
+
+<script>loadingClose();</script>
 
 </body>
 </html>

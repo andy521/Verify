@@ -1,80 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title></title>
-
-    <link rel="stylesheet" href="bootstrap.min.css"  media="all">
-
-    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
-
-    <link rel="stylesheet" href="jquery/jquery.mloading.css"  media="all">
+    <meta charset="UTF-8">
 
     <style>
-        html,body{height:100%}
-        a{text-decoration:none}
+        html, body {
+            height: 100%;
+            background: url("image/Snipaste_2019-01-15_20-11-48.png") no-repeat;
+            overflow-x: hidden;
+            background-size: 100% 100%;
+        }
+        a {
+            text-decoration: none
+        }
     </style>
+    <style>
+        ul {
+            list-style: none;
+        }
+        ul, ul li {
+            padding: 0px;
+            margin: 0px;
+        }
+        .ico-font {
+            font-family: "Webdings";
+            color: #B9B9B9;
+        }
+        .win-title {
+            height: 40px;
+            background: #222;
+            line-height: 40px;
+        }
+        .win-title .title-name {
+            float: left;
+            color: #fff;
+            padding-left: 10px;
+        }
+        .win-title .button-group {
+            float: right;
+        }
+        .win-title .button-group ul li {
+            float: left;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            margin: 5px;
+            border-radius: 50%;
+            text-align: center;
+            cursor: pointer;
+            background: #393D49 ;
+        }
+        .win-title .button-group ul li:hover {
+            background: #d9534f;
+        }
+    </style>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="jquery/jquery.mloading.css" media="all">
+    <script src="jquery/jquery.min.js" charset="utf-8"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="jquery/jquery.mloading.js" charset="utf-8"></script>
+    <script src="common/alert.js" charset="utf-8"></script>
+    <script src="common/choice.js" charset="utf-8"></script>
 
 </head>
 <body>
 
-<div class="row" style="height: 100%;margin-right: 0px">
-    <!--广告位-->
-    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="height: 100%;padding-right: 0px;text-align: center">
-        <img src="image/20190109154436.png" width="100%" height="100%" >
+<div style="display: flex;flex-direction: column">
+
+    <div class="win-title">
+        <div class="title-name">
+            <span class="layui-badge-dot"></span>
+            <span class="layui-badge-dot layui-bg-orange"></span>
+            <span class="layui-badge-dot layui-bg-green"></span>
+            <span class="layui-badge-dot layui-bg-cyan"></span>
+            <span class="layui-badge-dot layui-bg-blue"></span>
+            <span id="softTitle" style="padding-left: 10px"></span>
+        </div>
+        <div class="button-group">
+            <ul>
+                <li class="ico-font" data-toggle="tooltip" data-placement="top" title="软件留言"
+                    onclick="add(0)" style="">
+                    <i class="layui-icon layui-icon-edit"></i>
+                </li>
+                <li class="ico-font" data-toggle="tooltip" data-placement="top" title="加软件更新群"
+                    onclick="add(1)" style="">
+                    <i class="layui-icon layui-icon-user"></i>
+                </li>
+                <li class="ico-font" onclick="add(2)" data-toggle="tooltip" data-placement="top" title="加作者微信"
+                    style="">
+                    <i class="layui-icon layui-icon-login-wechat"></i>
+                </li>
+                <li class="ico-font" onclick="add(3)" data-toggle="tooltip" data-placement="top" title="加作者QQ">
+                    <i class="layui-icon layui-icon-login-qq"></i>
+                </li>
+                <li class="ico-font" onclick="add(4)" data-toggle="tooltip" data-placement="top" title="软件设置"
+                    style="margin-right: 20px">
+                    <i class="layui-icon layui-icon-set-fill"></i>
+                </li>
+                <li class="ico-font" onclick="winMin()">0</li>
+                <li class="ico-font" onclick="winMax()">1</li>
+                <li class="ico-font" onclick="winClose()">r</li>
+            </ul>
+        </div>
     </div>
-    <!--广告位 end-->
 
-    <!--公告区-->
-    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" style="height: 100%">
+    <div style="flex: auto">
 
-        <div class="layui-card">
-            <div class="layui-card-header">最新版本</div>
-            <div class="layui-card-body">
-                <input id="newVersions" placeholder="" class="layui-input"></input>
+        <div class="row" style="height: 100%;margin-right: 0px">
+
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="height: 100%;padding-right: 0px;text-align: center">
+                <div id="myCarousel" class="carousel slide">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators" id="carOl">
+                    </ol>
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner" id="carItem">
+                    </div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
             </div>
-        </div>
 
-        <div class="layui-card">
-            <div class="layui-card-header">更新公告</div>
-            <div class="layui-card-body">
-                <textarea id="notice" placeholder="" class="layui-textarea" style="height: 150px"></textarea>
-            </div>
-        </div>
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" style="height: 100%">
 
-        <div class="layui-card">
-            <div class="layui-card-header">更新地址</div>
-            <div class="layui-card-body">
-                <input id="updateUrl" placeholder="" class="layui-input">
-                <button onclick="copyUrl()" class="layui-btn" style="margin-top: 5px">复制链接</button>
+                <fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+                    <legend>最新版本</legend>
+                    <div>
+                        <input id="newVersions" placeholder="" class="layui-input">
+                        </input>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+                    <legend>更新公告</legend>
+                    <div>
+                        <textarea id="notice" placeholder="" class="layui-textarea" style="height: 200px">
+                        </textarea>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;text-align: center;margin-bottom: 10px">
+                    <legend>下载地址</legend>
+                    <div>
+                        <input id="updateUrl" placeholder="" class="layui-input">
+                        </input>
+                        <button onclick="copyUrl()" class="layui-btn layui-btn">
+                            复制
+                        </button>
+                    </div>
+                </fieldset>
+
+
+
+
             </div>
         </div>
 
     </div>
-    <!--公告区 end-->
 
 </div>
 
 
-<script src="jquery/jquery.min.js" charset="utf-8"></script>
-<script src="layui/layui.js" charset="utf-8"></script>
-<script src="jquery/jquery.mloading.js" charset="utf-8"></script>
+<template id="setting">
 
-<script src="common/alert.js" charset="utf-8"></script>
+    <div style="width: 100%;height: 100%" class="layui-form" action="" lay-filter="setting">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建桌面快捷方式</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="speedy" lay-skin="switch" lay-filter="speedy" lay-text="开启|关闭">
+            </div>
+        </div>
+
+        Orange Verify网络验证提供技术支持
+        <br>
+        开源地址：
+        <br>
+        https://gitee.com/orangeenterprise/verify
+
+    </div>
+
+</template>
+<template id="smsg">
+    <div style="width: 100%;height: 100%" >
+        <!--提交留言-->
+        <form class="layui-form" action="" style="padding-top: 10px">
+
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">QQ</label>
+                    <div class="layui-input-block">
+                        <input name="qq"
+                               style="width: 300px"
+                               type="text" lay-verify="qq" autocomplete="off"
+                               placeholder="请输入QQ号" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内容</label>
+                    <div class="layui-input-block">
+                        <textarea
+                                style="width: 300px"
+                                lay-verify="msg"
+                                placeholder="请输入留言内容" class="layui-textarea" name="msg"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button lay-submit="" lay-filter="msgSubmit"
+                                class="layui-btn-normal layui-btn layui-btn-radius">
+                            立即提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <!--提交留言 end-->
+    </div>
+</template>
+
+<script src="common/carousel.js" charset="utf-8"></script>
+<script>
+
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+    });
+
+    $('#myCarousel').carousel({
+        interval: 3500
+    })
+
+</script>
+
 
 <script>
 
     function init(data) {
+        $("#softTitle").text(data.title);
         $("#newVersions").val(data.versions.replace(/<br>/g,"\n"));
         $("#notice").val(data.notice.replace(/<br>/g,"\n"));
         $("#updateUrl").val(data.updateUrl.replace(/<br>/g,"\n"));
     }
 
     function copyUrl() {
-        callCopyUrl();
+        callCopy();
     }
 
 </script>
+
+
+<script>
+
+    //提交留言form
+    layui.use(['form'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            msg: function (value) {
+                if (value.length < 5 || value.length > 255) {
+                    return '留言内容长度为1到255个字符';
+                }
+            },
+            qq: function (value) {
+                if (value.length < 1 || value.length > 10) {
+                    return 'qq长度为1到10个字符';
+                }
+            },
+        });
+
+        //监听提交
+        form.on('submit(msgSubmit)', function (data) {
+            callMsg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+</script>
+
+<script>loadingClose();</script>
 
 </body>
 </html>
