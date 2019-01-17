@@ -58,7 +58,7 @@ public class SoftVersionsController {
     }
 
 
-    @RspHandle(ipHandle = true)
+    @RspHandle
     @RequestMapping(value = "getVersions",method = RequestMethod.POST)
     @ResponseBody
     public Response getVersions(String softId) {

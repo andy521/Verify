@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * 定时执行删除登陆 注册日志 ，10天前的分段删除
- * 10前的数据比如1万条，每次只删除100条
+ * 10天前的数据比如1万条，每次只删除100条
  */
 @Configuration
 @EnableScheduling
@@ -25,7 +25,6 @@ public class LogDeleteScheduler {
     @Autowired
     private AccountRegisterLogMapper accountRegisterLogMapper;
 
-    //每隔2秒执行一次
     @Scheduled(fixedRate = 3600000)
     public void logDeleteTask() {
 

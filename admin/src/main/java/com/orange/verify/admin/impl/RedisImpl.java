@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisImpl {
 
-    private final String PREFIX = "com.orange.verify.admin.";
+    private final String PREFIX = "orange.verify:admin:";
 
     @Autowired
     private RedisTemplate<String,Object> template;

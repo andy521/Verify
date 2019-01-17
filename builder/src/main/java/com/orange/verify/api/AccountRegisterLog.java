@@ -18,4 +18,6 @@ public class AccountRegisterLog extends BaseEntity {
 
     private String ipInfo;
 
+    private String softId;
+
 }

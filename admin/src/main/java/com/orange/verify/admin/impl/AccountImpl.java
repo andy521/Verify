@@ -9,14 +9,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.orange.verify.admin.mapper.*;
+import com.orange.verify.admin.service.BaiduMapApiServiceL;
 import com.orange.verify.admin.transition.Transition;
 import com.orange.verify.api.bean.*;
-import com.orange.verify.api.model.ServiceResult;
+import com.orange.verify.api.sc.*;
+import com.orange.verify.api.sr.ServiceResult;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.sr.*;
 import com.orange.verify.api.vo.AccountVo;
 import com.orange.verify.api.vo.open.*;
-import com.orange.verify.common.ip.BaiduIp;
 import com.orange.verify.common.rsa.RsaUtil;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     private AccountLoginLogMapper accountLoginLogMapper;
 
     @Autowired
-    private BaiduMapApiMapper baiduMapApiMapper;
+    private BaiduMapApiServiceL baiduMapApiServiceL;
 
     @Autowired
     private InterProcessMutex lock;
@@ -100,9 +101,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ServiceResult<Integer> register(AccountRegisterVo accountRegisterVo) {
+    public ServiceResult register(AccountRegisterVo accountRegisterVo) {
 
-        ServiceResult<Integer> result = new ServiceResult<>();
+        ServiceResult result = new ServiceResult<>();
 
         String privateKey = (String) redis.getByKey(accountRegisterVo.getPublicKey());
         //钥匙不存在直接返回
@@ -153,11 +154,11 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (soft == null) {
             result.setCode(AccountImplRegisterEnum.SOFT_EMPTY);
             return result;
-        } else if (soft.getServiceStatus() == 2) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
             result.setCode(AccountImplRegisterEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
-        } else if (soft.getRegisterStatus() == 1) {
+        } else if (soft.getRegisterStatus() == SoftRegisterStatus.CLOSE.getStatusCode()) {
             result.setCode(AccountImplRegisterEnum.REGISTER_CLOSE);
             result.setMsg(soft.getRegisteCloseMsg());
             return result;
@@ -184,7 +185,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         //查询ip信息
         String addressByIp = "";
         try {
-            addressByIp = getIpInfo(accountRegisterVo.getIp());
+            addressByIp = baiduMapApiServiceL.getIpInfo(accountRegisterVo.getIp());
         } catch (Exception e) {
             result.setCode(AccountImplRegisterEnum.BAIDU_API_ERROR);
             return result;
@@ -203,6 +204,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             accountRegisterLog.setAccountId(account.getId());
             accountRegisterLog.setIp(account.getCreateIp());
             accountRegisterLog.setIpInfo(addressByIp);
+            accountRegisterLog.setSoftId(account.getSoftId());
             accountRegisterLogMapper.insert(accountRegisterLog);
 
             result.setCode(AccountImplRegisterEnum.REGISTER_SUCCESS);
@@ -214,9 +216,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     }
 
     @Override
-    public ServiceResult<Long> login(AccountLoginVo accountLoginVo) {
+    public ServiceResult login(AccountLoginVo accountLoginVo) {
 
-        ServiceResult<Long> result = new ServiceResult<>();
+        ServiceResult result = new ServiceResult<>();
 
         String privateKey = (String)redis.getByKey(accountLoginVo.getPublicKey());
         //钥匙不存在直接返回
@@ -230,7 +232,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (soft == null) {
             result.setCode(AccountImplLoginEnum.SOFT_EMPTY);
             return result;
-        } else if (soft.getServiceStatus() == 2) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
             result.setCode(AccountImplLoginEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
@@ -270,7 +272,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         }
 
         //只支持单机进行机器码控制打开软件
-        if (soft.getDosingStrategy() == 0) {
+        if (soft.getDosingStrategy() == SoftDosingStrategy.SINGLE.getStatusCode()) {
             QueryWrapper<Account> queryWrapper = new QueryWrapper<Account>().eq("username",
                     accountLoginVo.getUsername()).eq("password",password).eq("soft_id",accountLoginVo.getSoftId());
             queryWrapper = queryWrapper.eq("code",code);
@@ -281,12 +283,12 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             }
         }
 
-        if (account.getBlacklist() == 1) {
+        if (account.getBlacklist() == AccountBlackList.YES.getStatusCode()) {
             result.setCode(AccountImplLoginEnum.ACCOUNT_BLACKLIST);
             return result;
         }
 
-        if (soft.getServiceStatus() == 0) {
+        if (soft.getServiceStatus() == SoftServiceStatus.CHARGE.getStatusCode()) {
             String cardId = account.getCardId();
             if (StrUtil.hasEmpty(cardId)) {
                 result.setCode(AccountImplLoginEnum.ACCOUNT_NOT_BOUND_CARD);
@@ -296,7 +298,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             if (card == null) {
                 result.setCode(AccountImplLoginEnum.ACCOUNT_NOT_BOUND_CARD);
                 return result;
-            } else if (card.getClosure() == 1) {
+            } else if (card.getClosure() == CardClosure.YES.getStatusCode()) {
                 result.setCode(AccountImplLoginEnum.CARD_CLOSURE);
                 return result;
             }
@@ -310,7 +312,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         //查询ip信息
         String addressByIp = "";
         try {
-            addressByIp = getIpInfo(accountLoginVo.getIp());
+            addressByIp = baiduMapApiServiceL.getIpInfo(accountLoginVo.getIp());
         } catch (Exception e) {
             result.setCode(AccountImplLoginEnum.BAIDU_API_ERROR);
             return result;
@@ -320,35 +322,18 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         accountLoginLog.setAccountId(account.getId());
         accountLoginLog.setIp(accountLoginVo.getIp());
         accountLoginLog.setIpInfo(addressByIp);
+        accountLoginLog.setSoftId(accountLoginVo.getSoftId());
         accountLoginLogMapper.insert(accountLoginLog);
 
         result.setCode(AccountImplLoginEnum.LOGIN_SUCCESS);
         return result;
     }
 
-    private String getIpInfo(String ip) throws Exception {
-
-        if ("127.0.0.1".equals(ip)) {
-            return "";
-        }
-
-        try {
-            BaiduMapApi single = baiduMapApiMapper.getSingle();
-
-            String ipInfo = BaiduIp.start(single.getAppkey())
-                    .getAddressByIp(ip);
-
-            return ipInfo;
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
-
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ServiceResult<Integer> bindingCard(AccountBindingCardVo accountBindingCardVo) {
+    public ServiceResult bindingCard(AccountBindingCardVo accountBindingCardVo) {
 
-        ServiceResult<Integer> result = new ServiceResult<>();
+        ServiceResult result = new ServiceResult<>();
 
         String privateKey = (String)redis.getByKey(accountBindingCardVo.getPublicKey());
         //钥匙不存在直接返回
@@ -362,11 +347,11 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (soft == null) {
             result.setCode(AccountImplBindingCardEnum.SOFT_EMPTY);
             return result;
-        } else if (soft.getServiceStatus() == 2) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
             result.setCode(AccountImplBindingCardEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
-        } else if (soft.getServiceStatus() == 1) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.FREE.getStatusCode()) {
             result.setCode(AccountImplBindingCardEnum.SOFT_FREE);
             return result;
         }
@@ -402,7 +387,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (account == null) {
             result.setCode(AccountImplBindingCardEnum.PASSWORD_ERROR);
             return result;
-        } else if (account.getBlacklist() == 1) {
+        } else if (account.getBlacklist() == AccountBlackList.YES.getStatusCode()) {
             result.setCode(AccountImplBindingCardEnum.ACCOUNT_BLACKLIST);
             return result;
         }
@@ -412,10 +397,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (card == null) {
             result.setCode(AccountImplBindingCardEnum.CARD_EMPTY);
             return result;
-        } else if (card.getUseStatus() == 1) {
+        } else if (card.getUseStatus() == CardUseStatus.YES.getStatusCode()) {
             result.setCode(AccountImplBindingCardEnum.CARD_USE);
             return result;
-        } else if (card.getClosure() == 1) {
+        } else if (card.getClosure() == CardClosure.YES.getStatusCode()) {
             result.setCode(AccountImplBindingCardEnum.CARD_CLOSURE);
             return result;
         }
@@ -484,9 +469,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     }
 
     @Override
-    public ServiceResult<Integer> bindingCode(AccountBindingCodeVo accountBindingCodeVo) {
+    public ServiceResult bindingCode(AccountBindingCodeVo accountBindingCodeVo) {
 
-        ServiceResult<Integer> result = new ServiceResult<>();
+        ServiceResult result = new ServiceResult<>();
 
         String privateKey = (String)redis.getByKey(accountBindingCodeVo.getPublicKey());
         //钥匙不存在直接返回
@@ -500,11 +485,11 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (soft == null) {
             result.setCode(AccountImplBindingCodeEnum.SOFT_EMPTY);
             return result;
-        } else if (soft.getServiceStatus() == 2) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
             result.setCode(AccountImplBindingCodeEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
-        } else if (soft.getChangeStrategy() == 1) {
+        } else if (soft.getChangeStrategy() == SoftChangeStrategy.NO.getStatusCode()) {
             result.setCode(AccountImplBindingCodeEnum.SOFT_NO_CHANGE);
             return result;
         }
@@ -540,7 +525,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (account == null) {
             result.setCode(AccountImplBindingCodeEnum.PASSWORD_ERROR);
             return result;
-        } else if (account.getBlacklist() == 1) {
+        } else if (account.getBlacklist() == AccountBlackList.YES.getStatusCode()) {
             result.setCode(AccountImplBindingCodeEnum.ACCOUNT_BLACKLIST);
             return result;
         }
@@ -559,16 +544,16 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     }
 
     @Override
-    public ServiceResult<Integer> updatePassword(AccountUpdatePasswordVo accountUpdatePasswordVo) {
+    public ServiceResult updatePassword(AccountUpdatePasswordVo accountUpdatePasswordVo) {
 
-        ServiceResult<Integer> result = new ServiceResult<>();
+        ServiceResult result = new ServiceResult<>();
 
         Soft soft = softMapper.selectById(accountUpdatePasswordVo.getSoftId());
         //软件不存在直接返回
         if (soft == null) {
             result.setCode(AccountImplUpdatePasswordEnum.SOFT_EMPTY);
             return result;
-        } else if (soft.getServiceStatus() == 2) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
             result.setCode(AccountImplUpdatePasswordEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
@@ -586,7 +571,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         if (account == null) {
             result.setCode(AccountImplUpdatePasswordEnum.SECURITY_CODE_ERROR);
             return result;
-        } else if (account.getBlacklist() == 1) {
+        } else if (account.getBlacklist() == AccountBlackList.YES.getStatusCode()) {
             result.setCode(AccountImplUpdatePasswordEnum.ACCOUNT_BLACKLIST);
             return result;
         }

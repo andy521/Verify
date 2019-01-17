@@ -6,7 +6,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.orange.verify.admin.mapper.SoftMapper;
 import com.orange.verify.admin.transition.Transition;
 import com.orange.verify.api.bean.Soft;
-import com.orange.verify.api.model.ServiceResult;
+import com.orange.verify.api.sc.SoftServiceStatus;
+import com.orange.verify.api.sr.ServiceResult;
 import com.orange.verify.api.service.SoftService;
 import com.orange.verify.api.sr.SoftImplGetSoftDescEnum;
 import com.orange.verify.api.vo.SoftVo;
@@ -34,7 +35,7 @@ public class SoftImpl extends ServiceImpl<SoftMapper, Soft> implements SoftServi
         if (soft == null) {
             result.setCode(SoftImplGetSoftDescEnum.SOFT_EMPTY);
             return result;
-        } else if (soft.getServiceStatus() == 2) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
             result.setCode(SoftImplGetSoftDescEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;

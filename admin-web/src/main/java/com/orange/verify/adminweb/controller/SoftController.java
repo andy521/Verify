@@ -7,7 +7,7 @@ import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.Soft;
-import com.orange.verify.api.model.ServiceResult;
+import com.orange.verify.api.sr.ServiceResult;
 import com.orange.verify.api.service.SoftService;
 import com.orange.verify.api.sr.SoftImplGetSoftDescEnum;
 import com.orange.verify.api.vo.SoftVo;
@@ -108,7 +108,7 @@ public class SoftController extends BaseController {
         return Response.error();
     }
 
-    @RspHandle(ipHandle = true)
+    @RspHandle
     @RequestMapping(value = "getSoftDesc",method = RequestMethod.POST)
     @ResponseBody
     public Response getSoftDesc(@Validated SoftGetSoftDescVo accountGetSoftDescVo, BindingResult result)

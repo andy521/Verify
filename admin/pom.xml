@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>admin</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Verify</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

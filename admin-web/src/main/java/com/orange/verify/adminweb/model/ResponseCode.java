@@ -99,12 +99,15 @@ public enum ResponseCode {
 
     SOFT_FREE(937,"软件是免费的，无需绑定卡密"),
 
+    INTERFACE_CLOSE(938,"访问失败，接口已被关闭！"),
+
     //基础
-    SUCCESS(10,"操作成功"),
     QUERY_SUCCESS(9,"查询成功"),
+    SUCCESS(10,"操作成功"),
     ERROR(11,"操作失败"),
-    NOT_ROLE(13,"无角色"),
-    NOT_LOGIN(12,"未登录");
+    NOT_LOGIN(12,"未登录"),
+    QUERY_ERROR(13,"查询失败"),
+    NOT_ROLE(99,"无角色");
 
     private int code;
     private String desc;

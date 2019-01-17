@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 用户登录日志
  * t_account_login_log
  * @author Orange
- * @date 2019/01/10
+ * @date 2019/01/17
  */
 @TableName("t_account_login_log")
 @KeySequence("SEQ_TEST")
@@ -46,6 +46,11 @@ public class AccountLoginLog implements Serializable {
      * ip_info
      */
     private String ipInfo;
+
+    /**
+     * soft_id
+     */
+    private String softId;
 
     public String getId() {
         return id;
@@ -109,5 +114,13 @@ public class AccountLoginLog implements Serializable {
 
     public void setIpInfo(String ipInfo) {
         this.ipInfo = ipInfo == null ? null : ipInfo.trim();
+    }
+
+    public String getSoftId() {
+        return softId;
+    }
+
+    public void setSoftId(String softId) {
+        this.softId = softId == null ? null : softId.trim();
     }
 }

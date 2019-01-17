@@ -4,22 +4,21 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.orange.verify.admin.config.RabbitMqConfig;
-import com.orange.verify.admin.mapper.BaiduMapApiMapper;
 import com.orange.verify.admin.mapper.EmailAccountMapper;
 import com.orange.verify.admin.mapper.SoftLeaveMessageMapper;
 import com.orange.verify.admin.mapper.SoftMapper;
 import com.orange.verify.admin.rabbitmq.bean.LeaveMessage;
+import com.orange.verify.admin.service.BaiduMapApiServiceL;
 import com.orange.verify.admin.transition.Transition;
-import com.orange.verify.api.bean.BaiduMapApi;
 import com.orange.verify.api.bean.EmailAccount;
 import com.orange.verify.api.bean.Soft;
 import com.orange.verify.api.bean.SoftLeaveMessage;
-import com.orange.verify.api.model.ServiceResult;
+import com.orange.verify.api.sc.SoftServiceStatus;
+import com.orange.verify.api.sr.ServiceResult;
 import com.orange.verify.api.service.SoftLeaveMessageService;
 import com.orange.verify.api.sr.SoftLeaveMessageImplCreateEnum;
 import com.orange.verify.api.vo.SoftLeaveMessageVo;
 import com.orange.verify.api.vo.open.SoftLeaveMeesageSubmitVo;
-import com.orange.verify.common.ip.BaiduIp;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +33,7 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
     private SoftMapper softMapper;
 
     @Autowired
-    private BaiduMapApiMapper baiduMapApiMapper;
+    private BaiduMapApiServiceL baiduMapApiServiceL;
 
     @Autowired
     private Transition transition;
@@ -58,7 +57,7 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
         if (soft == null) {
             result.setCode(SoftLeaveMessageImplCreateEnum.SOFT_EMPTY);
             return result;
-        } else if (soft.getServiceStatus() == 2) {
+        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
             result.setCode(SoftLeaveMessageImplCreateEnum.SOFT_CLOSE);
             result.setMsg(soft.getServiceCloseMsg());
             return result;
@@ -67,7 +66,7 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
         //查询ip信息
         String addressByIp = "";
         try {
-            addressByIp = getIpInfo(softLeaveMeesageSubmitVo.getIp());
+            addressByIp = baiduMapApiServiceL.getIpInfo(softLeaveMeesageSubmitVo.getIp());
         } catch (Exception e) {
             result.setCode(SoftLeaveMessageImplCreateEnum.BAIDU_API_ERROR);
             return result;
@@ -97,24 +96,6 @@ public class SoftLeaveMessageImpl extends ServiceImpl<SoftLeaveMessageMapper, So
 
         result.setCode(SoftLeaveMessageImplCreateEnum.LEAVE_MESSAGE_SEND_ERROR);
         return result;
-    }
-
-    private String getIpInfo(String ip) throws Exception {
-
-        if ("127.0.0.1".equals(ip)) {
-            return "";
-        }
-
-        try {
-            BaiduMapApi single = baiduMapApiMapper.getSingle();
-
-            String ipInfo = BaiduIp.start(single.getAppkey())
-                    .getAddressByIp(ip);
-
-            return ipInfo;
-        } catch (Exception e) {
-            throw new Exception();
-        }
     }
 
 }

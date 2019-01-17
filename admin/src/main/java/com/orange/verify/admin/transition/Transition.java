@@ -1,6 +1,7 @@
 package com.orange.verify.admin.transition;
 
 import com.orange.verify.api.bean.Account;
+import com.orange.verify.api.bean.InterfaceManagement;
 import com.orange.verify.api.bean.Soft;
 import com.orange.verify.api.bean.SoftLeaveMessage;
 import com.orange.verify.api.vo.open.SoftGetSoftDescVo;

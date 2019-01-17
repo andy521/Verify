@@ -38,6 +38,29 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/interface',
+    component: Layout,
+    alwaysShow: true,
+    name: 'Interface',
+    redirect: 'noredirect',
+    meta: { title: '接口管理', icon: 'eye' },
+    children: [
+      {
+        path: 'interface_list',
+        name: 'InterfaceList',
+        component: () => import('@/views/interface/interface_list'),
+        meta: { title: '开放接口列表', icon: 'eye' }
+      },
+      {
+        path: 'interface_form',
+        name: 'InterfaceForm',
+        hidden: true,
+        component: () => import('@/views/interface/interface_form'),
+        meta: { title: '接口操作', icon: 'eye' }
+      },
+    ]
+  },
+  {
     path: '/soft',
     component: Layout,
     alwaysShow: true,
@@ -73,7 +96,34 @@ export const constantRouterMap = [
       },
     ]
   },
-
+  {
+    path: '/log',
+    component: Layout,
+    alwaysShow: true,
+    name: 'Log',
+    redirect: 'noredirect',
+    meta: { title: '日志管理', icon: 'eye' },
+    children: [
+      {
+        path: 'soft_map',
+        name: 'SoftMap',
+        component: () => import('@/views/log/soft_map'),
+        meta: { title: '软件日志图表', icon: 'eye' }
+      },
+      {
+        path: 'soft_login_log_list',
+        name: 'SoftLoginLogList',
+        component: () => import('@/views/log/soft_login_log_list'),
+        meta: { title: '登陆日志表格', icon: 'eye' }
+      },
+      {
+        path: 'soft_register_log_list',
+        name: 'SoftRegisterLogList',
+        component: () => import('@/views/log/soft_register_log_list'),
+        meta: { title: '注册日志表格', icon: 'eye' }
+      },
+    ]
+  },
   {
     path: '/card',
     component: Layout,

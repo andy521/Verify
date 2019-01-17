@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件留言
  * t_soft_leave_message
  * @author Orange
- * @date 2019/01/10
+ * @date 2019/01/17
  */
 @TableName("t_soft_leave_message")
 @KeySequence("SEQ_TEST")

@@ -6,7 +6,7 @@ import com.orange.verify.adminweb.annotation.ParameterError;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
-import com.orange.verify.api.model.ServiceResult;
+import com.orange.verify.api.sr.ServiceResult;
 import com.orange.verify.api.service.SoftLeaveMessageService;
 import com.orange.verify.api.sr.SoftLeaveMessageImplCreateEnum;
 import com.orange.verify.api.vo.SoftLeaveMessageVo;
@@ -53,7 +53,7 @@ public class SoftLeaveMessageController extends BaseController {
         return Response.error();
     }
 
-    @RspHandle(ipHandle = true,ipRedisInterval = 60L,ipVisits = 10)
+    @RspHandle
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
     public Response create(@Validated SoftLeaveMeesageSubmitVo softLeaveMeesageSubmitVo, BindingResult result,

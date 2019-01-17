@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.orange.verify.admin.mapper.BaiduMapApiMapper;
 import com.orange.verify.api.bean.BaiduMapApi;
 import com.orange.verify.api.service.BaiduMapApiService;
+import com.orange.verify.common.ip.BaiduIp;
 
 @Service
 public class BaiduMapApiImpl extends ServiceImpl<BaiduMapApiMapper, BaiduMapApi> implements BaiduMapApiService {

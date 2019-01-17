@@ -1,7 +1,6 @@
 package com.orange.verify.adminweb.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.ICaptcha;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,7 +9,7 @@ import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.Account;
-import com.orange.verify.api.model.ServiceResult;
+import com.orange.verify.api.sr.ServiceResult;
 import com.orange.verify.api.service.AccountService;
 import com.orange.verify.api.sr.*;
 import com.orange.verify.api.vo.AccountVo;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @Controller
 @RequestMapping(value = "account")
@@ -85,7 +83,7 @@ public class AccountController extends BaseController {
         return Response.error();
     }
 
-    @RspHandle(ipHandle = true)
+    @RspHandle
     @RequestMapping(value = "getPublicKey",method = RequestMethod.POST)
     @ResponseBody
     public Response getPublicKey() {
@@ -122,7 +120,7 @@ public class AccountController extends BaseController {
         }
     }
 
-    @RspHandle(ipHandle = true,ipRedisInterval = 60L,ipVisits = 30)
+    @RspHandle
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
     public Response register(@Validated AccountRegisterVo accountRegisterVo, BindingResult result,
@@ -136,7 +134,7 @@ public class AccountController extends BaseController {
 
         accountRegisterVo.setIp(IpUtil.getIp(request));
 
-        ServiceResult<Integer> register = accountService.register(accountRegisterVo);
+        ServiceResult register = accountService.register(accountRegisterVo);
         switch (register.getCode()) {
             case AccountImplRegisterEnum.REGISTER_SUCCESS:
                 return Response.build(ResponseCode.REGISTER_SUCCESS);
@@ -186,7 +184,7 @@ public class AccountController extends BaseController {
 
     }
 
-    @RspHandle(ipHandle = true,ipRedisInterval = 1L,ipVisits = 30)
+    @RspHandle
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
     public Response login(@Validated AccountLoginVo accountLoginVo, BindingResult result,
@@ -200,7 +198,7 @@ public class AccountController extends BaseController {
 
         accountLoginVo.setIp(IpUtil.getIp(request));
 
-        ServiceResult<Long> login = accountService.login(accountLoginVo);
+        ServiceResult login = accountService.login(accountLoginVo);
         switch (login.getCode()) {
             case AccountImplLoginEnum.LOGIN_SUCCESS:
                 return Response.build(ResponseCode.LOGIN_SUCCESS);
@@ -249,7 +247,7 @@ public class AccountController extends BaseController {
         }
     }
 
-    @RspHandle(ipHandle = true)
+    @RspHandle
     @RequestMapping(value = "bindingCard",method = RequestMethod.POST)
     @ResponseBody
     public Response bindingCard(@Validated AccountBindingCardVo accountBindingCardVo, BindingResult result)
@@ -261,7 +259,7 @@ public class AccountController extends BaseController {
         accountBindingCardVo.setPassword(accountBindingCardVo.getPassword().replaceAll(" ","+"));
         accountBindingCardVo.setCode(accountBindingCardVo.getCode().replaceAll(" ","+"));
 
-        ServiceResult<Integer> bindingCard = accountService.bindingCard(accountBindingCardVo);
+        ServiceResult bindingCard = accountService.bindingCard(accountBindingCardVo);
 
         switch (bindingCard.getCode()) {
             case AccountImplBindingCardEnum.BINDING_CARD_SUCCESS:
@@ -314,7 +312,7 @@ public class AccountController extends BaseController {
         }
     }
 
-    @RspHandle(ipHandle = true)
+    @RspHandle
     @RequestMapping(value = "bindingCode",method = RequestMethod.POST)
     @ResponseBody
     public Response bindingCode(@Validated AccountBindingCodeVo accountBindingCodeVo, BindingResult result)
@@ -326,7 +324,7 @@ public class AccountController extends BaseController {
         accountBindingCodeVo.setPassword(accountBindingCodeVo.getPassword().replaceAll(" ","+"));
         accountBindingCodeVo.setCode(accountBindingCodeVo.getCode().replaceAll(" ","+"));
 
-        ServiceResult<Integer> bindingCode = accountService.bindingCode(accountBindingCodeVo);
+        ServiceResult bindingCode = accountService.bindingCode(accountBindingCodeVo);
         switch (bindingCode.getCode()) {
             case AccountImplBindingCodeEnum.BINDING_CODE_SUCCESS:
                 return Response.build(ResponseCode.BINDING_CODE_SUCCESS);
@@ -366,7 +364,7 @@ public class AccountController extends BaseController {
         }
     }
 
-    @RspHandle(ipHandle = true)
+    @RspHandle
     @RequestMapping(value = "updatePassword",method = RequestMethod.POST)
     @ResponseBody
     public Response updatePassword(@Validated AccountUpdatePasswordVo accountUpdatePasswordVo, BindingResult result)
@@ -374,7 +372,7 @@ public class AccountController extends BaseController {
 
         super.parametric(result);
 
-        ServiceResult<Integer> bindingCode = accountService.updatePassword(accountUpdatePasswordVo);
+        ServiceResult bindingCode = accountService.updatePassword(accountUpdatePasswordVo);
         switch (bindingCode.getCode()) {
             case AccountImplUpdatePasswordEnum.UPDATE_PASSWORD_SUCCESS:
                 return Response.build(ResponseCode.UPDATE_PASSWORD_SUCCESS);

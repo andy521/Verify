@@ -1,4 +1,4 @@
-package com.orange.verify.api.model;
+package com.orange.verify.api.sr;
 
 import lombok.Data;
 

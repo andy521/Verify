@@ -70,7 +70,7 @@ export default {
       registerDateMap.set(date[i],0);
     }
 
-    this.$axios.get("accountLoginLog/getBeforeData").then((rsp) => {
+    this.$axios.get("accountLoginLog/getBeforeData?softId=").then((rsp) => {
       for (let i = 0;i < rsp.data.length;i++) {
         let data = rsp.data[i].split(" ");
         let d = data[0];
@@ -89,7 +89,7 @@ export default {
       let login = this.$echarts.init(document.getElementById("login"));
       login.setOption(this.loginbar);
     })
-    this.$axios.get("accountRegisterLog/getBeforeData").then((rsp) => {
+    this.$axios.get("accountRegisterLog/getBeforeData?softId=").then((rsp) => {
       for (let i = 0;i < rsp.data.length;i++) {
         let data = rsp.data[i].split(" ");
         let d = data[0];
