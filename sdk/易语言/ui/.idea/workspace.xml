@@ -15,13 +15,13 @@
     <session id="-1901318247">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
-          <entry key="project.open.time.0" value="4" />
+          <entry key="project.closed" value="14" />
+          <entry key="project.open.time.0" value="7" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="2" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -29,7 +29,7 @@
           <entry key="css" value="2" />
           <entry key="html" value="9" />
           <entry key="jpg" value="1" />
-          <entry key="js" value="15" />
+          <entry key="js" value="17" />
           <entry key="png" value="1" />
         </counts>
       </usages-collector>
@@ -38,19 +38,19 @@
           <entry key="CSS" value="2" />
           <entry key="HTML" value="9" />
           <entry key="Image" value="2" />
-          <entry key="JavaScript" value="15" />
+          <entry key="JavaScript" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="3630" />
-          <entry key="js" value="604" />
+          <entry key="html" value="3751" />
+          <entry key="js" value="612" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="3632" />
-          <entry key="JavaScript" value="602" />
+          <entry key="HTML" value="3753" />
+          <entry key="JavaScript" value="610" />
         </counts>
       </usages-collector>
     </session>
@@ -60,17 +60,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/update.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1327">
-              <caret line="142" column="26" lean-forward="true" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
+            <state relative-caret-position="7857">
+              <caret line="291" column="20" selection-start-line="291" selection-start-column="20" selection-end-line="291" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20763">
+              <caret line="769" column="11" selection-start-line="769" selection-start-column="11" selection-end-line="769" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/alert.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/service.html">
+        <entry file="file://$PROJECT_DIR$/jquery/jquery.mloading.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="738" column="36" selection-start-line="738" selection-start-column="36" selection-end-line="738" selection-end-column="36" />
+            <state relative-caret-position="189">
+              <caret line="176" column="4" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -78,7 +96,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/carousel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="698">
+            <state relative-caret-position="864">
               <caret line="32" selection-start-line="32" selection-end-line="32" />
             </state>
           </provider>
@@ -103,11 +121,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/common/loading.js" />
-        <option value="$PROJECT_DIR$/common/alert.js" />
         <option value="$PROJECT_DIR$/common/choice.js" />
-        <option value="$PROJECT_DIR$/update.html" />
         <option value="$PROJECT_DIR$/common/carousel.js" />
         <option value="$PROJECT_DIR$/service.html" />
+        <option value="$PROJECT_DIR$/update.html" />
+        <option value="$PROJECT_DIR$/common/alert.js" />
       </list>
     </option>
   </component>
@@ -202,12 +220,15 @@
       <workItem from="1547625856015" duration="2943000" />
       <workItem from="1547631041447" duration="70000" />
       <workItem from="1547641601842" duration="1583000" />
-      <workItem from="1547734564031" duration="289000" />
+      <workItem from="1547734564031" duration="950000" />
+      <workItem from="1547792402103" duration="1500000" />
+      <workItem from="1547794012951" duration="1166000" />
+      <workItem from="1547795331600" duration="91000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72286000" />
+    <option name="totallyTimeSpent" value="75704000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -263,13 +284,6 @@
     <entry file="file://$PROJECT_DIR$/bootstrap/js/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/alert.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/choice.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
@@ -277,24 +291,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/carousel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/update.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1327">
-          <caret line="142" column="26" lean-forward="true" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
+        <state relative-caret-position="7857">
+          <caret line="291" column="20" selection-start-line="291" selection-start-column="20" selection-end-line="291" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="738" column="36" selection-start-line="738" selection-start-column="36" selection-end-line="738" selection-end-column="36" />
+        <state relative-caret-position="20763">
+          <caret line="769" column="11" selection-start-line="769" selection-start-column="11" selection-end-line="769" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/carousel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/alert.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jquery/jquery.mloading.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="176" column="4" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="4" />
         </state>
       </provider>
     </entry>

@@ -285,7 +285,11 @@
 
         //监听提交
         form.on('submit(msgSubmit)', function (data) {
-            callMsg(JSON.stringify(data.field));
+            loadingStart();
+            setTimeout(function () {
+                callMsg(JSON.stringify(data.field));
+                loadingClose();
+            }, 200);
             return false;
         });
     });

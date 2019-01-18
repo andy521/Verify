@@ -1,21 +1,13 @@
 
-var index;
-
 loadingStart();
 function loadingStart() {
-    //$("body").mLoading("show");
     layui.use("layer",function(){
-        index = layer.load(1, {
-            shade: [0.1,'#919191']
-        });
+        layer.closeAll();
     });
-
+    $("body").mLoading("show");
 }
 function loadingClose() {
-    //$("body").mLoading("hide");
-    layui.use("layer",function(){
-        layer.close(index);
-    });
+    $("body").mLoading("hide");
 }
 function layerAlert(content) {
     layui.use("layer",function(){

@@ -506,7 +506,6 @@
 <script>
 
     function init(data) {
-
         $("#softTitle").text(data.title);
 
         if (data.register == "true") {
@@ -575,7 +574,10 @@
         //监听提交
         form.on('submit(loginSubmit)', function (data) {
             loadingStart();
-            callLogin(JSON.stringify(data.field));
+            setTimeout(function () {
+                callLogin(JSON.stringify(data.field));
+                loadingClose();
+            }, 200);
             return false;
         });
     });
@@ -607,7 +609,11 @@
 
         //监听提交
         form.on('submit(updatePasswordSubmit)', function (data) {
-            callUpdatePassword(JSON.stringify(data.field));
+            loadingStart();
+            setTimeout(function () {
+                callUpdatePassword(JSON.stringify(data.field));
+                loadingClose();
+            }, 200);
             return false;
         });
     });
@@ -639,7 +645,11 @@
 
         //监听提交
         form.on('submit(cardSubmit)', function (data) {
-            callCard(JSON.stringify(data.field));
+            loadingStart();
+            setTimeout(function () {
+                callCard(JSON.stringify(data.field));
+                loadingClose();
+            }, 200);
             return false;
         });
     });
@@ -666,14 +676,22 @@
 
         //监听提交
         form.on('submit(codeSubmit)', function (data) {
-            callCode(JSON.stringify(data.field));
+            loadingStart();
+            setTimeout(function () {
+                callCode(JSON.stringify(data.field));
+                loadingClose();
+            }, 200);
             return false;
         });
     });
 </script>
 <script>
     function getVCode() {
-        callVCode();
+        loadingStart();
+        setTimeout(function () {
+            callVCode();
+            loadingClose();
+        }, 200);
     }
 
     function setVCode(data) {
@@ -721,7 +739,11 @@
 
         //监听提交
         form.on('submit(registerSubmit)', function (data) {
-            callRegister(JSON.stringify(data.field));
+            loadingStart();
+            setTimeout(function () {
+                callRegister(JSON.stringify(data.field));
+                loadingClose();
+            }, 200);
             return false;
         });
     });
@@ -749,7 +771,11 @@
 
         //监听提交
         form.on('submit(msgSubmit)', function (data) {
-            callMsg(JSON.stringify(data.field));
+            loadingStart();
+            setTimeout(function () {
+                callMsg(JSON.stringify(data.field));
+                loadingClose();
+            }, 200);
             return false;
         });
     });
