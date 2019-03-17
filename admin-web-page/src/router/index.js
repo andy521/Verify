@@ -49,14 +49,7 @@ export const constantRouterMap = [
         path: 'interface_list',
         name: 'InterfaceList',
         component: () => import('@/views/interface/interface_list'),
-        meta: { title: '开放接口列表', icon: 'eye' }
-      },
-      {
-        path: 'interface_form',
-        name: 'InterfaceForm',
-        hidden: true,
-        component: () => import('@/views/interface/interface_form'),
-        meta: { title: '接口操作', icon: 'eye' }
+        meta: { title: '接口列表', icon: 'eye' }
       },
     ]
   },
@@ -86,7 +79,7 @@ export const constantRouterMap = [
         name: 'SoftVersionsForm',
         hidden: true,
         component: () => import('@/views/soft/soft_versions_form'),
-        meta: { title: '软件版本操作', icon: 'tree' }
+        meta: { title: '版本操作', icon: 'tree' }
       },
       {
         path: 'soft_leave_list',
@@ -108,19 +101,19 @@ export const constantRouterMap = [
         path: 'soft_map',
         name: 'SoftMap',
         component: () => import('@/views/log/soft_map'),
-        meta: { title: '软件日志图表', icon: 'eye' }
+        meta: { title: '软件日志', icon: 'eye' }
       },
       {
         path: 'soft_login_log_list',
         name: 'SoftLoginLogList',
         component: () => import('@/views/log/soft_login_log_list'),
-        meta: { title: '登陆日志表格', icon: 'eye' }
+        meta: { title: '登陆日志', icon: 'eye' }
       },
       {
         path: 'soft_register_log_list',
         name: 'SoftRegisterLogList',
         component: () => import('@/views/log/soft_register_log_list'),
-        meta: { title: '注册日志表格', icon: 'eye' }
+        meta: { title: '注册日志', icon: 'eye' }
       },
     ]
   },
@@ -203,7 +196,7 @@ export const constantRouterMap = [
         path: 'baidu_map_api_form',
         name: 'BaiduMapApiForm',
         component: () => import('@/views/config/baidu_map_api_form'),
-        meta: { title: '百度地理api', icon: '地图' }
+        meta: { title: '百度地理', icon: '地图' }
       },
     ]
   },

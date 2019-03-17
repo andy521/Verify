@@ -2,6 +2,7 @@ package com.orange.verify.adminweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.orange.verify.adminweb.annotation.Open;
 import com.orange.verify.adminweb.annotation.ParameterError;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 软件留言
+ */
 @Controller
 @RequestMapping(value = "softLeaveMessage")
 public class SoftLeaveMessageController extends BaseController {
@@ -53,6 +57,7 @@ public class SoftLeaveMessageController extends BaseController {
         return Response.error();
     }
 
+    @Open(explain = "用户提交留言反馈")
     @RspHandle
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody

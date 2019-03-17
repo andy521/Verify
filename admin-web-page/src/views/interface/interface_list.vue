@@ -71,12 +71,25 @@
               prop="ipVisits"
               align="center"
               label="间隔次数"
-            />
+            >
+              <template slot-scope="scope">
+                <el-input
+                  v-model="scope.row.ipVisits"
+                  clearable>
+                </el-input>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="ipRedisInterval"
               label="缓存时间(分钟)"
               align="center"
             >
+              <template slot-scope="scope">
+                <el-input
+                  v-model="scope.row.ipRedisInterval"
+                  clearable>
+                </el-input>
+              </template>
             </el-table-column>
             <el-table-column
               fixed="right"
@@ -85,7 +98,7 @@
               width="200">
 
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="updateRow(scope.row)">编辑</el-button>
+                <el-button type="text" size="small" @click="updateRow(scope.row)">确认修改</el-button>
               </template>
 
             </el-table-column>
@@ -101,70 +114,81 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      // 控制两块区域是否显示
-      searchWorkspace: true,
-      workingArea: true,
+  export default {
+    data() {
+      return {
+        // 控制两块区域是否显示
+        searchWorkspace: true,
+        workingArea: true,
 
-      // 表格
-      tableData: [],
-    }
-  },
-  mounted() {
-    this.getTableData()
-  },
-  methods: {
-    openForm(params) {
-      params = params || {}
-      params.id = params.id || null
-      this.$router.push({
-        name: 'InterfaceForm',
-        params: params
-      })
-    },
-    getTableData() {
-
-      this.$axios.get('interfaceManagement/list').then((rsp) => {
-
-        for (let i = 0; i < rsp.data.length; i++) {
-          rsp.data[i].visit = (rsp.data[i].visit == 0) ? false : true;
-          rsp.data[i].ipHandle = (rsp.data[i].ipHandle == 0) ? false : true;
-        }
-        this.tableData = rsp.data
-
-      })
-    },
-    search(isPrompt) {
-      if (isPrompt == true) {
-        this.$message.success('执行刷新数据成功...')
+        // 表格
+        tableData: [],
       }
+    },
+    mounted() {
       this.getTableData()
     },
-    updateRow(row) {
-      this.openForm({ id: row.key })
-    },
-    visitChange(value,row) {
+    methods: {
+      openForm(params) {
+        params = params || {}
+        params.id = params.id || null
+        this.$router.push({
+          name: 'InterfaceForm',
+          params: params
+        })
+      },
+      getTableData() {
 
-      this.$axios.post('interfaceManagement/closeInterface', this.$qs.stringify({
-        key: row.key,
-        on: value ? 1 : 0
-      })).then((rsp) => {
-        this.getTableData();
-        this.$message(rsp.msg)
-      })
-    },
-    ipHandleChange(value,row) {
+        this.$axios.get('interfaceManagement/list').then((rsp) => {
 
-      this.$axios.post('interfaceManagement/ipHandle', this.$qs.stringify({
-        key: row.key,
-        on: value ? 1 : 0
-      })).then((rsp) => {
-        this.getTableData();
-        this.$message(rsp.msg)
-      })
-    },
+          for (let i = 0; i < rsp.data.length; i++) {
+            rsp.data[i].visit = (rsp.data[i].visit == 0) ? false : true;
+            rsp.data[i].ipHandle = (rsp.data[i].ipHandle == 0) ? false : true;
+          }
+          this.tableData = rsp.data
+
+        })
+      },
+      search(isPrompt) {
+        if (isPrompt == true) {
+          this.$message.success('执行刷新数据成功...')
+        }
+        this.getTableData()
+      },
+      updateRow(row) {
+        let form = {
+          key: row.key,
+          ipVisits: row.ipVisits,
+          ipRedisInterval: row.ipRedisInterval,
+        };
+        this.$axios({
+          method: 'post',
+          url: 'interfaceManagement/update',
+          data: this.$qs.stringify(form),
+        }).then((rsp) => {
+          this.$message(rsp.msg);
+        });
+      },
+      visitChange(value,row) {
+
+        this.$axios.post('interfaceManagement/closeInterface', this.$qs.stringify({
+          key: row.key,
+          on: value ? 1 : 0
+        })).then((rsp) => {
+          this.getTableData();
+          this.$message(rsp.msg)
+        })
+      },
+      ipHandleChange(value,row) {
+
+        this.$axios.post('interfaceManagement/ipHandle', this.$qs.stringify({
+          key: row.key,
+          on: value ? 1 : 0
+        })).then((rsp) => {
+          this.getTableData();
+          this.$message(rsp.msg)
+        })
+      },
+    }
   }
-}
 </script>

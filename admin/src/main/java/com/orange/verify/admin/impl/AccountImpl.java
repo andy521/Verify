@@ -21,6 +21,7 @@ import com.orange.verify.api.vo.open.*;
 import com.orange.verify.common.rsa.RsaUtil;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
@@ -30,9 +31,6 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
-
-    @Autowired
-    private RedisImpl redis;
 
     @Autowired
     private SoftMapper softMapper;
@@ -51,6 +49,9 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
     @Autowired
     private AccountLoginLogMapper accountLoginLogMapper;
+
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
 
     @Autowired
     private BaiduMapApiServiceL baiduMapApiServiceL;
@@ -75,7 +76,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             String publicKeyToBase64 = RsaUtil.getPublicKeyToBase64(initKey);
             String privateKeyToBase64 = RsaUtil.getPrivateKeyToBase64(initKey);
 
-            redis.save10Minutes(publicKeyToBase64,privateKeyToBase64);
+            redisTemplate.opsForValue().set(publicKeyToBase64,privateKeyToBase64,10,TimeUnit.MINUTES);
 
             result.setCode(AccountImplGetPublicKeyEnum.SUCCESS);
             result.setData(publicKeyToBase64);
@@ -92,10 +93,10 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     @Override
     public void saveVerificationCode(AccountVerificationCodeVo accountVerificationCodeVo) {
 
-        String privateKey = (String) redis.getByKey(accountVerificationCodeVo.getPublicKey());
+        String privateKey = (String) redisTemplate.opsForValue().get(accountVerificationCodeVo.getPublicKey());
         if (!StrUtil.hasEmpty(privateKey)) {
-            redis.save10Minutes("vc=" + accountVerificationCodeVo.getPublicKey(),
-                    accountVerificationCodeVo.getCode());
+            redisTemplate.opsForValue().set("vc=" + accountVerificationCodeVo.getPublicKey(),
+                    accountVerificationCodeVo.getCode(),10,TimeUnit.MINUTES);
         }
     }
 
@@ -105,7 +106,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         ServiceResult result = new ServiceResult<>();
 
-        String privateKey = (String) redis.getByKey(accountRegisterVo.getPublicKey());
+        String privateKey = (String) redisTemplate.opsForValue().get(accountRegisterVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
             result.setCode(AccountImplRegisterEnum.KEY_EMPTY);
@@ -113,7 +114,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
         }
 
         //验证码不匹配直接返回
-        String vc = (String) redis.getByKey("vc=" + accountRegisterVo.getPublicKey());
+        String vc = (String) redisTemplate.opsForValue().get("vc=" + accountRegisterVo.getPublicKey());
         if (StrUtil.hasEmpty(vc)) {
             result.setCode(AccountImplRegisterEnum.VC_EMPTY);
             return result;
@@ -220,7 +221,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         ServiceResult result = new ServiceResult<>();
 
-        String privateKey = (String)redis.getByKey(accountLoginVo.getPublicKey());
+        String privateKey = (String) redisTemplate.opsForValue().get(accountLoginVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
             result.setCode(AccountImplLoginEnum.KEY_EMPTY);
@@ -335,7 +336,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         ServiceResult result = new ServiceResult<>();
 
-        String privateKey = (String)redis.getByKey(accountBindingCardVo.getPublicKey());
+        String privateKey = (String) redisTemplate.opsForValue().get(accountBindingCardVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
             result.setCode(AccountImplBindingCardEnum.KEY_EMPTY);
@@ -473,7 +474,7 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
         ServiceResult result = new ServiceResult<>();
 
-        String privateKey = (String)redis.getByKey(accountBindingCodeVo.getPublicKey());
+        String privateKey = (String) redisTemplate.opsForValue().get(accountBindingCodeVo.getPublicKey());
         //钥匙不存在直接返回
         if (StrUtil.hasEmpty(privateKey)) {
             result.setCode(AccountImplBindingCodeEnum.KEY_EMPTY);

@@ -2,6 +2,7 @@ package com.orange.verify.adminweb.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.orange.verify.adminweb.annotation.Open;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 软件版本
+ */
 @Controller
 @RequestMapping(value = "softVersions")
 public class SoftVersionsController {
@@ -58,6 +62,7 @@ public class SoftVersionsController {
     }
 
 
+    @Open(explain = "获取软件版本信息")
     @RspHandle
     @RequestMapping(value = "getVersions",method = RequestMethod.POST)
     @ResponseBody

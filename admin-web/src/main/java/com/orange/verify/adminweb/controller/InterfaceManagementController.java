@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 接口管理
+ */
 @Controller
 @RequestMapping(value = "interfaceManagement")
 public class InterfaceManagementController {

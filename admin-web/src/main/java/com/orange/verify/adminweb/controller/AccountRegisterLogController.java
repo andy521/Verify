@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 客户注册日志
+ */
 @Controller
 @RequestMapping(value = "accountRegisterLog")
 public class AccountRegisterLogController {

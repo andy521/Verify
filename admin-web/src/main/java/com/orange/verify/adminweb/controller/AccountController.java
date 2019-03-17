@@ -4,6 +4,7 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ICaptcha;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.orange.verify.adminweb.annotation.Open;
 import com.orange.verify.adminweb.annotation.ParameterError;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
@@ -27,6 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 客户...
+ */
 @Controller
 @RequestMapping(value = "account")
 public class AccountController extends BaseController {
@@ -83,6 +87,7 @@ public class AccountController extends BaseController {
         return Response.error();
     }
 
+    @Open(explain = "获取RSA公钥")
     @RspHandle
     @RequestMapping(value = "getPublicKey",method = RequestMethod.POST)
     @ResponseBody
@@ -120,6 +125,7 @@ public class AccountController extends BaseController {
         }
     }
 
+    @Open(explain = "账号注册")
     @RspHandle
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
@@ -184,6 +190,7 @@ public class AccountController extends BaseController {
 
     }
 
+    @Open(explain = "账号登陆")
     @RspHandle
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
@@ -247,6 +254,7 @@ public class AccountController extends BaseController {
         }
     }
 
+    @Open(explain = "绑定卡密")
     @RspHandle
     @RequestMapping(value = "bindingCard",method = RequestMethod.POST)
     @ResponseBody
@@ -312,6 +320,7 @@ public class AccountController extends BaseController {
         }
     }
 
+    @Open(explain = "机器绑定")
     @RspHandle
     @RequestMapping(value = "bindingCode",method = RequestMethod.POST)
     @ResponseBody
@@ -364,6 +373,7 @@ public class AccountController extends BaseController {
         }
     }
 
+    @Open(explain = "修改密码")
     @RspHandle
     @RequestMapping(value = "updatePassword",method = RequestMethod.POST)
     @ResponseBody

@@ -241,6 +241,8 @@ export default {
     search(isPrompt) {
       if (isPrompt == true) {
         this.$message.success('执行刷新数据成功...')
+      } else {
+        this.tablePageNum = 1;
       }
       this.getTableData()
     },

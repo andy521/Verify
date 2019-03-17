@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 百度 地理 配置
+ */
 @Controller
 @RequestMapping(value = "baiduMapApi")
 public class BaiduMapApiController {

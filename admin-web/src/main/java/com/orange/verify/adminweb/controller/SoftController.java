@@ -2,6 +2,7 @@ package com.orange.verify.adminweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.orange.verify.adminweb.annotation.Open;
 import com.orange.verify.adminweb.annotation.ParameterError;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 软件
+ */
 @Controller
 @RequestMapping(value = "soft")
 public class SoftController extends BaseController {
@@ -108,6 +112,7 @@ public class SoftController extends BaseController {
         return Response.error();
     }
 
+    @Open(explain = "获取软件信息")
     @RspHandle
     @RequestMapping(value = "getSoftDesc",method = RequestMethod.POST)
     @ResponseBody

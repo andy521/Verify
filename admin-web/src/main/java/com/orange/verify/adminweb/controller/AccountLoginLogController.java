@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 客户登陆日志
+ */
 @Controller
 @RequestMapping(value = "accountLoginLog")
 public class AccountLoginLogController extends BaseController {

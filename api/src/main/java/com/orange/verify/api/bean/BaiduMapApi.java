@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 百度地理api配置
  * t_baidu_map_api
  * @author Orange
- * @date 2019/01/17
+ * @date 2019/02/06
  */
 @TableName("t_baidu_map_api")
 @KeySequence("SEQ_TEST")

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 邮箱账户
+ */
 @Controller
 @RequestMapping(value = "emailAccount")
 public class EmailAccountController {

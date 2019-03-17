@@ -11,6 +11,11 @@ var carouselJson = [
         url: 'image/20190109154436.png',
         open: '',
     },
+    {
+        title: "测试2",
+        url: 'image/20190109154436.png',
+        open: '',
+    },
 ];
 
 for (var i = 0;i < carouselJson.length;i++) {

@@ -3,6 +3,7 @@ package com.orange.verify.adminweb.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.orange.verify.adminweb.annotation.Open;
 import com.orange.verify.adminweb.annotation.RspHandle;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 卡密
+ */
 @Controller
 @RequestMapping(value = "card")
 public class CardController {
@@ -130,6 +134,7 @@ public class CardController {
         return Response.error();
     }
 
+    @Open(explain = "用户-查看卡密什么时候开始用的，什么时候结束的")
     @RspHandle
     @RequestMapping(value = "getCardTimeLimit",method = RequestMethod.POST)
     @ResponseBody

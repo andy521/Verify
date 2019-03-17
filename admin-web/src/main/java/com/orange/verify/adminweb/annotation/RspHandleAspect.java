@@ -3,6 +3,7 @@ package com.orange.verify.adminweb.annotation;
 import com.orange.verify.adminweb.model.Response;
 import com.orange.verify.adminweb.model.ResponseCode;
 import com.orange.verify.api.bean.InterfaceManagement;
+import com.orange.verify.api.redis.RedisKeyConstant;
 import com.orange.verify.api.sc.InterfaceManagementIpHandle;
 import com.orange.verify.api.sc.InterfaceManagementVisit;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -33,8 +34,6 @@ public class RspHandleAspect {
 
     private static final Logger log = LoggerFactory.getLogger(RspHandleAspect.class);
 
-    private static final String PREFIX = "orange.verify:open.interface:";
-
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -56,14 +55,14 @@ public class RspHandleAspect {
                 pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName();
 
         InterfaceManagement interfaceManagement =
-                (InterfaceManagement) redisTemplate.opsForValue().get(PREFIX + url);
+                (InterfaceManagement) redisTemplate.opsForValue().get(RedisKeyConstant.OPEN_INTERFACE + url);
         if (interfaceManagement != null) {
 
             if (interfaceManagement.getVisit() == InterfaceManagementVisit.CLOSE.getStatusCode()) {
                 return Response.build(ResponseCode.INTERFACE_CLOSE);
             } else if (interfaceManagement.getIpHandle() == InterfaceManagementIpHandle.START.getStatusCode()) {
                 String remoteAddr =
-                        "orange.verify:ip-astrict:" + request.getRemoteAddr().replaceAll(":",".");
+                        RedisKeyConstant.IP_LIBRARY + request.getRemoteAddr().replaceAll(":",".");
 
                 long count = redisTemplate.opsForValue().increment(remoteAddr, 1);
                 if (count == 1) {

@@ -65,7 +65,7 @@ public class InterfaceManagementImpl implements InterfaceManagementService {
 
         InterfaceManagement interfaceManagementRedis = (InterfaceManagement) template.opsForValue().get(key);
 
-        interfaceManagementRedis.setVisit(on);
+        interfaceManagementRedis.setIpHandle(on);
 
         template.opsForValue().set(key,interfaceManagementRedis);
     }

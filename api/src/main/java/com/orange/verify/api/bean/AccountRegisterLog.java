@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 用户注册日志
  * t_account_register_log
  * @author Orange
- * @date 2019/01/17
+ * @date 2019/02/06
  */
 @TableName("t_account_register_log")
 @KeySequence("SEQ_TEST")
