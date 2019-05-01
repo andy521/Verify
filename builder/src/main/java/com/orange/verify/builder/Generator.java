@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * 根据数据库反向生成到bean
+ * @author orange
+ */
 public class Generator {
-
-
 
     public static void main( String[] args ) throws Exception {
 

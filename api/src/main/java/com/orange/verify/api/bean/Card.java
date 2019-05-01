@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 软件充值卡
  * t_card
  * @author Orange
- * @date 2019/02/06
+ * @date 2019/05/01
  */
 @TableName("t_card")
 @KeySequence("SEQ_TEST")
