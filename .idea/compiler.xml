@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="admin-web" />
-        <module name="api" />
         <module name="builder" />
-        <module name="common" />
+        <module name="admin-web" />
         <module name="verifymaster" />
+        <module name="api" />
+        <module name="common" />
       </profile>
       <profile name="Annotation profile for verify-master" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -44,5 +44,12 @@
       <module name="discovery" target="1.8" />
       <module name="verifymaster" target="1.5" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="admin" options="-parameters" />
+      <module name="admin-web" options="-parameters" />
+      <module name="builder" options="-parameters" />
+    </option>
   </component>
 </project>
