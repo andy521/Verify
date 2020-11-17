@@ -45,9 +45,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
     private CardTypeMapper cardTypeMapper;
 
     @Autowired
-    private AccountRegisterLogMapper accountRegisterLogMapper;
-
-    @Autowired
     private AccountLoginLogMapper accountLoginLogMapper;
 
     @Autowired
@@ -55,9 +52,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
 
     @Autowired
     private BaiduMapApiServiceL baiduMapApiServiceL;
-
-    @Autowired
-    private InterProcessMutex lock;
 
     @Override
     public Page<AccountVo> page(AccountVo accountVo, Page page) {
@@ -98,122 +92,6 @@ public class AccountImpl extends ServiceImpl<AccountMapper, Account> implements 
             redisTemplate.opsForValue().set("vc=" + accountVerificationCodeVo.getPublicKey(),
                     accountVerificationCodeVo.getCode(),10,TimeUnit.MINUTES);
         }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public ServiceResult register(AccountRegisterVo accountRegisterVo) {
-
-        ServiceResult result = new ServiceResult<>();
-
-        String privateKey = (String) redisTemplate.opsForValue().get(accountRegisterVo.getPublicKey());
-        //钥匙不存在直接返回
-        if (StrUtil.hasEmpty(privateKey)) {
-            result.setCode(AccountImplRegisterEnum.KEY_EMPTY);
-            return result;
-        }
-
-        //验证码不匹配直接返回
-        String vc = (String) redisTemplate.opsForValue().get("vc=" + accountRegisterVo.getPublicKey());
-        if (StrUtil.hasEmpty(vc)) {
-            result.setCode(AccountImplRegisterEnum.VC_EMPTY);
-            return result;
-        } else if (!accountRegisterVo.getVc().equals(vc)) {
-            result.setCode(AccountImplRegisterEnum.VC_MISMATCHES);
-            return result;
-        }
-
-        //采用分布式锁进行用户名的唯一控制
-        try {
-            boolean acquire = lock.acquire(5, TimeUnit.SECONDS);
-            if (acquire == true) {
-                QueryWrapper<Account> username = new QueryWrapper<Account>().eq("username",
-                        accountRegisterVo.getUsername());
-                Integer selectCount = super.baseMapper.selectCount(username);
-                //用户名是否存在
-                if (selectCount > 0) {
-                    result.setCode(AccountImplRegisterEnum.ACCOUNT_ALREADY_EXIST);
-                    return result;
-                }
-            } else {
-                result.setCode(AccountImplRegisterEnum.NIMIETY);
-                return result;
-            }
-        } catch (Exception e) {
-            result.setCode(AccountImplRegisterEnum.SERVER_ERROR);
-            return result;
-        } finally {
-            try {
-                lock.release();
-            } catch (Exception e) {
-                result.setCode(AccountImplRegisterEnum.SERVER_ERROR);
-                return result;
-            }
-        }
-
-        Soft soft = softMapper.selectById(accountRegisterVo.getSoftId());
-        if (soft == null) {
-            result.setCode(AccountImplRegisterEnum.SOFT_EMPTY);
-            return result;
-        } else if (soft.getServiceStatus() == SoftServiceStatus.CLOSE.getStatusCode()) {
-            result.setCode(AccountImplRegisterEnum.SOFT_CLOSE);
-            result.setMsg(soft.getServiceCloseMsg());
-            return result;
-        } else if (soft.getRegisterStatus() == SoftRegisterStatus.CLOSE.getStatusCode()) {
-            result.setCode(AccountImplRegisterEnum.REGISTER_CLOSE);
-            result.setMsg(soft.getRegisteCloseMsg());
-            return result;
-        }
-
-        //进行解密 >>> password 和 code >>> 解密成真实文本
-        String password = null;
-        String code = null;
-        try {
-            password = RsaUtil.decodeRsa(accountRegisterVo.getPassword(), privateKey);
-            code = RsaUtil.decodeRsa(accountRegisterVo.getCode(), privateKey);
-        } catch (Exception e) {
-            result.setCode(AccountImplRegisterEnum.KEY_ERROR);
-            return result;
-        }
-        if (StrUtil.hasEmpty(password)) {
-            result.setCode(AccountImplRegisterEnum.KEY_ERROR);
-            return result;
-        } else if (password.length() > 10 || password.length() < 5) {
-            result.setCode(AccountImplRegisterEnum.PASSWORD_LENGTH_ERROR);
-            return result;
-        }
-
-        //查询ip信息
-        String addressByIp = "";
-        try {
-            addressByIp = baiduMapApiServiceL.getIpInfo(accountRegisterVo.getIp());
-        } catch (Exception e) {
-            result.setCode(AccountImplRegisterEnum.BAIDU_API_ERROR);
-            return result;
-        }
-
-        //进行转型然后插入数据库
-        accountRegisterVo.setPassword(password);
-        accountRegisterVo.setCode(code);
-
-        Account account = transition.fromVo(accountRegisterVo);
-        account.setCreateIpInfo(addressByIp);
-
-        int insert = super.baseMapper.insert(account);
-        if (insert > 0) {
-            AccountRegisterLog accountRegisterLog = new AccountRegisterLog();
-            accountRegisterLog.setAccountId(account.getId());
-            accountRegisterLog.setIp(account.getCreateIp());
-            accountRegisterLog.setIpInfo(addressByIp);
-            accountRegisterLog.setSoftId(account.getSoftId());
-            accountRegisterLogMapper.insert(accountRegisterLog);
-
-            result.setCode(AccountImplRegisterEnum.REGISTER_SUCCESS);
-            return result;
-        }
-
-        result.setCode(AccountImplRegisterEnum.REGISTER_ERROR);
-        return result;
     }
 
     @Override

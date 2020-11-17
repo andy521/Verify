@@ -15,8 +15,6 @@ public interface AccountService extends IService<Account> {
 
     void saveVerificationCode(AccountVerificationCodeVo accountVerificationCodeVo);
 
-    ServiceResult register(AccountRegisterVo accountRegisterVo);
-
     ServiceResult login(AccountLoginVo accountLoginVo);
 
     ServiceResult bindingCard(AccountBindingCardVo accountBindingCardVo);
